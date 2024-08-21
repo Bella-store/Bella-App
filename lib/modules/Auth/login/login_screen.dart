@@ -1,4 +1,5 @@
 import 'package:bella_app/modules/Auth/signup/signup_screen.dart';
+import 'package:bella_app/modules/Home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/app_color.dart';
@@ -37,22 +38,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       endIndent: 10.0,
                     ),
                   ),
-                  Container(
+                  Image.asset(
+                    AppString.group,
                     width: 100.0,
                     height: 100.0,
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.grey, width: 1.0),
-                    ),
-                    child: ClipOval(
-                      child: Image.asset(
-                        AppString.logo,
-                        width: 100.0,
-                        height: 100.0,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    fit: BoxFit.cover,
                   ),
                   const Expanded(
                     child: Divider(
@@ -128,6 +118,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () {
                       // _login(context);
+                       Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => const HomeScreen(),
+                    ),
+                  );
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(320, 50),

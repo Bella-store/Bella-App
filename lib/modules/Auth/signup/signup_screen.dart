@@ -36,22 +36,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       endIndent: 10.0,
                     ),
                   ),
-                  Container(
+                  Image.asset(
+                    AppString.group,
                     width: 100.0,
                     height: 100.0,
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.grey, width: 1.0),
-                    ),
-                    child: ClipOval(
-                      child: Image.asset(
-                        AppString.logo,
-                        width: 100.0,
-                        height: 100.0,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    fit: BoxFit.cover,
                   ),
                   const Expanded(
                     child: Divider(
@@ -172,7 +161,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.pop(context); 
+                          Navigator.pop(context);
                         },
                         child: Text(
                           AppString.login,

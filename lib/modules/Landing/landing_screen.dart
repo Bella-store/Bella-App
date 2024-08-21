@@ -15,6 +15,7 @@ class LandingScreen extends StatelessWidget {
           image: DecorationImage(
             image: AssetImage(AppString.splash,),
             fit: BoxFit.cover,
+            alignment: Alignment.centerLeft,
           ),
         ),
         height: MediaQuery.of(context).size.height,

@@ -1,10 +1,15 @@
 class AppString {
   //images--------------------------------------
   static String logo = "assets/images/logo.png";
+  static String group = "assets/images/Group.png";
   static String splash = "assets/images/splash.jpeg";
   static String onBoarding1 = "assets/images/onboarding1.jpg";
   static String onBoarding2 = "assets/images/onboarding2.jpg";
   static String onBoarding3 = "assets/images/onboarding3.jpg";
+  static String profile = "assets/images/profile.jpeg";
+  static String chair = "assets/images/chair.jpeg";
+  static String table = "assets/images/table.jpeg";
+
   //onBoarding ----------------------------------
   static String skip = "SKIP";
   //login ---------------------------------------
@@ -28,4 +33,15 @@ class AppString {
   static String plzSignUp = "Please sign up to continue our app";
   static String username = "Username";
   static String plzEnterUsername = "Please enter your username";
+
+  //home -----------------------------------------------------
+  static String search = "Search...";
+  static String findYour = "Find Your";
+  static String dreamFurniture = "Dream Furniture";
+  static String seeAll = "See All";
+  static String categories = "Categories";
+  static String sofa = "Sofa";
+  static String bed = "Bed";
+  static String products = "Products";
+
 }
