@@ -44,4 +44,15 @@ class AppString {
   static String bed = "Bed";
   static String products = "Products";
 
+  //product --------------------------------------------------
+  static String productDetails = "Product Details";
+  static String description = "Description";
+  static String availableInStock = "Available in stock";
+  static String addTocart = "Add to cart";
+
+  //cart ------------------------------------------------------
+  static String myCart = "My Cart";
+  static String total = "Total";
+  static String checkOut = "Check out";
+  static String promoCode = "Enter your promo code";
 }

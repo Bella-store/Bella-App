@@ -1,5 +1,7 @@
+import 'package:bella_app/shared/app_string.dart';
 import 'package:flutter/material.dart';
 import '../../../models/product_model.dart';
+import '../../Cart/cart_screen.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final Product product;
@@ -136,14 +138,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      const Text(
-                        'Available in stock',
-                        style: TextStyle(color: Colors.green),
+                       Text(
+                        AppString.availableInStock,
+                        style: const TextStyle(color: Colors.green),
                       ),
                       const SizedBox(height: 16),
-                      const Text(
-                        'Description',
-                        style: TextStyle(
+                       Text(
+                        AppString.description,
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -192,11 +194,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               ),
                             ),
                             onPressed: () {
-                              // Add to cart logic
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CartScreen())); // Add to cart logic
                             },
-                            child: const Text(
-                              'Add to cart',
-                              style: TextStyle(color: Colors.white),
+                            child:  Text(
+                              AppString.addTocart,
+                              style: const TextStyle(color: Colors.white),
                             ),
                           ),
                         ],
