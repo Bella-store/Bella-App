@@ -37,10 +37,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: const BackButton(color: Colors.black),
-        backgroundColor: Colors.white,
         elevation: 0,
       ),
       body: LayoutBuilder(
@@ -138,12 +136,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ],
                       ),
                       const SizedBox(height: 16),
-                       Text(
+                      Text(
                         AppString.availableInStock,
                         style: const TextStyle(color: Colors.green),
                       ),
                       const SizedBox(height: 16),
-                       Text(
+                      Text(
                         AppString.description,
                         style: const TextStyle(
                           fontSize: 18,
@@ -200,7 +198,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       builder: (context) =>
                                           const CartScreen())); // Add to cart logic
                             },
-                            child:  Text(
+                            child: Text(
                               AppString.addTocart,
                               style: const TextStyle(color: Colors.white),
                             ),

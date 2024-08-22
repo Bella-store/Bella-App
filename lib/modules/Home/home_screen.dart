@@ -10,9 +10,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        var screenSize = MediaQuery.of(context).size;
-    return  Scaffold(
-      backgroundColor: Colors.white,
+    var screenSize = MediaQuery.of(context).size;
+    return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

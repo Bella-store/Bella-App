@@ -1,7 +1,7 @@
 import 'package:bella_app/modules/Auth/signup/signup_screen.dart';
-import 'package:bella_app/modules/Home/home_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../../layout_screen.dart';
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
 
@@ -118,12 +118,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () {
                       // _login(context);
-                       Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) => const HomeScreen(),
-                    ),
-                  );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const LayoutScreen(),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(320, 50),

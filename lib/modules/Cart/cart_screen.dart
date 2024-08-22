@@ -60,12 +60,10 @@ class _CartScreenState extends State<CartScreen> {
     double finalAmount = _totalAmount - (_totalAmount * _discount);
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(AppString.myCart),
         centerTitle: true,
         leading: const BackButton(color: Colors.black),
-        backgroundColor: Colors.white,
         elevation: 0,
       ),
       body: LayoutBuilder(
