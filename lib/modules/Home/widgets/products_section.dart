@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import '../../../models/product_model.dart';
 import '../../../shared/app_string.dart';
+import 'product_details_screen.dart';
 
 class ProductsSection extends StatelessWidget {
   const ProductsSection({super.key});
@@ -37,14 +38,22 @@ class ProductsSection extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             children: [
               ProductItem(
-                imageUrl: AppString.chair,
-                title: "Stylish Wooden Chair",
-                price: "\$130",
+                product: Product(
+                  imageUrl: AppString.chair,
+                  title: 'Stylish Wooden Chair',
+                  price: 130.0,
+                  description:
+                      'This is a stylish wooden chair perfect for modern homes.',
+                ),
               ),
               ProductItem(
-                imageUrl: AppString.table,
-                title: "Modern Chair",
-                price: "\$150",
+                product: Product(
+                  imageUrl: AppString.table,
+                  title: 'Modern Chair',
+                  price: 150.0,
+                  description:
+                      'A modern chair with a sleek design, comfortable for daily use.',
+                ),
               ),
               // Add more items as needed
             ],
@@ -56,16 +65,9 @@ class ProductsSection extends StatelessWidget {
 }
 
 class ProductItem extends StatefulWidget {
-  final String imageUrl;
-  final String title;
-  final String price;
+  final Product product;
 
-  const ProductItem({
-    super.key,
-    required this.imageUrl,
-    required this.title,
-    required this.price,
-  });
+  const ProductItem({super.key, required this.product});
 
   @override
   _ProductItemState createState() => _ProductItemState();
@@ -82,48 +84,63 @@ class _ProductItemState extends State<ProductItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 160,
-      margin: const EdgeInsets.only(right: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 160,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              image: DecorationImage(
-                image: AssetImage(widget.imageUrl),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                icon: Icon(
-                  _isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: _isFavorite ? Colors.red : Colors.white,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailsScreen(product: widget.product),
+          ),
+        );
+      },
+      child: Container(
+        width: 160,
+        margin: const EdgeInsets.only(right: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: 160,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                      image: AssetImage(widget.product.imageUrl),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-                onPressed: _toggleFavorite,
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: IconButton(
+                    icon: Icon(
+                      _isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: _isFavorite ? Colors.red : Colors.white,
+                    ),
+                    onPressed: _toggleFavorite,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Text(
+              widget.product.title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            widget.title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
+            const SizedBox(height: 5),
+            Text(
+              '\$${widget.product.price.toStringAsFixed(2)}',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.orange,
+              ),
             ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            widget.price,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.orange,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,6 +1,6 @@
 class AppString {
   //images--------------------------------------
-  static String logo = "assets/images/logo.png";
+  static String logo = "assets/images/logo.svg";
   static String group = "assets/images/Group.png";
   static String splash = "assets/images/splash.jpeg";
   static String onBoarding1 = "assets/images/onboarding1.jpg";
