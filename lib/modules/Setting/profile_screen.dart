@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../shared/app_string.dart';
+import 'reviews_screen.dart';
 import 'setting_screen.dart';
 import 'widgets/profile_info.dart';
 import 'widgets/profile_menu_option.dart';
@@ -61,7 +62,14 @@ class ProfileScreen extends StatelessWidget {
                 ProfileMenuOption(
                   title: 'My reviews',
                   subtitle: 'Reviews for 5 items',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MyReviewsScreen(),
+                      ),
+                    );
+                  },
                 ),
                 ProfileMenuOption(
                   title: 'Setting',

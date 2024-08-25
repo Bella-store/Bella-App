@@ -76,4 +76,5 @@ class AppString {
   static String helpAndSupport = "Help & Support";
   static String aboutApp = "About App";
   static String termsAndConditions = "Terms & Conditions";
+  static String myReviews = "My reviews";
 }
