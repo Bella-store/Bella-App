@@ -12,6 +12,17 @@ class AppString {
 
   //onBoarding ----------------------------------
   static String skip = "SKIP";
+  static String getStarted = "Get Started";
+  static String onboardingTitle1 = "Best Home Furniture For Your Room";
+  static String onboardingSubtitle1 =
+      "Get furniture your choice within the same day at your doorstep";
+  static String onboardingTitle2 = "Find the Perfect Fit";
+  static String onboardingSubtitle2 =
+      "Match furniture with your room’s aesthetics easily.";
+  static String onboardingTitle3 = "Fast Delivery";
+  static String onboardingSubtitle3 =
+      "Your dream furniture delivered within 24 hours.";
+
   //login ---------------------------------------
   static String welcome = "Welcome!";
   static String plzLogin = "Please login or sign up to continue our app";
@@ -65,5 +76,4 @@ class AppString {
   static String helpAndSupport = "Help & Support";
   static String aboutApp = "About App";
   static String termsAndConditions = "Terms & Conditions";
-
 }
