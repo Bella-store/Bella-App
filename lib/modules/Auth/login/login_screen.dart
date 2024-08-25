@@ -1,5 +1,6 @@
 import 'package:bella_app/modules/Auth/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../layout_screen.dart';
 import '../../../shared/app_color.dart';
@@ -38,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       endIndent: 10.0,
                     ),
                   ),
-                  Image.asset(
+                  SvgPicture.asset(
                     AppString.group,
                     width: 100.0,
                     height: 100.0,
