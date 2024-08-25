@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../shared/app_string.dart';
+import 'setting_screen.dart';
 import 'widgets/profile_info.dart';
 import 'widgets/profile_menu_option.dart';
 
@@ -65,7 +66,14 @@ class ProfileScreen extends StatelessWidget {
                 ProfileMenuOption(
                   title: 'Setting',
                   subtitle: 'Notification, Password, FAQ, Contact',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SettingScreen(),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

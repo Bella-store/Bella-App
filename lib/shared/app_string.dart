@@ -55,4 +55,15 @@ class AppString {
   static String total = "Total";
   static String checkOut = "Check out";
   static String promoCode = "Enter your promo code";
+
+  //profile ---------------------------------------------------
+  static String setting = "Settings";
+  static String general = "General";
+  static String language = "Language";
+  static String notification = "Notification";
+  static String darkMode = "Dark Mode";
+  static String helpAndSupport = "Help & Support";
+  static String aboutApp = "About App";
+  static String termsAndConditions = "Terms & Conditions";
+
 }
