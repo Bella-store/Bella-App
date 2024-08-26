@@ -77,4 +77,15 @@ class AppString {
   static String aboutApp = "About App";
   static String termsAndConditions = "Terms & Conditions";
   static String myReviews = "My reviews";
+
+  //my orders
+  static String myOrders = "My orders";
+  static String delivered = "Delivered";
+  static String processing = "Processing";
+  static String canceled = "Canceled";
+  static String detail ="Detail";
+  static String totalAmount ="Total Amount:";
+  static String quantity ="Quantity: ";
+  
+
 }

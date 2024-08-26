@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../shared/app_string.dart';
+import 'myorder_screen.dart';
 import 'reviews_screen.dart';
 import 'setting_screen.dart';
 import 'widgets/profile_info.dart';
@@ -47,7 +48,14 @@ class ProfileScreen extends StatelessWidget {
                 ProfileMenuOption(
                   title: 'My orders',
                   subtitle: 'Already have 10 orders',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MyOrderScreen(),
+                      ),
+                    );
+                  },
                 ),
                 ProfileMenuOption(
                   title: 'Shipping Addresses',
