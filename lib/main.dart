@@ -1,4 +1,5 @@
 import 'package:bella_app/modules/Landing/landing_screen.dart';
+import 'package:bella_app/modules/Splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.white,
         ),
       ),
-      home: const LandingScreen(),
+      home: const SplashScreen(),
     );
   }
 }
