@@ -1,5 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:bella_app/modules/Landing/landing_screen.dart';
+import 'package:bella_app/modules/onboarding/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -11,10 +11,11 @@ class SplashScreen extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return AnimatedSplashScreen(
       splashIconSize: screenWidth * 0.8,
-      splashTransition:
-          SplashTransition.fadeTransition, // Fade out splash screen
+      splashTransition: SplashTransition.fadeTransition,
       backgroundColor: Colors.white,
-      pageTransitionType: PageTransitionType.fade, // Fade in next screen
+      pageTransitionType: PageTransitionType.rightToLeft,
+      centered: true,
+      duration: 1000,
       splash: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -24,7 +25,7 @@ class SplashScreen extends StatelessWidget {
           ),
         ],
       ),
-      nextScreen: const LandingScreen(),
+      nextScreen: const OnboardingScreen(),
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:bella_app/modules/Landing/landing_screen.dart';
 import 'package:bella_app/modules/Splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 

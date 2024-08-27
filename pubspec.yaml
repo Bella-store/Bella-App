@@ -2,7 +2,7 @@ name: bella_app
 description: "furniture e-commerce"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+publish_to: "youssef" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -37,6 +37,9 @@ dependencies:
     persistent_bottom_nav_bar: ^6.2.1
     animated_splash_screen: ^1.3.0
     page_transition: ^2.1.0
+    smooth_page_indicator: ^1.2.0+3
+    flutter_svg: ^2.0.7
+    flutter_native_splash: ^2.4.1
 
 dev_dependencies:
     flutter_test:

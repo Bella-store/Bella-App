@@ -1,8 +1,7 @@
-import 'package:bella_app/modules/Home/widgets/custom_app_bar.dart';
-import 'package:bella_app/modules/Home/widgets/products_section.dart';
-import 'package:bella_app/modules/Home/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
-
+import 'widgets/custom_app_bar.dart';
+import 'widgets/products_section.dart';
+import 'widgets/search_bar.dart';
 import 'widgets/categories_section.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,24 +9,29 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomAppBar(screenSize: screenSize),
-              const SizedBox(height: 20),
-              const SearchWidget(),
-              const SizedBox(height: 20),
-              const CategoriesSection(),
-              const SizedBox(height: 20),
-              const ProductsSection(),
-            ],
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomAppBar(screenSize: MediaQuery.of(context).size),
+                  const SizedBox(height: 20),
+                  const SearchWidget(),
+                  const SizedBox(height: 20),
+                  const CategoriesSection(),
+                  const SizedBox(height: 20),
+                ],
+              ),
+            ),
           ),
-        ),
+          const SliverToBoxAdapter(
+            child: ProductsSection(),
+          ),
+        ],
       ),
     );
   }

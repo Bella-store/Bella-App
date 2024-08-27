@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
 
@@ -36,7 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       endIndent: 10.0,
                     ),
                   ),
-                  Image.asset(
+                  SvgPicture.asset(
                     AppString.group,
                     width: 100.0,
                     height: 100.0,

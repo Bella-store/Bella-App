@@ -1,7 +1,7 @@
 class AppString {
   //images--------------------------------------
   static String logo = "assets/images/logo.svg";
-  static String group = "assets/images/Group.png";
+  static String group = "assets/images/group.svg";
   static String splash = "assets/images/splash.jpeg";
   static String onBoarding1 = "assets/images/onboarding1.jpg";
   static String onBoarding2 = "assets/images/onboarding2.jpg";
@@ -9,9 +9,22 @@ class AppString {
   static String profile = "assets/images/profile.jpeg";
   static String chair = "assets/images/chair.jpeg";
   static String table = "assets/images/table.jpeg";
+  static String masterCard = "assets/images/mastercard_logo.svg";
+  static String visa = "assets/images/visa_logo.svg";
 
   //onBoarding ----------------------------------
   static String skip = "SKIP";
+  static String getStarted = "Get Started";
+  static String onboardingTitle1 = "Best Home Furniture For Your Room";
+  static String onboardingSubtitle1 =
+      "Get furniture your choice within the same day at your doorstep";
+  static String onboardingTitle2 = "Find the Perfect Fit";
+  static String onboardingSubtitle2 =
+      "Match furniture with your room’s aesthetics easily.";
+  static String onboardingTitle3 = "Fast Delivery";
+  static String onboardingSubtitle3 =
+      "Your dream furniture delivered within 24 hours.";
+
   //login ---------------------------------------
   static String welcome = "Welcome!";
   static String plzLogin = "Please login or sign up to continue our app";
@@ -55,4 +68,36 @@ class AppString {
   static String total = "Total";
   static String checkOut = "Check out";
   static String promoCode = "Enter your promo code";
+
+  //profile ---------------------------------------------------
+  static String setting = "Settings";
+  static String general = "General";
+  static String language = "Language";
+  static String notification = "Notification";
+  static String darkMode = "Dark Mode";
+  static String helpAndSupport = "Help & Support";
+  static String aboutApp = "About App";
+  static String termsAndConditions = "Terms & Conditions";
+  static String myReviews = "My reviews";
+
+  //my orders
+  static String myOrders = "My orders";
+  static String delivered = "Delivered";
+  static String processing = "Processing";
+  static String canceled = "Canceled";
+  static String detail = "Detail";
+  static String totalAmount = "Total Amount:";
+  static String quantity = "Quantity: ";
+
+  //AddPaymentMethodScreen
+  static String addPaymentMethod = "Add Payment Method";
+  static String addCard = "ADD NEW CARD";
+  static String cardHolderName = "Card Holder Name";
+  static String expiryDate = "Expiry Date";
+  static String pleaseEnterCardHolderName = "Please enter card holder name";
+  static String pleaseEnterCardNumber = "Please enter card number";
+  static String cardNumber = "Card Number";
+  static String pleaseEnterValidCard = "Please enter a valid card number";
+  static String exirationDate = "Expiration Date";
+  static String pleaseEnterExpirationDate = "Please enter expiration date";
 }
