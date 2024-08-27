@@ -9,6 +9,8 @@ class AppString {
   static String profile = "assets/images/profile.jpeg";
   static String chair = "assets/images/chair.jpeg";
   static String table = "assets/images/table.jpeg";
+  static String masterCard = "assets/images/mastercard_logo.svg";
+  static String visa = "assets/images/visa_logo.svg";
 
   //onBoarding ----------------------------------
   static String skip = "SKIP";
@@ -83,9 +85,19 @@ class AppString {
   static String delivered = "Delivered";
   static String processing = "Processing";
   static String canceled = "Canceled";
-  static String detail ="Detail";
-  static String totalAmount ="Total Amount:";
-  static String quantity ="Quantity: ";
-  
+  static String detail = "Detail";
+  static String totalAmount = "Total Amount:";
+  static String quantity = "Quantity: ";
 
+  //AddPaymentMethodScreen
+  static String addPaymentMethod = "Add Payment Method";
+  static String addCard = "ADD NEW CARD";
+  static String cardHolderName = "Card Holder Name";
+  static String expiryDate = "Expiry Date";
+  static String pleaseEnterCardHolderName = "Please enter card holder name";
+  static String pleaseEnterCardNumber = "Please enter card number";
+  static String cardNumber = "Card Number";
+  static String pleaseEnterValidCard = "Please enter a valid card number";
+  static String exirationDate = "Expiration Date";
+  static String pleaseEnterExpirationDate = "Please enter expiration date";
 }

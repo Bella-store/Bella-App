@@ -1,3 +1,4 @@
+import 'package:bella_app/modules/Setting/add_payment_method_screen.dart';
 import 'package:flutter/material.dart';
 import '../../shared/app_string.dart';
 import 'myorder_screen.dart';
@@ -65,7 +66,14 @@ class ProfileScreen extends StatelessWidget {
                 ProfileMenuOption(
                   title: 'Payment Method',
                   subtitle: 'You have 2 cards',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddPaymentMethodScreen(),
+                      ),
+                    );
+                  },
                 ),
                 ProfileMenuOption(
                   title: 'My reviews',
