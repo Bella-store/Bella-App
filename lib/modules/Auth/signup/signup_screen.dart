@@ -7,10 +7,10 @@ class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  SignUpScreenState createState() => SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -55,13 +55,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             const SizedBox(height: 20.0),
             Text(
-              AppString.signUp,
+              AppString.signUp(context),
               style:
                   const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8.0),
             Text(
-              AppString.plzSignUp,
+              AppString.plzSignUp(context),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20.0),
@@ -72,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   TextFormField(
                     controller: usernameController,
                     decoration: InputDecoration(
-                      labelText: AppString.username,
+                      labelText: AppString.username(context),
                       suffixIcon: usernameController.text.isNotEmpty
                           ? const Icon(Icons.check, color: Colors.green)
                           : null,
@@ -82,7 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return AppString.plzEnterUsername;
+                        return AppString.plzEnterUsername(context);
                       }
                       return null;
                     },
@@ -91,7 +91,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   TextFormField(
                     controller: emailController,
                     decoration: InputDecoration(
-                      labelText: AppString.email,
+                      labelText: AppString.email(context),
                       suffixIcon: emailController.text.contains('@gmail.com')
                           ? const Icon(Icons.check, color: Colors.green)
                           : null,
@@ -101,7 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return AppString.plzEnterEmail;
+                        return AppString.plzEnterEmail(context);
                       }
                       return null;
                     },
@@ -111,7 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: passwordController,
                     obscureText: !_isPasswordVisible,
                     decoration: InputDecoration(
-                      labelText: AppString.password,
+                      labelText: AppString.password(context),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _isPasswordVisible
@@ -127,7 +127,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return AppString.plzEnterPassword;
+                        return AppString.plzEnterPassword(context);
                       }
                       return null;
                     },
@@ -147,7 +147,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     child: Text(
-                      AppString.signUp,
+                      AppString.signUp(context),
                       style:
                           TextStyle(fontSize: 18.0, color: AppColor.whiteColor),
                     ),
@@ -157,7 +157,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        AppString.alreadyHaveAnAccount,
+                        AppString.alreadyHaveAnAccount(context),
                         style: const TextStyle(fontSize: 16.0),
                       ),
                       TextButton(
@@ -165,7 +165,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Navigator.pop(context);
                         },
                         child: Text(
-                          AppString.login,
+                          AppString.login(context),
                           style: TextStyle(
                             fontSize: 16.0,
                             color: AppColor.blackColor,

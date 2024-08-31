@@ -6,10 +6,10 @@ class CategoriesSection extends StatefulWidget {
   const CategoriesSection({super.key});
 
   @override
-  _CategoriesSectionState createState() => _CategoriesSectionState();
+  CategoriesSectionState createState() => CategoriesSectionState();
 }
 
-class _CategoriesSectionState extends State<CategoriesSection> {
+class CategoriesSectionState extends State<CategoriesSection> {
   String _selectedCategory = "Chair"; // Default selected category
 
   void _onCategorySelected(String category) {
@@ -27,14 +27,14 @@ class _CategoriesSectionState extends State<CategoriesSection> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              AppString.categories,
+              AppString.categories(context),
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
-              AppString.seeAll,
+              AppString.seeAll(context),
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,

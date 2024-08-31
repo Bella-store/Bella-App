@@ -23,8 +23,8 @@ class FavoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favorites',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(AppString.favorites(context),
+            style: const TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.search, color: Colors.black),
@@ -70,9 +70,9 @@ class FavoritesScreen extends StatelessWidget {
                   onPressed: () {
                     // Add all to cart logic here
                   },
-                  child: const Text(
-                    'Add all to my cart',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  child: Text(
+                    AppString.addAllToMyCart(context),
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
               ),

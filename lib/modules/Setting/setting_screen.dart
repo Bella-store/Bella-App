@@ -1,25 +1,51 @@
-import 'package:bella_app/shared/app_string.dart';
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../main.dart';
 import '../../shared/app_color.dart';
+import '../../shared/app_string.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
 
   @override
-  _SettingScreenState createState() => _SettingScreenState();
+  SettingScreenState createState() => SettingScreenState();
 }
 
-class _SettingScreenState extends State<SettingScreen> {
+class SettingScreenState extends State<SettingScreen> {
   bool _isNotificationEnabled = false;
   bool _isDarkMode = false;
   String _selectedLanguage = 'en';
 
   @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _selectedLanguage = prefs.getString('locale') ?? 'en'; // Default to 'en'
+    });
+  }
+
+  Future<void> _changeLanguage(String languageCode) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('locale', languageCode);
+    if (!mounted) return;
+    setState(() {
+      _selectedLanguage = languageCode;
+    });
+
+    // Reload the app with the new locale
+    MyApp.setLocale(context, Locale(languageCode));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppString.setting),
+        title: Text(AppString.setting(context)),
         centerTitle: true,
         leading: BackButton(color: AppColor.blackColor),
       ),
@@ -27,16 +53,16 @@ class _SettingScreenState extends State<SettingScreen> {
         child: Column(
           children: [
             CustomSettingsSection(
-              title: AppString.general,
+              title: AppString.general(context),
               options: [
                 CustomSettingsOption(
                   icon: Icons.language,
-                  label: AppString.language,
+                  label: AppString.language(context),
                   trailing: _buildLanguageDropdown(),
                 ),
                 CustomSettingsOption(
                   icon: Icons.notifications,
-                  label: AppString.notification,
+                  label: AppString.notification(context),
                   trailing: Switch(
                     inactiveTrackColor: Colors.transparent,
                     activeColor: AppColor.blackColor,
@@ -47,13 +73,10 @@ class _SettingScreenState extends State<SettingScreen> {
                       });
                     },
                   ),
-                  onTap: () {
-                    // Handle notification option tap
-                  },
                 ),
                 CustomSettingsOption(
                   icon: Icons.dark_mode,
-                  label: AppString.darkMode,
+                  label: AppString.darkMode(context),
                   trailing: Switch(
                     inactiveTrackColor: Colors.transparent,
                     activeColor: AppColor.blackColor,
@@ -65,18 +88,15 @@ class _SettingScreenState extends State<SettingScreen> {
                       });
                     },
                   ),
-                  onTap: () {
-                    // Handle dark mode option tap
-                  },
                 ),
               ],
             ),
             CustomSettingsSection(
-              title: AppString.aboutApp,
+              title: AppString.aboutApp(context),
               options: [
                 CustomSettingsOption(
                   icon: Icons.info,
-                  label: AppString.aboutApp,
+                  label: AppString.aboutApp(context),
                   trailing: const Icon(Icons.arrow_forward_ios, size: 18),
                   onTap: () {
                     // Handle About App tap
@@ -84,7 +104,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 CustomSettingsOption(
                   icon: Icons.support_agent,
-                  label: AppString.helpAndSupport,
+                  label: AppString.helpAndSupport(context),
                   trailing: const Icon(Icons.arrow_forward_ios, size: 18),
                   onTap: () {
                     // Handle help & support option tap
@@ -92,7 +112,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 CustomSettingsOption(
                   icon: Icons.description,
-                  label: AppString.termsAndConditions,
+                  label: AppString.termsAndConditions(context),
                   trailing: const Icon(Icons.arrow_forward_ios, size: 18),
                   onTap: () {
                     // Handle Terms & Conditions tap
@@ -129,9 +149,9 @@ class _SettingScreenState extends State<SettingScreen> {
         ),
       ],
       onChanged: (String? newValue) {
-        setState(() {
-          _selectedLanguage = newValue!;
-        });
+        if (newValue != null) {
+          _changeLanguage(newValue);
+        }
       },
       icon: const Icon(Icons.arrow_drop_down),
       borderRadius: BorderRadius.circular(8.0),

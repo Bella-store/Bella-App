@@ -47,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 ProfileMenuOption(
-                  title: 'My orders',
+                  title: AppString.myOrders(context),
                   subtitle: 'Already have 10 orders',
                   onTap: () {
                     Navigator.push(
@@ -88,7 +88,7 @@ class ProfileScreen extends StatelessWidget {
                   },
                 ),
                 ProfileMenuOption(
-                  title: 'Setting',
+                  title: AppString.setting(context),
                   subtitle: 'Notification, Password, FAQ, Contact',
                   onTap: () {
                     Navigator.push(

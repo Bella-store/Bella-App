@@ -9,7 +9,7 @@ class MyReviewsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text(AppString.myReviews),
+        title:  Text(AppString.myReviews(context)),
            centerTitle: true,
         actions: [
           IconButton(

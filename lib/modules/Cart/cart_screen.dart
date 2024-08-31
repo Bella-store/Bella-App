@@ -6,10 +6,10 @@ class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
   @override
-  _CartScreenState createState() => _CartScreenState();
+  CartScreenState createState() => CartScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class CartScreenState extends State<CartScreen> {
   final TextEditingController _promoCodeController = TextEditingController();
   double _totalAmount = 95.00;
   double _discount = 0.0;
@@ -61,7 +61,7 @@ class _CartScreenState extends State<CartScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppString.myCart),
+        title: Text(AppString.myCart(context)),
         centerTitle: true,
         leading: const BackButton(color: Colors.black),
         elevation: 0,
@@ -98,7 +98,7 @@ class _CartScreenState extends State<CartScreen> {
                         child: TextField(
                           controller: _promoCodeController,
                           decoration: InputDecoration(
-                            hintText: AppString.promoCode,
+                            hintText: AppString.promoCode(context),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 20.0),
                             border: OutlineInputBorder(
@@ -134,7 +134,7 @@ class _CartScreenState extends State<CartScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            AppString.total,
+                            AppString.total(context),
                             style: const TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
@@ -162,7 +162,7 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                         ),
                         child: Text(
-                          AppString.checkOut,
+                          AppString.checkOut(context),
                           style: const TextStyle(
                               fontSize: 18.0, color: Colors.white),
                         ),

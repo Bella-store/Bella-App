@@ -12,24 +12,24 @@ class MyOrderScreen extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppString.myOrders),
+          title: Text(AppString.myOrders(context)),
           centerTitle: true,
           bottom:  TabBar(
             labelColor: Colors.black,
             unselectedLabelColor: Colors.grey,
             indicatorColor: Colors.black,
             tabs: [
-              Tab(text: AppString.delivered),
-              Tab(text: AppString.processing),
-              Tab(text: AppString.canceled),
+              Tab(text: AppString.delivered(context)),
+              Tab(text: AppString.processing(context)),
+              Tab(text: AppString.canceled(context)),
             ],
           ),
         ),
         body:  TabBarView(
           children: [
-            OrderListView(status: AppString.delivered),
-            OrderListView(status: AppString.processing),
-            OrderListView(status: AppString.canceled),
+            OrderListView(status: AppString.delivered(context)),
+            OrderListView(status: AppString.processing(context)),
+            OrderListView(status: AppString.canceled(context)),
           ],
         ),
       ),
@@ -67,16 +67,16 @@ class OrderCard extends StatelessWidget {
     switch (status) {
       case "Processing":
         statusColor = Colors.orange;
-        statusText = AppString.processing;
+        statusText = AppString.processing(context);
         break;
       case "Canceled":
         statusColor = Colors.red;
-        statusText = AppString.canceled;
+        statusText = AppString.canceled(context);
         break;
       case "Delivered":
       default:
         statusColor = Colors.green;
-        statusText = AppString.delivered;
+        statusText = AppString.delivered(context);
         break;
     }
 
@@ -127,7 +127,7 @@ class OrderCard extends StatelessWidget {
                     children: [
                       RichText(
                         text: TextSpan(
-                          text: AppString.quantity,
+                          text: AppString.quantity(context),
                           style: TextStyle(
                             fontSize: constraints.maxWidth < 600 ? 14 : 18,
                             color: Colors.grey,
@@ -145,7 +145,7 @@ class OrderCard extends StatelessWidget {
                       ),
                       RichText(
                         text: TextSpan(
-                          text: AppString.totalAmount,
+                          text: AppString.totalAmount(context),
                           style: TextStyle(
                             fontSize: constraints.maxWidth < 600 ? 14 : 18,
                             color: Colors.grey,
@@ -178,7 +178,7 @@ class OrderCard extends StatelessWidget {
                           // Handle detail button press
                         },
                         child:  Text(
-                          AppString.detail,
+                          AppString.detail(context),
                           style: const TextStyle(color: Colors.white),
                         ),
                       ),

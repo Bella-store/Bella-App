@@ -15,7 +15,7 @@ class AddPaymentMethodScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppString.addPaymentMethod),
+        title: Text(AppString.addPaymentMethod(context)),
         centerTitle: true,
       ),
       body: Padding(
@@ -49,7 +49,7 @@ class AddPaymentMethodScreen extends StatelessWidget {
                   // Handle add new card action
                 },
                 child: Text(
-                  AppString.addCard,
+                  AppString.addCard(context),
                   style: const TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
@@ -74,10 +74,10 @@ class CreditCardDisplay extends StatefulWidget {
   });
 
   @override
-  _CreditCardDisplayState createState() => _CreditCardDisplayState();
+  CreditCardDisplayState createState() => CreditCardDisplayState();
 }
 
-class _CreditCardDisplayState extends State<CreditCardDisplay> {
+class CreditCardDisplayState extends State<CreditCardDisplay> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -115,7 +115,7 @@ class _CreditCardDisplayState extends State<CreditCardDisplay> {
                 children: [
                   Text(
                     widget.nameController.text.isEmpty
-                        ? AppString.cardHolderName
+                        ? AppString.cardHolderName(context)
                         : widget.nameController.text,
                     style: TextStyle(
                       color: Colors.grey[400],
@@ -124,7 +124,7 @@ class _CreditCardDisplayState extends State<CreditCardDisplay> {
                   ),
                   Text(
                     widget.expiryDateController.text.isEmpty
-                        ? AppString.expiryDate
+                        ? AppString.expiryDate(context)
                         : widget.expiryDateController.text,
                     style: TextStyle(
                       color: Colors.grey[400],
@@ -163,7 +163,7 @@ class PaymentForm extends StatelessWidget {
           TextFormField(
             controller: nameController,
             decoration: InputDecoration(
-              labelText: AppString.cardHolderName,
+              labelText: AppString.cardHolderName(context),
               hintText: 'Ex: Bruno Pham',
               border: const OutlineInputBorder(),
               filled: true,
@@ -174,7 +174,7 @@ class PaymentForm extends StatelessWidget {
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return AppString.pleaseEnterCardHolderName;
+                return AppString.pleaseEnterCardHolderName(context);
               }
               return null;
             },
@@ -183,7 +183,7 @@ class PaymentForm extends StatelessWidget {
           TextFormField(
             controller: cardNumberController,
             decoration: InputDecoration(
-              labelText: AppString.cardNumber,
+              labelText: AppString.cardNumber(context),
               hintText: '**** **** **** 3456',
               border: const OutlineInputBorder(),
             ),
@@ -193,10 +193,10 @@ class PaymentForm extends StatelessWidget {
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return AppString.pleaseEnterCardNumber;
+                return AppString.pleaseEnterCardNumber(context);
               }
               if (value.length < 16) {
-                return AppString.pleaseEnterValidCard;
+                return AppString.pleaseEnterValidCard(context);
               }
               return null;
             },
@@ -229,7 +229,7 @@ class PaymentForm extends StatelessWidget {
                 child: TextFormField(
                   controller: expiryDateController,
                   decoration: InputDecoration(
-                    labelText: AppString.exirationDate,
+                    labelText: AppString.exirationDate(context),
                     hintText: '03/22',
                     border: const OutlineInputBorder(),
                   ),
@@ -239,7 +239,7 @@ class PaymentForm extends StatelessWidget {
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppString.pleaseEnterExpirationDate;
+                      return AppString.pleaseEnterExpirationDate(context);
                     }
                     return null;
                   },

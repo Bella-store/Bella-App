@@ -26,14 +26,14 @@ class ProductsSection extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    AppString.products,
+                    AppString.products(context),
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    AppString.seeAll,
+                    AppString.seeAll(context),
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -73,10 +73,10 @@ class ProductItem extends StatefulWidget {
   const ProductItem({super.key, required this.product});
 
   @override
-  _ProductItemState createState() => _ProductItemState();
+  ProductItemState createState() => ProductItemState();
 }
 
-class _ProductItemState extends State<ProductItem> {
+class ProductItemState extends State<ProductItem> {
   bool _isFavorite = false;
 
   void _toggleFavorite() {

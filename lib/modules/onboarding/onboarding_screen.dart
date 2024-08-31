@@ -10,10 +10,10 @@ class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
-  _OnboardingScreenState createState() => _OnboardingScreenState();
+  OnboardingScreenState createState() => OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   Timer? _timer;
 
@@ -52,22 +52,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: [
           OnboardingPage(
             imagePath: AppString.chair,
-            title: AppString.onboardingTitle1,
-            subtitle: AppString.onboardingSubtitle1,
+            title: AppString.onboardingTitle1(context),
+            subtitle: AppString.onboardingSubtitle1(context),
             pageController: _pageController,
             pageIndex: 0,
           ),
           OnboardingPage(
             imagePath: AppString.table,
-            title: AppString.onboardingTitle2,
-            subtitle: AppString.onboardingSubtitle2,
+            title: AppString.onboardingTitle2(context),
+            subtitle: AppString.onboardingSubtitle2(context),
             pageController: _pageController,
             pageIndex: 1,
           ),
           OnboardingPage(
             imagePath: AppString.chair,
-            title: AppString.onboardingTitle3,
-            subtitle: AppString.onboardingSubtitle3,
+            title: AppString.onboardingTitle3(context),
+            subtitle: AppString.onboardingSubtitle3(context),
             pageController: _pageController,
             pageIndex: 2,
           ),
@@ -177,7 +177,7 @@ class OnboardingPage extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        AppString.getStarted,
+                        AppString.getStarted(context),
                         style: TextStyle(
                             fontSize: 18.0, color: AppColor.whiteColor),
                       ),

@@ -12,7 +12,7 @@ class SearchWidget extends StatelessWidget {
         Expanded(
           child: TextField(
             decoration: InputDecoration(
-              hintText: AppString.search,
+              hintText: AppString.search(context),
               hintStyle: TextStyle(
                 color: Colors.grey[500],
               ),
