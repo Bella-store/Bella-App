@@ -1,5 +1,6 @@
 import 'package:bella_app/modules/Auth/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../layout_screen.dart';
 import '../../../shared/app_color.dart';
@@ -9,10 +10,10 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -38,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       endIndent: 10.0,
                     ),
                   ),
-                  Image.asset(
+                  SvgPicture.asset(
                     AppString.group,
                     width: 100.0,
                     height: 100.0,
@@ -56,13 +57,13 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             const SizedBox(height: 20.0),
             Text(
-              AppString.welcome,
+              AppString.welcome(context),
               style:
                   const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8.0),
             Text(
-              AppString.plzLogin,
+              AppString.plzLogin(context),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20.0),
@@ -73,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextFormField(
                     controller: emailController,
                     decoration: InputDecoration(
-                      labelText: AppString.email,
+                      labelText: AppString.email(context),
                       suffixIcon: emailController.text.contains('@gmail.com')
                           ? const Icon(Icons.check, color: Colors.green)
                           : null,
@@ -83,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return AppString.plzEnterEmail;
+                        return AppString.plzEnterEmail(context);
                       }
                       return null;
                     },
@@ -93,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: passwordController,
                     obscureText: !_isPasswordVisible,
                     decoration: InputDecoration(
-                      labelText: AppString.password,
+                      labelText: AppString.password(context),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _isPasswordVisible
@@ -109,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return AppString.plzEnterPassword;
+                        return AppString.plzEnterPassword(context);
                       }
                       return null;
                     },
@@ -134,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     child: Text(
-                      AppString.login,
+                      AppString.login(context),
                       style:
                           TextStyle(fontSize: 18.0, color: AppColor.whiteColor),
                     ),
@@ -144,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        AppString.dontHaveAnAccount,
+                        AppString.dontHaveAnAccount(context),
                         style: const TextStyle(fontSize: 16.0),
                       ),
                       TextButton(
@@ -158,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         },
                         child: Text(
-                          AppString.signUp,
+                          AppString.signUp(context),
                           style: TextStyle(
                             fontSize: 16.0,
                             color: AppColor.blackColor,

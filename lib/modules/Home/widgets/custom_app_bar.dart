@@ -9,21 +9,21 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-         Column(
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppString.findYour,
+              AppString.findYour(context),
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
-              AppString.dreamFurniture,
+              AppString.dreamFurniture(context),
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -33,7 +33,8 @@ class CustomAppBar extends StatelessWidget {
         ),
         CircleAvatar(
           radius: 25,
-          backgroundImage: AssetImage(AppString.profile), // Replace with your image asset
+          backgroundImage: AssetImage(
+              AppString.profile), // Replace with your image asset
         ),
       ],
     );

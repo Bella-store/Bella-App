@@ -1,3 +1,4 @@
+import 'package:bella_app/shared/local/languages/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -12,10 +13,10 @@ class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
 
   @override
-  _LayoutScreenState createState() => _LayoutScreenState();
+  LayoutScreenState createState() => LayoutScreenState();
 }
 
-class _LayoutScreenState extends State<LayoutScreen> {
+class LayoutScreenState extends State<LayoutScreen> {
   late PersistentTabController _controller;
   int _selectedIndex = 0;
 
@@ -45,28 +46,28 @@ class _LayoutScreenState extends State<LayoutScreen> {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.home),
-        title: "Home",
+        title: "Home".tr(context),
         activeColorPrimary: AppColor.blackColor,
         inactiveColorPrimary: AppColor.greyColor,
         activeColorSecondary: AppColor.whiteColor,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.favorite),
-        title: "Favorites",
+        title: "Favorites".tr(context),
         activeColorPrimary: AppColor.blackColor,
         inactiveColorPrimary: AppColor.greyColor,
         activeColorSecondary: AppColor.whiteColor,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.shopping_cart),
-        title: "Cart",
+        title: "Cart".tr(context),
         activeColorPrimary: AppColor.blackColor,
         inactiveColorPrimary: AppColor.greyColor,
         activeColorSecondary: AppColor.whiteColor,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.person),
-        title: "Profile",
+        title: "Profile".tr(context),
         activeColorPrimary: AppColor.blackColor,
         inactiveColorPrimary: AppColor.greyColor,
         activeColorSecondary: AppColor.whiteColor,

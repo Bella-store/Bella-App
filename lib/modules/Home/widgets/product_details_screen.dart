@@ -9,10 +9,10 @@ class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key, required this.product});
 
   @override
-  _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
+  ProductDetailsScreenState createState() => ProductDetailsScreenState();
 }
 
-class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+class ProductDetailsScreenState extends State<ProductDetailsScreen> {
   bool _isExpanded = false;
   bool _showSeeMore = false;
   bool _isFavorite = false;
@@ -138,12 +138,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    AppString.availableInStock,
+                    AppString.availableInStock(context),
                     style: const TextStyle(color: Colors.green),
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    AppString.description,
+                    AppString.description(context),
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -200,7 +200,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       const CartScreen())); // Add to cart logic
                         },
                         child: Text(
-                          AppString.addTocart,
+                          AppString.addTocart(context),
                           style: const TextStyle(color: Colors.white),
                         ),
                       ),

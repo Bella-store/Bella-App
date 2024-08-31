@@ -1,5 +1,9 @@
+import 'package:bella_app/modules/Setting/add_payment_method_screen.dart';
 import 'package:flutter/material.dart';
 import '../../shared/app_string.dart';
+import 'myorder_screen.dart';
+import 'reviews_screen.dart';
+import 'setting_screen.dart';
 import 'widgets/profile_info.dart';
 import 'widgets/profile_menu_option.dart';
 
@@ -43,9 +47,16 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 ProfileMenuOption(
-                  title: 'My orders',
+                  title: AppString.myOrders(context),
                   subtitle: 'Already have 10 orders',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MyOrderScreen(),
+                      ),
+                    );
+                  },
                 ),
                 ProfileMenuOption(
                   title: 'Shipping Addresses',
@@ -55,17 +66,38 @@ class ProfileScreen extends StatelessWidget {
                 ProfileMenuOption(
                   title: 'Payment Method',
                   subtitle: 'You have 2 cards',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddPaymentMethodScreen(),
+                      ),
+                    );
+                  },
                 ),
                 ProfileMenuOption(
                   title: 'My reviews',
                   subtitle: 'Reviews for 5 items',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MyReviewsScreen(),
+                      ),
+                    );
+                  },
                 ),
                 ProfileMenuOption(
-                  title: 'Setting',
+                  title: AppString.setting(context),
                   subtitle: 'Notification, Password, FAQ, Contact',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SettingScreen(),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

@@ -7,17 +7,35 @@ class SearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: AppString.search,
-        hintStyle: TextStyle(
-          color: Colors.grey[500],
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            decoration: InputDecoration(
+              hintText: AppString.search(context),
+              hintStyle: TextStyle(
+                color: Colors.grey[500],
+              ),
+              prefixIcon: const Icon(
+                Icons.search,
+                color: Colors.grey,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(
+                  color: Colors.grey.withOpacity(0.8),
+                  width: 0.1,
+                ),
+              ),
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+            ),
+          ),
         ),
-        prefixIcon: const Icon(
-          Icons.search,
-          color: Colors.grey,
-        ),
-        suffixIcon: Container(
+        const SizedBox(width: 8.0), 
+        Container(
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
@@ -26,18 +44,11 @@ class SearchWidget extends StatelessWidget {
           ),
           child: const Icon(
             Icons.tune,
+            size: 30,
             color: Colors.grey,
           ),
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
-        ),
-        filled: true,
-        fillColor: Colors.white,
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-      ),
+      ],
     );
   }
 }

@@ -1,5 +1,3 @@
-import 'package:bella_app/shared/app_string.dart';
-
 class FavoriteItemModel {
   final String imageUrl;
   final String title;

@@ -13,7 +13,9 @@ class LandingScreen extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(AppString.splash,),
+            image: AssetImage(
+              AppString.splash,
+            ),
             fit: BoxFit.cover,
             alignment: Alignment.centerLeft,
           ),
@@ -47,7 +49,7 @@ class LandingScreen extends StatelessWidget {
                       const TextStyle(color: Color.fromARGB(255, 19, 3, 3)),
                 ),
                 child: Text(
-                  AppString.login,
+                  AppString.login(context),
                   style: TextStyle(
                       fontSize: 18,
                       color: AppColor.blackColor,
@@ -67,7 +69,7 @@ class LandingScreen extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   side: BorderSide(color: AppColor.greyColor),
                   minimumSize: const Size(320, 50),
-                  backgroundColor: Colors.transparent, 
+                  backgroundColor: Colors.transparent,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                   shape: RoundedRectangleBorder(
@@ -77,7 +79,7 @@ class LandingScreen extends StatelessWidget {
                       const TextStyle(color: Color.fromARGB(255, 19, 3, 3)),
                 ),
                 child: Text(
-                  AppString.signUp,
+                  AppString.signUp(context),
                   style: TextStyle(
                       fontSize: 18,
                       color: AppColor.whiteColor,
