@@ -3,6 +3,7 @@ import 'package:bella_app/modules/Auth/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../layout_screen.dart';
 import '../../../shared/app_color.dart';
@@ -26,7 +27,20 @@ class LoginScreenState extends State<LoginScreen> {
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: BlocConsumer<AuthCubit, AuthState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is LogingSuccessState) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const LayoutScreen()),
+            );
+            Fluttertoast.showToast(
+                backgroundColor: AppColor.successColor,
+                msg: "Login successful!");
+          } else if (state is LogingErrorState) {
+            Fluttertoast.showToast(
+                backgroundColor: AppColor.errorColor, msg: state.error);
+          }
+        },
         builder: (context, state) {
           return Scaffold(
             body: SingleChildScrollView(
@@ -128,14 +142,12 @@ class LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 20.0),
                         ElevatedButton(
                           onPressed: () {
-                            // _login(context);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute<void>(
-                                builder: (BuildContext context) =>
-                                    const LayoutScreen(),
-                              ),
-                            );
+                            if (_formKey.currentState?.validate() == true) {
+                              BlocProvider.of<AuthCubit>(context).login(
+                                emailController.text.trim(),
+                                passwordController.text.trim(),
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(320, 50),

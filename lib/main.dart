@@ -2,9 +2,11 @@ import 'package:bella_app/shared/theme/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'modules/Splash/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'shared/local/languages/app_localizations.dart';
+import 'modules/Auth/cubit/auth_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -63,30 +65,37 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Bella App',
-      debugShowCheckedModeBanner: false,
-      locale: _locale,
-      theme: _isDarkMode ? darkTheme : lightTheme,
-      supportedLocales: const [
-        Locale('en', ''),
-        Locale('ar', ''),
-      ],
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      localeResolutionCallback: (locale, supportedLocales) {
-        for (var supportedLocale in supportedLocales) {
-          if (supportedLocale.languageCode == locale?.languageCode) {
-            return supportedLocale;
-          }
-        }
-        return supportedLocales.first;
-      },
-      home: const SplashScreen(),
+    return BlocProvider(
+      create: (context) => AuthCubit(),
+      child: BlocBuilder<AuthCubit, AuthState>(
+        builder: (context, state) {
+          return MaterialApp(
+            title: 'Bella App',
+            debugShowCheckedModeBanner: false,
+            locale: _locale,
+            theme: _isDarkMode ? darkTheme : lightTheme,
+            supportedLocales: const [
+              Locale('en', ''),
+              Locale('ar', ''),
+            ],
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            localeResolutionCallback: (locale, supportedLocales) {
+              for (var supportedLocale in supportedLocales) {
+                if (supportedLocale.languageCode == locale?.languageCode) {
+                  return supportedLocale;
+                }
+              }
+              return supportedLocales.first;
+            },
+            home: const SplashScreen(),
+          );
+        },
+      ),
     );
   }
 }

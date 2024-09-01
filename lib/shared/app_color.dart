@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
+  static Color errorColor = const Color.fromARGB(255, 207, 35, 23);
+  static Color successColor = const Color.fromARGB(255, 27, 163, 32);
+
   // Light theme colors
   static Color whiteColor = Colors.white;
   static Color blackColor = const Color(0xFF1f2236); // Dark color for text and icons
