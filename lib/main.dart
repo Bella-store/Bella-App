@@ -1,4 +1,5 @@
 import 'package:bella_app/shared/theme/themes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'modules/Splash/splash_screen.dart';
@@ -7,6 +8,7 @@ import 'shared/local/languages/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   final prefs = await SharedPreferences.getInstance();
   String? localeCode = prefs.getString('locale') ?? 'en';
   bool isDarkMode = prefs.getBool('isDarkMode') ?? false; // Default to light mode

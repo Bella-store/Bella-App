@@ -116,7 +116,7 @@ class CartScreen extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
-
+                            fontFamily: 'Montserrat',
                           ),
                         ),
                       ],

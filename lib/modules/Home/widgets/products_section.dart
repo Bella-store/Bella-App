@@ -174,12 +174,16 @@ class ProductItemState extends State<ProductItem> {
 
 final List<Product> productList = [
   Product(
+    id: '1',
+    category: 'chair',
     imageUrl: AppString.chair,
     title: 'Stylish Wooden Chair',
     price: 130.0,
     description: 'This is a stylish wooden chair perfect for modern homes.',
   ),
   Product(
+    id: '2',
+    category: 'table',
     imageUrl: AppString.table,
     title: 'Modern Chair',
     price: 150.0,
@@ -187,6 +191,8 @@ final List<Product> productList = [
         'A modern chair with a sleek design, comfortable for daily use.',
   ),
   Product(
+    id: '3',
+    category: 'table',
     imageUrl: AppString.table,
     title: 'Modern Chair',
     price: 150.0,
@@ -194,6 +200,8 @@ final List<Product> productList = [
         'A modern chair with a sleek design, comfortable for daily use.',
   ),
   Product(
+    id: '4',
+    category: 'chair',
     imageUrl: AppString.chair,
     title: 'Stylish Wooden Chair',
     price: 130.0,
