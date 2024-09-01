@@ -29,6 +29,7 @@ class ProfileInfo extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
+                fontFamily: 'Montserrat'
               ),
             ),
             const SizedBox(height: 4),
@@ -37,6 +38,7 @@ class ProfileInfo extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
+                fontFamily: 'Montserrat'
               ),
             ),
           ],

@@ -59,7 +59,7 @@ class LoginScreenState extends State<LoginScreen> {
             Text(
               AppString.welcome(context),
               style:
-                  const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                  const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),
             ),
             const SizedBox(height: 8.0),
             Text(
@@ -129,7 +129,7 @@ class LoginScreenState extends State<LoginScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(320, 50),
-                      backgroundColor: AppColor.blackColor,
+                      backgroundColor: AppColor.mainColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
@@ -137,7 +137,7 @@ class LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       AppString.login(context),
                       style:
-                          TextStyle(fontSize: 18.0, color: AppColor.whiteColor),
+                          TextStyle(fontSize: 18.0, color: AppColor.whiteColor,fontFamily: 'Montserrat'),
                     ),
                   ),
                   const SizedBox(height: 20.0),
@@ -146,7 +146,7 @@ class LoginScreenState extends State<LoginScreen> {
                     children: [
                       Text(
                         AppString.dontHaveAnAccount(context),
-                        style: const TextStyle(fontSize: 16.0),
+                        style: const TextStyle(fontSize: 16.0,fontFamily: 'Montserrat'),
                       ),
                       TextButton(
                         onPressed: () {
@@ -164,6 +164,7 @@ class LoginScreenState extends State<LoginScreen> {
                             fontSize: 16.0,
                             color: AppColor.blackColor,
                             fontWeight: FontWeight.bold,
+                            fontFamily: 'Montserrat'
                           ),
                         ),
                       ),

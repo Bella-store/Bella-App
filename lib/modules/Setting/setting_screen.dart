@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../main.dart';
-import '../../shared/app_color.dart';
 import '../../shared/app_string.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -26,6 +25,8 @@ class SettingScreenState extends State<SettingScreen> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _selectedLanguage = prefs.getString('locale') ?? 'en'; // Default to 'en'
+      _isDarkMode =
+          prefs.getBool('isDarkMode') ?? false; // Default to light mode
     });
   }
 
@@ -43,11 +44,13 @@ class SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppString.setting(context)),
+        title: Text(AppString.setting(context), style: textTheme.bodyLarge),
         centerTitle: true,
-        leading: BackButton(color: AppColor.blackColor),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -58,14 +61,14 @@ class SettingScreenState extends State<SettingScreen> {
                 CustomSettingsOption(
                   icon: Icons.language,
                   label: AppString.language(context),
-                  trailing: _buildLanguageDropdown(),
+                  trailing: _buildLanguageDropdown(theme),
                 ),
                 CustomSettingsOption(
                   icon: Icons.notifications,
                   label: AppString.notification(context),
                   trailing: Switch(
                     inactiveTrackColor: Colors.transparent,
-                    activeColor: AppColor.blackColor,
+                    activeColor: theme.colorScheme.primary,
                     value: _isNotificationEnabled,
                     onChanged: (bool value) {
                       setState(() {
@@ -79,13 +82,13 @@ class SettingScreenState extends State<SettingScreen> {
                   label: AppString.darkMode(context),
                   trailing: Switch(
                     inactiveTrackColor: Colors.transparent,
-                    activeColor: AppColor.blackColor,
-                    inactiveThumbColor: AppColor.blackColor,
+                    activeColor: theme.colorScheme.primary,
                     value: _isDarkMode,
                     onChanged: (bool value) {
                       setState(() {
                         _isDarkMode = value;
                       });
+                      MyApp.toggleTheme(context, _isDarkMode);
                     },
                   ),
                 ),
@@ -126,25 +129,27 @@ class SettingScreenState extends State<SettingScreen> {
     );
   }
 
-  Widget _buildLanguageDropdown() {
+  Widget _buildLanguageDropdown(ThemeData theme) {
+    final textTheme = theme.textTheme;
+
     return DropdownButton<String>(
       value: _selectedLanguage,
-      style: TextStyle(color: AppColor.blackColor, fontWeight: FontWeight.bold),
+      style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
       underline: Container(),
-      dropdownColor: Colors.white,
+      dropdownColor: theme.cardColor,
       items: [
         DropdownMenuItem(
           value: 'en',
           child: Text(
             'English',
-            style: TextStyle(color: AppColor.blackColor),
+            style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
         DropdownMenuItem(
           value: 'ar',
           child: Text(
             'Arabic',
-            style: TextStyle(color: AppColor.blackColor),
+            style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
       ],
@@ -167,14 +172,15 @@ class TitleSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
       child: Text(
         text,
-        style: TextStyle(
-            fontSize: 12,
-            color: AppColor.greyColor,
-            fontWeight: FontWeight.bold),
+        style: theme.textTheme.bodySmall?.copyWith(
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
@@ -192,6 +198,8 @@ class CustomSettingsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -203,7 +211,7 @@ class CustomSettingsSection extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
             border: Border.all(
-              color: Colors.grey.withOpacity(0.5),
+              color: theme.dividerColor,
             ),
             borderRadius: BorderRadius.circular(16.0),
           ),
@@ -211,7 +219,7 @@ class CustomSettingsSection extends StatelessWidget {
             children: options.map((option) {
               return ListTile(
                 leading: BuildOptionIcon(icon: option.icon),
-                title: Text(option.label),
+                title: Text(option.label, style: theme.textTheme.bodyMedium),
                 trailing: option.trailing,
                 onTap: option.onTap,
               );
@@ -244,6 +252,7 @@ class BuildOptionIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(icon);
+    final theme = Theme.of(context);
+    return Icon(icon, color: theme.iconTheme.color);
   }
 }

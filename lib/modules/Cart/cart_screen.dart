@@ -138,6 +138,7 @@ class CartScreenState extends State<CartScreen> {
                             style: const TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
+                              fontFamily: 'Montserrat'
                             ),
                           ),
                           Text(
@@ -145,6 +146,7 @@ class CartScreenState extends State<CartScreen> {
                             style: const TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
+                              fontFamily: 'Montserrat'
                             ),
                           ),
                         ],
@@ -164,7 +166,7 @@ class CartScreenState extends State<CartScreen> {
                         child: Text(
                           AppString.checkOut(context),
                           style: const TextStyle(
-                              fontSize: 18.0, color: Colors.white),
+                              fontSize: 18.0, color: Colors.white,fontFamily: 'Montserrat',),
                         ),
                       ),
                     ],
@@ -214,6 +216,7 @@ class CartItem extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
+                    fontFamily: 'Montserrat',
                   ),
                 ),
                 const SizedBox(height: 8.0),

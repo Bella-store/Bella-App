@@ -1,4 +1,5 @@
 import 'package:bella_app/modules/Setting/add_payment_method_screen.dart';
+import 'package:bella_app/shared/local/languages/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../shared/app_string.dart';
 import 'myorder_screen.dart';
@@ -48,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 ProfileMenuOption(
                   title: AppString.myOrders(context),
-                  subtitle: 'Already have 10 orders',
+                  
                   onTap: () {
                     Navigator.push(
                       context,
@@ -59,13 +60,13 @@ class ProfileScreen extends StatelessWidget {
                   },
                 ),
                 ProfileMenuOption(
-                  title: 'Shipping Addresses',
-                  subtitle: '03 Addresses',
+                  title: 'Shipping Addresses'.tr(context),
+                  
                   onTap: () {},
                 ),
                 ProfileMenuOption(
-                  title: 'Payment Method',
-                  subtitle: 'You have 2 cards',
+                  title: 'Payment Method'.tr(context),
+                  
                   onTap: () {
                     Navigator.push(
                       context,
@@ -76,8 +77,8 @@ class ProfileScreen extends StatelessWidget {
                   },
                 ),
                 ProfileMenuOption(
-                  title: 'My reviews',
-                  subtitle: 'Reviews for 5 items',
+                  title: 'My reviews'.tr(context),
+                  
                   onTap: () {
                     Navigator.push(
                       context,
@@ -89,7 +90,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 ProfileMenuOption(
                   title: AppString.setting(context),
-                  subtitle: 'Notification, Password, FAQ, Contact',
+                  
                   onTap: () {
                     Navigator.push(
                       context,

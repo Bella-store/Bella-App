@@ -9,6 +9,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Theme.of(context);
+    
     return Scaffold(
       body: CustomScrollView(
         slivers: [

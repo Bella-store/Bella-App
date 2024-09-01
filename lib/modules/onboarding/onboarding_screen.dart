@@ -135,7 +135,7 @@ class OnboardingPage extends StatelessWidget {
                       controller: pageController,
                       count: 3,
                       effect: ExpandingDotsEffect(
-                        activeDotColor: Colors.teal,
+                        activeDotColor: AppColor.mainColor,
                         dotColor: Colors.grey.shade300,
                         dotHeight: 8.0,
                         dotWidth: 8.0,
@@ -149,6 +149,7 @@ class OnboardingPage extends StatelessWidget {
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
+                      fontFamily: 'Montserrat',
                     ),
                   ),
                   const SizedBox(height: 10.0),
@@ -157,6 +158,7 @@ class OnboardingPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.0,
                       color: Colors.grey.shade700,
+                      fontFamily: 'Montserrat',
                     ),
                   ),
                   const Spacer(),
@@ -171,7 +173,7 @@ class OnboardingPage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 50.0, vertical: 15.0),
-                        backgroundColor: Colors.teal,
+                        backgroundColor: AppColor.mainColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25.0),
                         ),
@@ -179,7 +181,10 @@ class OnboardingPage extends StatelessWidget {
                       child: Text(
                         AppString.getStarted(context),
                         style: TextStyle(
-                            fontSize: 18.0, color: AppColor.whiteColor),
+                          fontSize: 18.0,
+                          color: AppColor.whiteColor,
+                          fontFamily: 'Montserrat',
+                        ),
                       ),
                     ),
                   ),

@@ -57,7 +57,7 @@ class SignUpScreenState extends State<SignUpScreen> {
             Text(
               AppString.signUp(context),
               style:
-                  const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                  const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),
             ),
             const SizedBox(height: 8.0),
             Text(
@@ -149,7 +149,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                     child: Text(
                       AppString.signUp(context),
                       style:
-                          TextStyle(fontSize: 18.0, color: AppColor.whiteColor),
+                          TextStyle(fontSize: 18.0, color: AppColor.whiteColor,fontFamily: 'Montserrat'),
                     ),
                   ),
                   const SizedBox(height: 20.0),
@@ -158,7 +158,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                     children: [
                       Text(
                         AppString.alreadyHaveAnAccount(context),
-                        style: const TextStyle(fontSize: 16.0),
+                        style: const TextStyle(fontSize: 16.0,fontFamily: 'Montserrat'),
                       ),
                       TextButton(
                         onPressed: () {
@@ -170,6 +170,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                             fontSize: 16.0,
                             color: AppColor.blackColor,
                             fontWeight: FontWeight.bold,
+                            fontFamily: 'Montserrat',
                           ),
                         ),
                       ),

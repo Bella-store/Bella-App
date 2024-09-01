@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:bella_app/shared/app_color.dart';
-
-import '../../shared/app_string.dart'; // Assuming you have a shared color file
+import '../../shared/app_string.dart';
 
 class MyOrderScreen extends StatelessWidget {
   const MyOrderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppString.myOrders(context)),
+          title: Text(
+            AppString.myOrders(context),
+            style: const TextStyle(fontFamily: 'Montserrat'),
+          ),
           centerTitle: true,
-          bottom:  TabBar(
-            labelColor: Colors.black,
+          bottom: TabBar(
+            labelColor: theme.primaryColor,
             unselectedLabelColor: Colors.grey,
-            indicatorColor: Colors.black,
+            indicatorColor: theme.primaryColor,
+            labelStyle: const TextStyle(fontFamily: 'Montserrat'),
             tabs: [
               Tab(text: AppString.delivered(context)),
               Tab(text: AppString.processing(context)),
@@ -25,7 +29,7 @@ class MyOrderScreen extends StatelessWidget {
             ],
           ),
         ),
-        body:  TabBarView(
+        body: TabBarView(
           children: [
             OrderListView(status: AppString.delivered(context)),
             OrderListView(status: AppString.processing(context)),
@@ -45,7 +49,7 @@ class OrderListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 2, 
+      itemCount: 2,
       itemBuilder: (context, index) {
         return OrderCard(status: status);
       },
@@ -60,6 +64,8 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     // Determine the color and text for the status
     Color statusColor;
     String statusText;
@@ -85,8 +91,7 @@ class OrderCard extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
-            color:
-                AppColor.whiteColor, 
+            color: theme.cardColor,
             elevation: 2,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0),
@@ -106,6 +111,7 @@ class OrderCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: constraints.maxWidth < 600 ? 16 : 20,
                           fontWeight: FontWeight.bold,
+                          fontFamily: 'Montserrat',
                         ),
                       ),
                       Text(
@@ -113,6 +119,7 @@ class OrderCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: constraints.maxWidth < 600 ? 14 : 18,
                           color: Colors.grey,
+                          fontFamily: 'Montserrat',
                         ),
                       ),
                     ],
@@ -131,13 +138,15 @@ class OrderCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: constraints.maxWidth < 600 ? 14 : 18,
                             color: Colors.grey,
+                            fontFamily: 'Montserrat',
                           ),
-                          children: const [
+                          children: [
                             TextSpan(
                               text: '03',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                                color: theme.textTheme.bodyLarge?.color,
+                                fontFamily: 'Montserrat',
                               ),
                             ),
                           ],
@@ -149,13 +158,15 @@ class OrderCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: constraints.maxWidth < 600 ? 14 : 18,
                             color: Colors.grey,
+                            fontFamily: 'Montserrat',
                           ),
-                          children: const [
+                          children: [
                             TextSpan(
                               text: '\$150',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                                color: theme.textTheme.bodyLarge?.color,
+                                fontFamily: 'Montserrat',
                               ),
                             ),
                           ],
@@ -169,7 +180,7 @@ class OrderCard extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
+                          backgroundColor: theme.primaryColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),
@@ -177,9 +188,9 @@ class OrderCard extends StatelessWidget {
                         onPressed: () {
                           // Handle detail button press
                         },
-                        child:  Text(
+                        child: Text(
                           AppString.detail(context),
-                          style: const TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white, fontFamily: 'Montserrat'),
                         ),
                       ),
                       Text(
@@ -188,6 +199,7 @@ class OrderCard extends StatelessWidget {
                           color: statusColor,
                           fontSize: constraints.maxWidth < 600 ? 14 : 18,
                           fontWeight: FontWeight.bold,
+                          fontFamily: 'Montserrat',
                         ),
                       ),
                     ],

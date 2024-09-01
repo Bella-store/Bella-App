@@ -65,6 +65,7 @@ class ReviewCard extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
+                          fontFamily: 'Montserrat'
                         ),
                       ),
                       SizedBox(height: 4),
@@ -74,6 +75,7 @@ class ReviewCard extends StatelessWidget {
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
+                          fontFamily: 'Montserrat'
                         ),
                       ),
                     ],
@@ -83,6 +85,7 @@ class ReviewCard extends StatelessWidget {
                   '09/08/2024',
                   style: TextStyle(
                     color: Colors.grey,
+                    fontFamily: 'Montserrat'
                   ),
                 ),
               ],
@@ -104,6 +107,7 @@ class ReviewCard extends StatelessWidget {
               'Besides, color is also the same and quality is very good despite very cheap price.',
               style: TextStyle(
                 color: Colors.black,
+                fontFamily: 'Montserrat'
               ),
             ),
           ],
