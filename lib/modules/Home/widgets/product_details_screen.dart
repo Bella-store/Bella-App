@@ -1,5 +1,6 @@
-import 'package:bella_app/shared/app_string.dart';
 import 'package:flutter/material.dart';
+import 'package:bella_app/shared/app_color.dart';
+import 'package:bella_app/shared/app_string.dart';
 import '../../../models/product_model.dart';
 import '../../Cart/cart_screen.dart';
 
@@ -32,14 +33,14 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   final GlobalKey _descriptionKey = GlobalKey();
-  final TextStyle _descriptionTextStyle = const TextStyle(fontSize: 16);
+  final TextStyle _descriptionTextStyle = const TextStyle(fontSize: 16, fontFamily: 'Montserrat');
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final double screenHeight = MediaQuery.of(context).size.height;
     final bool isWideScreen = MediaQuery.of(context).size.width > 600;
-    final double responsiveHeight =
-        screenHeight * 0.1; // Adjust the multiplier as needed
+    final double responsiveHeight = screenHeight * 0.1; // Adjust the multiplier as needed
 
     return Scaffold(
       appBar: AppBar(
@@ -65,7 +66,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   child: IconButton(
                     icon: Icon(
                       _isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: _isFavorite ? Colors.red : Colors.grey,
+                      color: _isFavorite ? Colors.red : theme.iconTheme.color,
                       size: 30,
                     ),
                     onPressed: () {
@@ -82,16 +83,16 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16.0),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: theme.scaffoldBackgroundColor,
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(40.0),
                   topRight: Radius.circular(40.0),
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black12,
-                    offset: Offset(0, 2),
+                    color: theme.shadowColor.withOpacity(0.1),
+                    offset: const Offset(0, 2),
                     blurRadius: 10.0,
                   ),
                 ],
@@ -101,17 +102,17 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 children: [
                   Text(
                     widget.product.title,
-                    style: TextStyle(
+                    style: theme.textTheme.titleLarge?.copyWith(
                       fontSize: isWideScreen ? 24 : 22,
-                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat',
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     'Vado Odelle Dress',
-                    style: TextStyle(
-                      fontSize: isWideScreen ? 18 : 16,
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       color: Colors.grey[600],
+                      fontFamily: 'Montserrat',
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -124,6 +125,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
+                          fontFamily: 'Montserrat',
                         ),
                       ),
                       SizedBox(width: 4),
@@ -132,6 +134,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 14,
+                          fontFamily: 'Montserrat',
                         ),
                       ),
                     ],
@@ -139,14 +142,14 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   const SizedBox(height: 16),
                   Text(
                     AppString.availableInStock(context),
-                    style: const TextStyle(color: Colors.green),
+                    style: const TextStyle(color: Colors.green, fontFamily: 'Montserrat'),
                   ),
                   const SizedBox(height: 16),
                   Text(
                     AppString.description(context),
-                    style: const TextStyle(
-                      fontSize: 18,
+                    style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat',
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -154,9 +157,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     widget.product.description,
                     key: _descriptionKey,
                     maxLines: _isExpanded ? null : 3,
-                    overflow: _isExpanded
-                        ? TextOverflow.visible
-                        : TextOverflow.ellipsis,
+                    overflow: _isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
                     style: _descriptionTextStyle,
                   ),
                   if (_showSeeMore)
@@ -168,7 +169,10 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       },
                       child: Text(
                         _isExpanded ? 'See less' : 'See more',
-                        style: const TextStyle(color: Colors.blue),
+                        style: theme.textTheme.labelLarge?.copyWith(
+                          color: Colors.blue,
+                          fontFamily: 'Montserrat',
+                        ),
                       ),
                     ),
                   SizedBox(height: responsiveHeight), // Use responsive height
@@ -177,16 +181,14 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     children: [
                       Text(
                         '\$${widget.product.price.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          fontSize: isWideScreen ? 24 : 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.orange,
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          color: AppColor.mainColor,
+                          fontFamily: 'Montserrat',
                         ),
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 60.0, vertical: 15.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 60.0, vertical: 15.0),
                           backgroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
@@ -197,11 +199,14 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const CartScreen())); // Add to cart logic
+                                      CartScreen())); // Add to cart logic
                         },
                         child: Text(
                           AppString.addTocart(context),
-                          style: const TextStyle(color: Colors.white),
+                          style: theme.textTheme.labelLarge?.copyWith(
+                            color: Colors.white,
+                            fontFamily: 'Montserrat',
+                          ),
                         ),
                       ),
                     ],

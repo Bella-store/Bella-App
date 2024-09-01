@@ -8,7 +8,7 @@ class ProfileMenuOption extends StatelessWidget {
   const ProfileMenuOption({
     super.key,
     required this.title,
-    required this.subtitle,
+    this.subtitle = '',
     required this.onTap,
   });
 
@@ -32,7 +32,8 @@ class ProfileMenuOption extends StatelessWidget {
       child: ListTile(
         title: Text(
           title,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, fontFamily: 'Montserrat'),
         ),
         subtitle: Text(subtitle),
         trailing: const Icon(Icons.chevron_right),

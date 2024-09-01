@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../models/product_model.dart';
+import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
 import 'product_details_screen.dart';
 
@@ -8,6 +9,8 @@ class ProductsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return LayoutBuilder(
       builder: (context, constraints) {
         int crossAxisCount = 2;
@@ -27,17 +30,17 @@ class ProductsSection extends StatelessWidget {
                 children: [
                   Text(
                     AppString.products(context),
-                    style: const TextStyle(
-                      fontSize: 18,
+                    style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat',
                     ),
                   ),
                   Text(
                     AppString.seeAll(context),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat',
                     ),
                   ),
                 ],
@@ -87,6 +90,8 @@ class ProductItemState extends State<ProductItem> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -99,10 +104,10 @@ class ProductItemState extends State<ProductItem> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Colors.white,
+          color: theme.cardColor,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
+              color: theme.shadowColor.withOpacity(0.3),
               spreadRadius: 1,
               blurRadius: 5,
             ),
@@ -129,7 +134,7 @@ class ProductItemState extends State<ProductItem> {
                   child: IconButton(
                     icon: Icon(
                       _isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: _isFavorite ? Colors.red : Colors.white,
+                      color: _isFavorite ? Colors.red : theme.iconTheme.color,
                     ),
                     onPressed: _toggleFavorite,
                   ),
@@ -140,9 +145,12 @@ class ProductItemState extends State<ProductItem> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
                 widget.product.title,
-                style: const TextStyle(
+                style: theme.textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
                 ),
               ),
             ),
@@ -151,9 +159,9 @@ class ProductItemState extends State<ProductItem> {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 '\$${widget.product.price.toStringAsFixed(2)}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.orange,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: AppColor.mainColor,
+                  fontFamily: 'Montserrat',
                 ),
               ),
             ),
@@ -166,12 +174,16 @@ class ProductItemState extends State<ProductItem> {
 
 final List<Product> productList = [
   Product(
+    id: '1',
+    category: 'chair',
     imageUrl: AppString.chair,
     title: 'Stylish Wooden Chair',
     price: 130.0,
     description: 'This is a stylish wooden chair perfect for modern homes.',
   ),
   Product(
+    id: '2',
+    category: 'table',
     imageUrl: AppString.table,
     title: 'Modern Chair',
     price: 150.0,
@@ -179,6 +191,8 @@ final List<Product> productList = [
         'A modern chair with a sleek design, comfortable for daily use.',
   ),
   Product(
+    id: '3',
+    category: 'table',
     imageUrl: AppString.table,
     title: 'Modern Chair',
     price: 150.0,
@@ -186,6 +200,8 @@ final List<Product> productList = [
         'A modern chair with a sleek design, comfortable for daily use.',
   ),
   Product(
+    id: '4',
+    category: 'chair',
     imageUrl: AppString.chair,
     title: 'Stylish Wooden Chair',
     price: 130.0,

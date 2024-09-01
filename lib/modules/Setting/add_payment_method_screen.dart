@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../shared/app_string.dart';
 
 class AddPaymentMethodScreen extends StatelessWidget {
@@ -8,6 +7,7 @@ class AddPaymentMethodScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final TextEditingController nameController = TextEditingController();
     final TextEditingController cardNumberController = TextEditingController();
     final TextEditingController cvvController = TextEditingController();
@@ -15,7 +15,10 @@ class AddPaymentMethodScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppString.addPaymentMethod(context)),
+        title: Text(
+          AppString.addPaymentMethod(context),
+          style: const TextStyle(fontFamily: 'Montserrat'),
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -39,7 +42,7 @@ class AddPaymentMethodScreen extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
+                  backgroundColor: theme.primaryColor,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
@@ -50,7 +53,11 @@ class AddPaymentMethodScreen extends StatelessWidget {
                 },
                 child: Text(
                   AppString.addCard(context),
-                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: 'Montserrat',
+                  ),
                 ),
               ),
             ],
@@ -80,11 +87,13 @@ class CreditCardDisplay extends StatefulWidget {
 class CreditCardDisplayState extends State<CreditCardDisplay> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return LayoutBuilder(
       builder: (context, constraints) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.black,
+            color: theme.cardColor,
             borderRadius: BorderRadius.circular(12),
           ),
           padding: const EdgeInsets.all(16.0),
@@ -107,6 +116,7 @@ class CreditCardDisplayState extends State<CreditCardDisplay> {
                   color: Colors.white,
                   fontSize: constraints.maxWidth < 600 ? 18 : 24,
                   letterSpacing: 2.0,
+                  fontFamily: 'Montserrat',
                 ),
               ),
               const SizedBox(height: 20),
@@ -120,6 +130,7 @@ class CreditCardDisplayState extends State<CreditCardDisplay> {
                     style: TextStyle(
                       color: Colors.grey[400],
                       fontSize: constraints.maxWidth < 600 ? 12 : 16,
+                      fontFamily: 'Montserrat',
                     ),
                   ),
                   Text(
@@ -129,6 +140,7 @@ class CreditCardDisplayState extends State<CreditCardDisplay> {
                     style: TextStyle(
                       color: Colors.grey[400],
                       fontSize: constraints.maxWidth < 600 ? 12 : 16,
+                      fontFamily: 'Montserrat',
                     ),
                   ),
                 ],
@@ -157,6 +169,8 @@ class PaymentForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return Form(
       child: Column(
         children: [
@@ -167,7 +181,9 @@ class PaymentForm extends StatelessWidget {
               hintText: 'Ex: Bruno Pham',
               border: const OutlineInputBorder(),
               filled: true,
-              fillColor: Colors.grey[100],
+              fillColor: theme.cardColor,
+              labelStyle: const TextStyle(fontFamily: 'Montserrat'),
+              hintStyle: const TextStyle(fontFamily: 'Montserrat'),
             ),
             onChanged: (value) {
               (context as Element).markNeedsBuild();
@@ -186,6 +202,10 @@ class PaymentForm extends StatelessWidget {
               labelText: AppString.cardNumber(context),
               hintText: '**** **** **** 3456',
               border: const OutlineInputBorder(),
+              filled: true,
+              fillColor: theme.cardColor,
+              labelStyle: const TextStyle(fontFamily: 'Montserrat'),
+              hintStyle: const TextStyle(fontFamily: 'Montserrat'),
             ),
             keyboardType: TextInputType.number,
             onChanged: (value) {
@@ -207,10 +227,14 @@ class PaymentForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   controller: cvvController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'CVV',
                     hintText: 'Ex: 123',
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
+                    filled: true,
+                    fillColor: theme.cardColor,
+                    labelStyle: const TextStyle(fontFamily: 'Montserrat'),
+                    hintStyle: const TextStyle(fontFamily: 'Montserrat'),
                   ),
                   keyboardType: TextInputType.number,
                   validator: (value) {
@@ -232,6 +256,10 @@ class PaymentForm extends StatelessWidget {
                     labelText: AppString.exirationDate(context),
                     hintText: '03/22',
                     border: const OutlineInputBorder(),
+                    filled: true,
+                    fillColor: theme.cardColor,
+                    labelStyle: const TextStyle(fontFamily: 'Montserrat'),
+                    hintStyle: const TextStyle(fontFamily: 'Montserrat'),
                   ),
                   keyboardType: TextInputType.datetime,
                   onChanged: (value) {

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "619734707649",
+    "project_id": "bella-store-ece11",
+    "storage_bucket": "bella-store-ece11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619734707649:android:ad12118c1b6e3823a81340",
+        "android_client_info": {
+          "package_name": "com.example.bella_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619734707649-i3vc2rca9s5b3ddcaug1qlio0ar3p3ke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8_h9STrD7IdufsVbWHCAH2So9SjaX07c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619734707649-i3vc2rca9s5b3ddcaug1qlio0ar3p3ke.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
