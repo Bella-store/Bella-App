@@ -196,11 +196,10 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                         onPressed: () {
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const CartScreen(),
-                            ),
-                          ); // Add to cart logic
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CartScreen())); // Add to cart logic
                         },
                         child: Text(
                           AppString.addTocart(context),

@@ -34,7 +34,7 @@ class LayoutScreenState extends State<LayoutScreen> {
     return [
       const HomeScreen(),
       FavoritesScreen(),
-      const CartScreen(),
+      CartScreen(),
       const ProfileScreen(),
     ];
   }
