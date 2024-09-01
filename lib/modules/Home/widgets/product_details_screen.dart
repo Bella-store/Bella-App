@@ -197,7 +197,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const CartScreen())); // Add to cart logic
+                                      CartScreen())); // Add to cart logic
                         },
                         child: Text(
                           AppString.addTocart(context),

@@ -36,8 +36,8 @@ class LayoutScreenState extends State<LayoutScreen> {
   List<Widget> _buildScreens() {
     return [
       const HomeScreen(),
-       FavoritesScreen(),
-      const CartScreen(),
+      FavoritesScreen(),
+      CartScreen(),
       const ProfileScreen(),
     ];
   }
