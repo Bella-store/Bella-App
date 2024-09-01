@@ -3,62 +3,11 @@ import 'package:bella_app/modules/Cart/widgets/cart_item.dart';
 import 'package:bella_app/shared/app_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../models/cart_item_model.dart';
 
-class CartScreen extends StatefulWidget {
+class CartScreen extends StatelessWidget {
   CartScreen({super.key});
 
   final TextEditingController _promoCodeController = TextEditingController();
-
-  @override
-  CartScreenState createState() => CartScreenState();
-}
-
-class CartScreenState extends State<CartScreen> {
-  final TextEditingController _promoCodeController = TextEditingController();
-  double _totalAmount = 95.00;
-  double _discount = 0.0;
-
-  final List<CartItemModel> _cartItems = [
-    CartItemModel(
-      imageUrl: AppString.chair,
-      title: 'Minimal Stand',
-      price: 25.00,
-    ),
-    CartItemModel(
-      imageUrl: AppString.table,
-      title: 'Coffee Table',
-      price: 20.00,
-    ),
-    CartItemModel(
-      imageUrl: AppString.chair,
-      title: 'Minimal Desk',
-      price: 50.00,
-    ),
-  ];
-
-  void _removeItem(int index) {
-    setState(() {
-      _totalAmount -= _cartItems[index].totalPrice;
-      _cartItems.removeAt(index);
-    });
-  }
-
-  void _applyPromoCode() {
-    if (_promoCodeController.text == 'ysf') {
-      setState(() {
-        _discount = 0.10;
-      });
-    } else {
-      setState(() {
-        _discount = 0.0;
-      });
-    }
-  }
-
-  void _updateTotalAmount() {
-    _totalAmount = _cartItems.fold(0, (sum, item) => sum + item.totalPrice);
-  }
 
   @override
   Widget build(BuildContext context) {
