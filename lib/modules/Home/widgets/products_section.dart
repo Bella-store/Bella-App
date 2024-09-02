@@ -107,9 +107,9 @@ class ProductItemState extends State<ProductItem> {
           color: theme.cardColor,
           boxShadow: [
             BoxShadow(
-              color: theme.shadowColor.withOpacity(0.3),
+              color: theme.shadowColor.withOpacity(0.1),
               spreadRadius: 1,
-              blurRadius: 5,
+              blurRadius: 1,
             ),
           ],
         ),

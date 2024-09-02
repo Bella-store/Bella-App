@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../layout_screen.dart';
+import '../../../layout_screen.dart'; // Replace with your main layout screen import
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
 
@@ -27,16 +28,24 @@ class LoginScreenState extends State<LoginScreen> {
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: BlocConsumer<AuthCubit, AuthState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is LogingSuccessState) {
+            // Save the login state in SharedPreferences
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setBool('isLoggedIn', true);
+
+            // Navigate to the main layout screen
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const LayoutScreen()),
+              MaterialPageRoute(builder: (context) => const LayoutScreen()), // Replace with your main layout screen
             );
+
+            // Show success message
             Fluttertoast.showToast(
                 backgroundColor: AppColor.successColor,
                 msg: "Login successful!");
           } else if (state is LogingErrorState) {
+            // Show error message
             Fluttertoast.showToast(
                 backgroundColor: AppColor.errorColor, msg: state.error);
           }

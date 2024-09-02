@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../shared/app_color.dart';
@@ -164,11 +165,14 @@ class OnboardingPage extends StatelessWidget {
                   const Spacer(),
                   Center(
                     child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
+                      onPressed: () async {
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool('hasSeenOnboarding', true);
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const LandingScreen()));
+                                builder: (context) =>
+                                    const LandingScreen())); // Replace with your main layout screen
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
