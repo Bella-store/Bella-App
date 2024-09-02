@@ -3,26 +3,44 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'modules/Splash/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'layout_screen.dart';
+import 'modules/Splash/splash_screen.dart';
+import 'modules/onboarding/onboarding_screen.dart';
 import 'shared/local/languages/app_localizations.dart';
 import 'modules/Auth/cubit/auth_cubit.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   final prefs = await SharedPreferences.getInstance();
   String? localeCode = prefs.getString('locale') ?? 'en';
   bool isDarkMode = prefs.getBool('isDarkMode') ?? false; // Default to light mode
+  bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+  bool hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
 
-  runApp(MyApp(locale: Locale(localeCode), isDarkMode: isDarkMode));
+  Widget initialScreen = const SplashScreen(); // Default to splash screen
+
+  if (isLoggedIn) {
+    // User is logged in, show the main layout directly
+    initialScreen = const LayoutScreen();
+  } else if (!hasSeenOnboarding) {
+    // User hasn't seen onboarding, show the onboarding screen
+    initialScreen = const OnboardingScreen();
+  } else {
+    // User hasn't logged in, show splash screen
+    initialScreen = const SplashScreen();
+  }
+
+  runApp(MyApp(locale: Locale(localeCode), isDarkMode: isDarkMode, initialScreen: initialScreen));
 }
 
 class MyApp extends StatefulWidget {
   final Locale locale;
   final bool isDarkMode;
+  final Widget initialScreen;
 
-  const MyApp({super.key, required this.locale, required this.isDarkMode});
+  const MyApp({super.key, required this.locale, required this.isDarkMode, required this.initialScreen});
 
   static void setLocale(BuildContext context, Locale newLocale) {
     MyAppState? state = context.findAncestorStateOfType<MyAppState>();
@@ -92,7 +110,7 @@ class MyAppState extends State<MyApp> {
               }
               return supportedLocales.first;
             },
-            home: const SplashScreen(),
+            home: widget.initialScreen,
           );
         },
       ),

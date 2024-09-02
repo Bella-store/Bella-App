@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../layout_screen.dart';
+import '../../../layout_screen.dart'; // Import your main layout screen
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
 import '../cubit/auth_cubit.dart';
@@ -27,15 +28,29 @@ class SignUpScreenState extends State<SignUpScreen> {
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: BlocConsumer<AuthCubit, AuthState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is SignUpSuccessState) {
-            Fluttertoast.showToast(backgroundColor: AppColor.successColor,msg: "Signup successful!");
-              Navigator.pushReplacement(
+            // Save login state in SharedPreferences
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setBool('isLoggedIn', true);
+
+            // Navigate to the main layout screen
+            Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const LayoutScreen()),
+              MaterialPageRoute(builder: (context) => const LayoutScreen()), 
+            );
+
+            // Show success message
+            Fluttertoast.showToast(
+              backgroundColor: AppColor.successColor,
+              msg: "Signup successful!",
             );
           } else if (state is SignUpErrorState) {
-            Fluttertoast.showToast(backgroundColor: AppColor.errorColor,msg: state.error);
+            // Show error message
+            Fluttertoast.showToast(
+              backgroundColor: AppColor.errorColor,
+              msg: state.error,
+            );
           }
         },
         builder: (context, state) {
@@ -114,7 +129,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                           controller: emailController,
                           decoration: InputDecoration(
                             labelText: AppString.email(context),
-                            suffixIcon: emailController.text.contains('@gmail.com')
+                            suffixIcon: emailController.text
+                                    .contains('@gmail.com')
                                 ? const Icon(Icons.check, color: Colors.green)
                                 : null,
                           ),
