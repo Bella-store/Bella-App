@@ -87,7 +87,7 @@ final List<Product> productList = [
     imageUrl: AppString.chair,
     title: 'Stylish Wooden Chair',
     price: 130.0,
-    description: 'This is a stylish wooden chair perfect for modern homes.',
+    description: 'This is a stylish wooden chair perfect for modern homes.', quantity: 3,
   ),
   Product(
     id: '2',
@@ -96,7 +96,7 @@ final List<Product> productList = [
     title: 'Modern Chair',
     price: 150.0,
     description:
-        'A modern chair with a sleek design, comfortable for daily use.',
+        'A modern chair with a sleek design, comfortable for daily use.', quantity: 2,
   ),
   Product(
     id: '3',
@@ -105,7 +105,7 @@ final List<Product> productList = [
     title: 'Modern Chair',
     price: 150.0,
     description:
-        'A modern chair with a sleek design, comfortable for daily use.',
+        'A modern chair with a sleek design, comfortable for daily use.', quantity: 1,
   ),
   Product(
     id: '4',
@@ -113,6 +113,6 @@ final List<Product> productList = [
     imageUrl: AppString.chair,
     title: 'Stylish Wooden Chair',
     price: 130.0,
-    description: 'This is a stylish wooden chair perfect for modern homes.',
+    description: 'This is a stylish wooden chair perfect for modern homes.', quantity: 2,
   ),
 ];

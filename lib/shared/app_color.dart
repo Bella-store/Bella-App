@@ -13,7 +13,7 @@ class AppColor {
   static Color orangeAccentColor =
       const Color(0xFFd78521); // Vibrant orange accent
   static Color mainColor = const Color(
-      0xFFD67A09); // Main theme color, slightly adjusted for vibrancy
+      0xFFB48E61); // Main theme color, slightly adjusted for vibrancy
   static Color textColor =
       const Color(0xFF4A4A4A); // Light mode secondary text color
   static Color titleColor =
@@ -23,10 +23,10 @@ class AppColor {
   static Color darkBackgroundColor =
       const Color(0xff242424); // New background color
   static Color darkCardColor =
-      const Color(0xff4A3D32); // New card and secondary color
+      const Color(0xff3C3D37); // New card and secondary color
   static Color darkTextColor =
       const Color(0xffD7CCBC); // New text color for dark mode
   static Color darkTitleColor = const Color(0xffD7CCBC); // New color for titles
   static Color darkAccentColor =
-      const Color(0xffBF9555); // Accent color for buttons, links, etc.
+      const Color(0xffB48E61); // Accent color for buttons, links, etc.
 }

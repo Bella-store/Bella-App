@@ -3,7 +3,7 @@ import 'package:bella_app/shared/app_color.dart';
 import 'package:bella_app/shared/app_string.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../models/product_model.dart';
-import '../../Cart/cart_screen.dart';
+
 
 class ProductDetailsScreen extends StatefulWidget {
   final Product product;
