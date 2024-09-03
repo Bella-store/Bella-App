@@ -15,7 +15,8 @@ class CartScreen extends StatelessWidget {
       create: (_) => CartCubit(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppString.myCart(context)),
+          title: Text(AppString.myCart(context),
+              style: const TextStyle(fontWeight: FontWeight.bold)),
           centerTitle: true,
           // leading: const BackButton(color: theme.iconTheme.color),
           elevation: 0,

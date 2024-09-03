@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'layout_screen.dart';
 import 'modules/Splash/splash_screen.dart';
-import 'modules/Products/products_screen.dart';
 import 'modules/onboarding/onboarding_screen.dart';
 import 'shared/local/languages/app_localizations.dart';
 import 'modules/Auth/cubit/auth_cubit.dart';
