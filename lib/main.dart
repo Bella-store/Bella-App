@@ -6,16 +6,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'layout_screen.dart';
 import 'modules/Splash/splash_screen.dart';
+import 'modules/Products/products_screen.dart';
 import 'modules/onboarding/onboarding_screen.dart';
 import 'shared/local/languages/app_localizations.dart';
 import 'modules/Auth/cubit/auth_cubit.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   final prefs = await SharedPreferences.getInstance();
   String? localeCode = prefs.getString('locale') ?? 'en';
-  bool isDarkMode = prefs.getBool('isDarkMode') ?? false; // Default to light mode
+  bool isDarkMode =
+      prefs.getBool('isDarkMode') ?? false; // Default to light mode
   bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
   bool hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
 
@@ -32,7 +35,10 @@ void main() async {
     initialScreen = const SplashScreen();
   }
 
-  runApp(MyApp(locale: Locale(localeCode), isDarkMode: isDarkMode, initialScreen: initialScreen));
+  runApp(MyApp(
+      locale: Locale(localeCode),
+      isDarkMode: isDarkMode,
+      initialScreen: initialScreen));
 }
 
 class MyApp extends StatefulWidget {
@@ -40,7 +46,11 @@ class MyApp extends StatefulWidget {
   final bool isDarkMode;
   final Widget initialScreen;
 
-  const MyApp({super.key, required this.locale, required this.isDarkMode, required this.initialScreen});
+  const MyApp(
+      {super.key,
+      required this.locale,
+      required this.isDarkMode,
+      required this.initialScreen});
 
   static void setLocale(BuildContext context, Locale newLocale) {
     MyAppState? state = context.findAncestorStateOfType<MyAppState>();
