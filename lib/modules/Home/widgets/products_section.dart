@@ -134,7 +134,7 @@ class ProductItemState extends State<ProductItem> {
                   child: IconButton(
                     icon: Icon(
                       _isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: _isFavorite ? Colors.red : theme.iconTheme.color,
+                      color: _isFavorite ? Colors.red : AppColor.blackColor,
                     ),
                     onPressed: _toggleFavorite,
                   ),
