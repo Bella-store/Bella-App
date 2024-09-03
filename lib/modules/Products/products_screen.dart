@@ -8,41 +8,54 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          int crossAxisCount = 2;
-          if (constraints.maxWidth > 800) {
-            crossAxisCount = 4;
-          } else if (constraints.maxWidth > 600) {
-            crossAxisCount = 3;
-          }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(AppString.favorites(context),
+            style: const TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Removes the screen from the stack
+          },
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            int crossAxisCount = 2;
+            if (constraints.maxWidth > 800) {
+              crossAxisCount = 4;
+            } else if (constraints.maxWidth > 600) {
+              crossAxisCount = 3;
+            }
 
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 20,
-                    childAspectRatio: 0.75,
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: crossAxisCount,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 20,
+                      childAspectRatio: 0.75,
+                    ),
+                    itemCount: productList.length,
+                    itemBuilder: (context, index) {
+                      return ProductItem(
+                        product: productList[index],
+                      );
+                    },
                   ),
-                  itemCount: productList.length,
-                  itemBuilder: (context, index) {
-                    return ProductItem(
-                      product: productList[index],
-                    );
-                  },
-                ),
-              ],
-            ),
-          );
-        },
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
