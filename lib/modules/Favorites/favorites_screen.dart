@@ -22,23 +22,25 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(AppString.favorites(context),
             style: const TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.search, color: Colors.black),
-          onPressed: () {},
-        ),
+        // leading: IconButton(
+        //   icon: Icon(Icons.search, color: theme.iconTheme.color),
+        //   onPressed: () {},
+        // ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined, color: Colors.black),
+            icon: Icon(Icons.shopping_cart_outlined,
+                color: theme.iconTheme.color),
             onPressed: () {},
           ),
         ],
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: theme.cardColor,
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {

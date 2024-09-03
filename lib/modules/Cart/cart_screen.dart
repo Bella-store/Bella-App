@@ -17,7 +17,7 @@ class CartScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(AppString.myCart(context)),
           centerTitle: true,
-          leading: const BackButton(color: Colors.black),
+          // leading: const BackButton(color: theme.iconTheme.color),
           elevation: 0,
         ),
         body: BlocBuilder<CartCubit, CartState>(
@@ -136,7 +136,9 @@ class CartScreen extends StatelessWidget {
                       child: Text(
                         AppString.checkOut(context),
                         style: const TextStyle(
-                            fontSize: 18.0, color: Colors.white,fontFamily: 'Montserrat'),
+                            fontSize: 18.0,
+                            color: Colors.white,
+                            fontFamily: 'Montserrat'),
                       ),
                     ),
                   ],

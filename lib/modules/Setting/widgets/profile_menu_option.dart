@@ -14,11 +14,12 @@ class ProfileMenuOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       margin: const EdgeInsets.symmetric(
           vertical: 8.0), // Adding space between options
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.cardColor,
         borderRadius: BorderRadius.circular(10.0),
         boxShadow: [
           BoxShadow(
