@@ -1,5 +1,6 @@
 import 'package:bella_app/models/favorite_item_model.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class FavoriteItem extends StatelessWidget {
   final FavoriteItemModel item;
@@ -63,7 +64,17 @@ class FavoriteItem extends StatelessWidget {
                   color: item.isInCart ? Colors.green : Colors.grey,
                 ),
                 onPressed: () {
-                  // Add to cart logic
+                  // Add your add-to-cart logic
+
+                  // Show a toast message
+                  Fluttertoast.showToast(
+                    msg: "Product added to the cart!",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.white,
+                    fontSize: 16.0,
+                  );
                 },
               ),
             ],

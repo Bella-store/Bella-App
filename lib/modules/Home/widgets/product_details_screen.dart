@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bella_app/shared/app_color.dart';
 import 'package:bella_app/shared/app_string.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../../models/product_model.dart';
 import '../../Cart/cart_screen.dart';
 
@@ -201,11 +202,23 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      CartScreen())); // Add to cart logic
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) =>
+                          //             CartScreen())); // Add to cart logic
+
+                          // Add your add-to-cart logic
+
+                          // Show a toast message
+                          Fluttertoast.showToast(
+                            msg: "Product added to the cart!",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
                         },
                         child: Text(
                           AppString.addTocart(context),
