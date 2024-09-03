@@ -33,18 +33,20 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   final GlobalKey _descriptionKey = GlobalKey();
-  final TextStyle _descriptionTextStyle = const TextStyle(fontSize: 16, fontFamily: 'Montserrat');
+  final TextStyle _descriptionTextStyle =
+      const TextStyle(fontSize: 16, fontFamily: 'Montserrat');
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final double screenHeight = MediaQuery.of(context).size.height;
     final bool isWideScreen = MediaQuery.of(context).size.width > 600;
-    final double responsiveHeight = screenHeight * 0.1; // Adjust the multiplier as needed
+    final double responsiveHeight =
+        screenHeight * 0.1; // Adjust the multiplier as needed
 
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(color: Colors.black),
+        leading: BackButton(color: theme.iconTheme.color),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -142,7 +144,8 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   const SizedBox(height: 16),
                   Text(
                     AppString.availableInStock(context),
-                    style: const TextStyle(color: Colors.green, fontFamily: 'Montserrat'),
+                    style: const TextStyle(
+                        color: Colors.green, fontFamily: 'Montserrat'),
                   ),
                   const SizedBox(height: 16),
                   Text(
@@ -157,7 +160,9 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     widget.product.description,
                     key: _descriptionKey,
                     maxLines: _isExpanded ? null : 3,
-                    overflow: _isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
+                    overflow: _isExpanded
+                        ? TextOverflow.visible
+                        : TextOverflow.ellipsis,
                     style: _descriptionTextStyle,
                   ),
                   if (_showSeeMore)
@@ -188,7 +193,8 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 60.0, vertical: 15.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 60.0, vertical: 15.0),
                           backgroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
