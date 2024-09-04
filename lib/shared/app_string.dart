@@ -52,6 +52,10 @@ class AppString {
   static String password(BuildContext context) => 'password'.tr(context);
   static String plzEnterPassword(BuildContext context) =>
       'plzEnterPassword'.tr(context);
+  static String plzconfirmYourPassword(BuildContext context) =>
+      'plzconfirmYourPassword'.tr(context);
+  static String yourPasswordDoesNotMatch(BuildContext context) =>
+      'yourPasswordDoesNotMatch'.tr(context);
   static String login(BuildContext context) => 'login'.tr(context);
   static String forgotPassword(BuildContext context) =>
       'forgotPassword'.tr(context);
@@ -128,4 +132,10 @@ class AppString {
 
   // products screen -------------------------------------------------------------
   static String allProducts(BuildContext context) => 'allProducts'.tr(context);
+  static String logout(BuildContext context) => 'logout'.tr(context);
+  static String areYouSureLogout(BuildContext context) =>
+      'areYouSureLogout'.tr(context);
+  static String cancel(BuildContext context) => 'cancel'.tr(context);
+  static String no(BuildContext context) => 'no'.tr(context);
+  static String yes(BuildContext context) => 'yes'.tr(context);
 }

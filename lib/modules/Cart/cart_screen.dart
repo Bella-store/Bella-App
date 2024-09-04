@@ -4,6 +4,8 @@ import 'package:bella_app/shared/app_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../shared/app_color.dart';
+
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
 
@@ -88,7 +90,7 @@ class CartScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(10.0),
                       constraints: const BoxConstraints(),
                       style: IconButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: AppColor.mainColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -129,7 +131,7 @@ class CartScreen extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 50),
-                        backgroundColor: Colors.black,
+                        backgroundColor: AppColor.mainColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),

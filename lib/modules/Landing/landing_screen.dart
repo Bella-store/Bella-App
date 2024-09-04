@@ -39,21 +39,24 @@ class LandingScreen extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   side: BorderSide(color: AppColor.greyColor),
                   minimumSize: const Size(320, 50),
-                  backgroundColor: AppColor.whiteColor,
+                  // backgroundColor: AppColor.whiteColor,
+                  backgroundColor: AppColor.mainColor,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                  textStyle:
-                      const TextStyle(color: Color.fromARGB(255, 19, 3, 3),fontFamily: 'Montserrat'),
+                  textStyle: const TextStyle(
+                      color: Color.fromARGB(255, 19, 3, 3),
+                      fontFamily: 'Montserrat'),
                 ),
                 child: Text(
                   AppString.login(context),
                   style: TextStyle(
                       fontSize: 18,
-                      color: AppColor.blackColor,
-                      fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),
+                      color: AppColor.whiteColor,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat'),
                 ),
               ),
               const SizedBox(height: 15),
@@ -75,15 +78,18 @@ class LandingScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                  textStyle:
-                      const TextStyle(color: Color.fromARGB(255, 19, 3, 3),fontFamily: 'Montserrat',),
+                  textStyle: const TextStyle(
+                    color: Color.fromARGB(255, 19, 3, 3),
+                    fontFamily: 'Montserrat',
+                  ),
                 ),
                 child: Text(
                   AppString.signUp(context),
                   style: TextStyle(
                       fontSize: 18,
                       color: AppColor.whiteColor,
-                      fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat'),
                 ),
               ),
             ],

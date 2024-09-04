@@ -37,7 +37,9 @@ class LoginScreenState extends State<LoginScreen> {
             // Navigate to the main layout screen
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const LayoutScreen()), // Replace with your main layout screen
+              MaterialPageRoute(
+                  builder: (context) =>
+                      const LayoutScreen()), // Replace with your main layout screen
             );
 
             // Show success message
@@ -53,7 +55,8 @@ class LoginScreenState extends State<LoginScreen> {
         builder: (context, state) {
           return Scaffold(
             body: SingleChildScrollView(
-              padding: const EdgeInsets.all(20.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
