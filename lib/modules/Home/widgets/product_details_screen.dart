@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:bella_app/shared/app_color.dart';
-import 'package:bella_app/shared/app_string.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../models/product_model.dart';
-
+import '../../../shared/app_color.dart';
+import '../../../shared/app_string.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final Product product;
@@ -43,7 +42,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final bool isWideScreen = MediaQuery.of(context).size.width > 600;
     final double responsiveHeight =
-        screenHeight * 0.1; // Adjust the multiplier as needed
+        screenHeight * 0.01; // Adjust the multiplier as needed
 
     return Scaffold(
       appBar: AppBar(
@@ -57,7 +56,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
             Stack(
               children: [
                 Center(
-                  child: Image.asset(
+                  child: Image.network(
                     widget.product.imageUrl,
                     height: isWideScreen ? 400 : 300,
                     fit: BoxFit.cover,
@@ -202,15 +201,6 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                         ),
                         onPressed: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) =>
-                          //             CartScreen())); // Add to cart logic
-
-                          // Add your add-to-cart logic
-
-                          // Show a toast message
                           Fluttertoast.showToast(
                             msg: "Product added to the cart!",
                             toastLength: Toast.LENGTH_SHORT,

@@ -1,7 +1,7 @@
-import 'package:bella_app/models/product_model.dart';
-import 'package:bella_app/modules/Home/widgets/product_details_screen.dart';
-import 'package:bella_app/shared/app_color.dart';
 import 'package:flutter/material.dart';
+import '../../../models/product_model.dart';
+import '../../Home/widgets/product_details_screen.dart';
+import '../../../shared/app_color.dart';
 
 class ProductItem extends StatefulWidget {
   final Product product;
@@ -52,13 +52,13 @@ class ProductItemState extends State<ProductItem> {
             Stack(
               children: [
                 Container(
-                  height: 160,
+                  height: 150,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20)),
                     image: DecorationImage(
-                      image: AssetImage(widget.product.imageUrl),
+                      image: NetworkImage(widget.product.imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -80,9 +80,9 @@ class ProductItemState extends State<ProductItem> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
+                widget.product.title,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                widget.product.title,
                 style: theme.textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Montserrat',
