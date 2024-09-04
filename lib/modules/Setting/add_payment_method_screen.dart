@@ -1,3 +1,4 @@
+import 'package:bella_app/shared/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../shared/app_string.dart';
@@ -87,13 +88,13 @@ class CreditCardDisplay extends StatefulWidget {
 class CreditCardDisplayState extends State<CreditCardDisplay> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    // final theme = Theme.of(context);
     
     return LayoutBuilder(
       builder: (context, constraints) {
         return Container(
           decoration: BoxDecoration(
-            color: theme.cardColor,
+            color: AppColor.blackColor,
             borderRadius: BorderRadius.circular(12),
           ),
           padding: const EdgeInsets.all(16.0),

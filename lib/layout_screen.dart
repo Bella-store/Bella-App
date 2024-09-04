@@ -1,4 +1,3 @@
-import 'package:bella_app/shared/local/languages/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -7,6 +6,7 @@ import 'modules/Favorites/favorites_screen.dart';
 import 'modules/Home/home_screen.dart';
 import 'modules/Setting/profile_screen.dart';
 import 'shared/app_color.dart';
+import 'package:bella_app/shared/local/languages/app_localizations.dart';
 
 class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
@@ -17,7 +17,6 @@ class LayoutScreen extends StatefulWidget {
 
 class LayoutScreenState extends State<LayoutScreen> {
   late PersistentTabController _controller;
-  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -39,7 +38,7 @@ class LayoutScreenState extends State<LayoutScreen> {
     ];
   }
 
-  List<PersistentBottomNavBarItem> _navBarsItems() {
+  List<PersistentBottomNavBarItem> _navBarsItems(BuildContext context) {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.home),
@@ -74,7 +73,7 @@ class LayoutScreenState extends State<LayoutScreen> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      _controller.jumpToTab(index);
     });
   }
 
@@ -84,12 +83,11 @@ class LayoutScreenState extends State<LayoutScreen> {
 
     return SafeArea(
       child: Scaffold(
-        body: _buildScreens()[_selectedIndex],
-        bottomNavigationBar: PersistentTabView(
+        body: PersistentTabView(
           context,
           controller: _controller,
           screens: _buildScreens(),
-          items: _navBarsItems(),
+          items: _navBarsItems(context),
           onItemSelected: _onItemTapped,
           confineToSafeArea: true,
           handleAndroidBackButtonPress: true,

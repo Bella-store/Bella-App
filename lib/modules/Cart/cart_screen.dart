@@ -4,6 +4,8 @@ import 'package:bella_app/shared/app_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../shared/app_color.dart';
+
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
 
@@ -15,9 +17,10 @@ class CartScreen extends StatelessWidget {
       create: (_) => CartCubit(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppString.myCart(context)),
+          title: Text(AppString.myCart(context),
+              style: const TextStyle(fontWeight: FontWeight.bold)),
           centerTitle: true,
-          leading: const BackButton(color: Colors.black),
+          // leading: const BackButton(color: theme.iconTheme.color),
           elevation: 0,
         ),
         body: BlocBuilder<CartCubit, CartState>(
@@ -87,7 +90,7 @@ class CartScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(10.0),
                       constraints: const BoxConstraints(),
                       style: IconButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: AppColor.mainColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -128,7 +131,7 @@ class CartScreen extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 50),
-                        backgroundColor: Colors.black,
+                        backgroundColor: AppColor.mainColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -136,7 +139,9 @@ class CartScreen extends StatelessWidget {
                       child: Text(
                         AppString.checkOut(context),
                         style: const TextStyle(
-                            fontSize: 18.0, color: Colors.white,fontFamily: 'Montserrat'),
+                            fontSize: 18.0,
+                            color: Colors.white,
+                            fontFamily: 'Montserrat'),
                       ),
                     ),
                   ],

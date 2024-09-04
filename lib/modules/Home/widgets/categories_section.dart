@@ -21,7 +21,7 @@ class CategoriesSectionState extends State<CategoriesSection> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -35,14 +35,14 @@ class CategoriesSectionState extends State<CategoriesSection> {
                 fontFamily: 'Montserrat',
               ),
             ),
-            Text(
-              AppString.seeAll(context),
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Montserrat',
-              ),
-            ),
+            // Text(
+            //   AppString.seeAll(context),
+            //   style: theme.textTheme.bodyMedium?.copyWith(
+            //     color: Colors.grey,
+            //     fontWeight: FontWeight.bold,
+            //     fontFamily: 'Montserrat',
+            //   ),
+            // ),
           ],
         ),
         const SizedBox(height: 10),
@@ -97,7 +97,7 @@ class CategoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -108,12 +108,15 @@ class CategoryButton extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Icon(icon, color: isSelected ? Colors.white : theme.iconTheme.color),
+            Icon(icon,
+                color: isSelected ? Colors.white : theme.iconTheme.color),
             const SizedBox(height: 5),
             Text(
               label,
               style: TextStyle(
-                color: isSelected ? Colors.white : theme.textTheme.bodyLarge?.color,
+                color: isSelected
+                    ? Colors.white
+                    : theme.textTheme.bodyLarge?.color,
                 fontFamily: 'Montserrat',
               ),
             ),

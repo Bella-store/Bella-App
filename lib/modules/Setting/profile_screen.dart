@@ -1,7 +1,12 @@
+import 'package:bella_app/modules/Favorites/favorites_screen.dart';
 import 'package:bella_app/modules/Setting/add_payment_method_screen.dart';
+import 'package:bella_app/shared/app_color.dart';
 import 'package:bella_app/shared/local/languages/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';  // Import FlutterToast package
 import '../../shared/app_string.dart';
+import '../Auth/login/login_screen.dart';
 import 'myorder_screen.dart';
 import 'reviews_screen.dart';
 import 'setting_screen.dart';
@@ -13,25 +18,22 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        title:  Text('Profile'.tr(context),
+            style: const TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.search, color: Colors.black),
-          onPressed: () {},
-        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout_outlined, color: Colors.black),
+            icon: Icon(Icons.logout_outlined, color: theme.iconTheme.color),
             onPressed: () {
               _showLogoutConfirmationDialog(context);
             },
           ),
         ],
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: theme.cardColor,
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -42,14 +44,13 @@ class ProfileScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ProfileInfo(
-                  name: 'Bruno Pham',
-                  email: 'bruno203@gmail.com',
+                  name: 'Bella User',
+                  email: 'bella@gmail.com',
                   imageUrl: AppString.profile,
                 ),
                 const SizedBox(height: 20),
                 ProfileMenuOption(
                   title: AppString.myOrders(context),
-                  
                   onTap: () {
                     Navigator.push(
                       context,
@@ -60,13 +61,18 @@ class ProfileScreen extends StatelessWidget {
                   },
                 ),
                 ProfileMenuOption(
-                  title: 'Shipping Addresses'.tr(context),
-                  
-                  onTap: () {},
+                  title: AppString.favorites(context),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FavoritesScreen(),
+                      ),
+                    );
+                  },
                 ),
                 ProfileMenuOption(
                   title: 'Payment Method'.tr(context),
-                  
                   onTap: () {
                     Navigator.push(
                       context,
@@ -78,7 +84,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 ProfileMenuOption(
                   title: 'My reviews'.tr(context),
-                  
                   onTap: () {
                     Navigator.push(
                       context,
@@ -90,7 +95,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 ProfileMenuOption(
                   title: AppString.setting(context),
-                  
                   onTap: () {
                     Navigator.push(
                       context,
@@ -113,20 +117,39 @@ class ProfileScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Logout"),
-          content: const Text("Are you sure you want to logout?"),
+          title:  Text(AppString.logout(context)),
+          content:  Text(AppString.areYouSureLogout(context)),
           actions: <Widget>[
             TextButton(
-              child: const Text("Cancel"),
+              child:  Text(AppString.cancel(context)),
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
             ),
             TextButton(
-              child: const Text("Logout", style: TextStyle(color: Colors.red)),
-              onPressed: () {
+              child:  Text(AppString.logout(context), style: const TextStyle(color: Colors.red)),
+              onPressed: () async {
                 Navigator.of(context).pop(); // Close the dialog
-                // Add your logout logic here, e.g., navigate to login screen
+                
+                // Firebase sign out
+                await FirebaseAuth.instance.signOut();
+
+                // Show a toast message
+                Fluttertoast.showToast(
+                  msg: "Successfully logged out",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  backgroundColor: AppColor.successColor,
+                  textColor: Colors.white,
+                );
+
+                // Navigate to the login screen
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginScreen(),
+                  ),
+                );
               },
             ),
           ],

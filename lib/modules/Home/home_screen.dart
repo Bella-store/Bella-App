@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../Admin/modules/Products/add_products_screen.dart';
 import 'widgets/custom_app_bar.dart';
 import 'widgets/products_section.dart';
 import 'widgets/search_bar.dart';
@@ -9,9 +10,23 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Theme.of(context);
-    
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'home_fab', // Unique heroTag for Home screen
+        backgroundColor: Theme.of(context).cardColor,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddProductScreen(),
+            ),
+          );
+        },
+        child: const Icon(Icons.add),
+      ),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(

@@ -7,7 +7,7 @@ class SearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Row(
       children: [
         Expanded(
@@ -31,7 +31,8 @@ class SearchWidget extends StatelessWidget {
               ),
               filled: true,
               fillColor: theme.cardColor,
-              contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
             ),
           ),
         ),

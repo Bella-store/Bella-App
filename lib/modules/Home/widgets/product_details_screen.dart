@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:bella_app/shared/app_color.dart';
-import 'package:bella_app/shared/app_string.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../../models/product_model.dart';
-import '../../Cart/cart_screen.dart';
+import '../../../shared/app_color.dart';
+import '../../../shared/app_string.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final Product product;
@@ -33,18 +33,20 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   final GlobalKey _descriptionKey = GlobalKey();
-  final TextStyle _descriptionTextStyle = const TextStyle(fontSize: 16, fontFamily: 'Montserrat');
+  final TextStyle _descriptionTextStyle =
+      const TextStyle(fontSize: 16, fontFamily: 'Montserrat');
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final double screenHeight = MediaQuery.of(context).size.height;
     final bool isWideScreen = MediaQuery.of(context).size.width > 600;
-    final double responsiveHeight = screenHeight * 0.1; // Adjust the multiplier as needed
+    final double responsiveHeight =
+        screenHeight * 0.01; // Adjust the multiplier as needed
 
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(color: Colors.black),
+        leading: BackButton(color: theme.iconTheme.color),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -54,7 +56,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
             Stack(
               children: [
                 Center(
-                  child: Image.asset(
+                  child: Image.network(
                     widget.product.imageUrl,
                     height: isWideScreen ? 400 : 300,
                     fit: BoxFit.cover,
@@ -142,7 +144,8 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   const SizedBox(height: 16),
                   Text(
                     AppString.availableInStock(context),
-                    style: const TextStyle(color: Colors.green, fontFamily: 'Montserrat'),
+                    style: const TextStyle(
+                        color: Colors.green, fontFamily: 'Montserrat'),
                   ),
                   const SizedBox(height: 16),
                   Text(
@@ -157,7 +160,9 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     widget.product.description,
                     key: _descriptionKey,
                     maxLines: _isExpanded ? null : 3,
-                    overflow: _isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
+                    overflow: _isExpanded
+                        ? TextOverflow.visible
+                        : TextOverflow.ellipsis,
                     style: _descriptionTextStyle,
                   ),
                   if (_showSeeMore)
@@ -188,18 +193,22 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 60.0, vertical: 15.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 60.0, vertical: 15.0),
                           backgroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      CartScreen())); // Add to cart logic
+                          Fluttertoast.showToast(
+                            msg: "Product added to the cart!",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
                         },
                         child: Text(
                           AppString.addTocart(context),
