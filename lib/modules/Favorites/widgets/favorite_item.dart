@@ -1,6 +1,7 @@
 import 'package:bella_app/models/favorite_item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import '../../../shared/custom_snackbar.dart'; // Import the CustomSnackbar
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class FavoriteItem extends StatelessWidget {
   final FavoriteItemModel item;
@@ -66,14 +67,12 @@ class FavoriteItem extends StatelessWidget {
                 onPressed: () {
                   // Add your add-to-cart logic
 
-                  // Show a toast message
-                  Fluttertoast.showToast(
-                    msg: "Product added to the cart!",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    backgroundColor: Colors.green,
-                    textColor: Colors.white,
-                    fontSize: 16.0,
+                  // Show a snackbar message using CustomSnackbar
+                  CustomSnackbar.show(
+                    context,
+                    title: 'Success',
+                    message: 'Product added to the cart!',
+                    contentType: ContentType.success,
                   );
                 },
               ),

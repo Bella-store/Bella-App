@@ -1,10 +1,10 @@
-import 'package:bella_app/modules/Favorites/favorites_screen.dart';
-import 'package:bella_app/modules/Setting/add_payment_method_screen.dart';
-import 'package:bella_app/shared/app_color.dart';
-import 'package:bella_app/shared/local/languages/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';  // Import FlutterToast package
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+
+import 'package:bella_app/modules/Favorites/favorites_screen.dart';
+import 'package:bella_app/modules/Setting/add_payment_method_screen.dart';
+import 'package:bella_app/shared/local/languages/app_localizations.dart';
 import '../../shared/app_string.dart';
 import '../Auth/login/login_screen.dart';
 import 'myorder_screen.dart';
@@ -12,6 +12,7 @@ import 'reviews_screen.dart';
 import 'setting_screen.dart';
 import 'widgets/profile_info.dart';
 import 'widgets/profile_menu_option.dart';
+import '../../shared/custom_snackbar.dart';  // Import CustomSnackbar
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -21,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Profile'.tr(context),
+        title: Text('Profile'.tr(context),
             style: const TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         actions: [
@@ -117,30 +118,30 @@ class ProfileScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title:  Text(AppString.logout(context)),
-          content:  Text(AppString.areYouSureLogout(context)),
+          title: Text(AppString.logout(context)),
+          content: Text(AppString.areYouSureLogout(context)),
           actions: <Widget>[
             TextButton(
-              child:  Text(AppString.cancel(context)),
+              child: Text(AppString.cancel(context)),
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
             ),
             TextButton(
-              child:  Text(AppString.logout(context), style: const TextStyle(color: Colors.red)),
+              child: Text(AppString.logout(context),
+                  style: const TextStyle(color: Colors.red)),
               onPressed: () async {
                 Navigator.of(context).pop(); // Close the dialog
                 
                 // Firebase sign out
                 await FirebaseAuth.instance.signOut();
 
-                // Show a toast message
-                Fluttertoast.showToast(
-                  msg: "Successfully logged out",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  backgroundColor: AppColor.successColor,
-                  textColor: Colors.white,
+                // Show a snackbar message using CustomSnackbar
+                CustomSnackbar.show(
+                  context,
+                  title: 'Success',
+                  message: 'Successfully logged out',
+                  contentType: ContentType.success,
                 );
 
                 // Navigate to the login screen

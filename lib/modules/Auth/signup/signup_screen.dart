@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 import '../../../layout_screen.dart'; // Import your main layout screen
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
 import '../cubit/auth_cubit.dart';
+import '../../../shared/custom_snackbar.dart'; // Import the CustomSnackbar
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -41,19 +42,22 @@ class SignUpScreenState extends State<SignUpScreen> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const LayoutScreen()),
-              // MaterialPageRoute(builder: (context) => const LoginScreen()),
             );
 
-            // Show success message
-            Fluttertoast.showToast(
-              backgroundColor: AppColor.successColor,
-              msg: "Signup successful!",
+            // Show success message using CustomSnackbar
+            CustomSnackbar.show(
+              context,
+              title: 'Success!',
+              message: 'Signup successful!',
+              contentType: ContentType.success,
             );
           } else if (state is SignUpErrorState) {
-            // Show error message
-            Fluttertoast.showToast(
-              backgroundColor: AppColor.errorColor,
-              msg: state.error,
+            // Show error message using CustomSnackbar
+            CustomSnackbar.show(
+              context,
+              title: 'Error',
+              message: state.error,
+              contentType: ContentType.failure,
             );
           }
         },
@@ -178,7 +182,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(height: 12.0),
                         TextFormField(
                           controller: confirmPasswordController,
-                          obscureText: !_isPasswordVisible,
+                          obscureText: !_isConfirmedPasswordVisible,
                           decoration: InputDecoration(
                             labelText:
                                 AppString.plzconfirmYourPassword(context),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../../../models/product_model.dart';
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
+import '../../../shared/custom_snackbar.dart'; 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final Product product;
@@ -201,13 +202,12 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                         ),
                         onPressed: () {
-                          Fluttertoast.showToast(
-                            msg: "Product added to the cart!",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            backgroundColor: Colors.green,
-                            textColor: Colors.white,
-                            fontSize: 16.0,
+                          // Show a snackbar message using CustomSnackbar
+                          CustomSnackbar.show(
+                            context,
+                            title: 'Success',
+                            message: 'Product added to the cart!',
+                            contentType: ContentType.success,
                           );
                         },
                         child: Text(
