@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'Admin/modules/Products/cubit/add_product_cubit.dart';
 import 'layout_screen.dart';
 import 'modules/Splash/splash_screen.dart';
 import 'modules/onboarding/onboarding_screen.dart';
@@ -16,12 +17,11 @@ void main() async {
 
   final prefs = await SharedPreferences.getInstance();
   String? localeCode = prefs.getString('locale') ?? 'en';
-  bool isDarkMode =
-      prefs.getBool('isDarkMode') ?? false; // Default to light mode
+  bool isDarkMode = prefs.getBool('isDarkMode') ?? false; // Default to light mode
   bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
   bool hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
 
-  Widget initialScreen = const SplashScreen(); // Default to splash screen
+  Widget initialScreen = const SplashScreen(); 
 
   if (isLoggedIn) {
     // User is logged in, show the main layout directly
@@ -35,9 +35,10 @@ void main() async {
   }
 
   runApp(MyApp(
-      locale: Locale(localeCode),
-      isDarkMode: isDarkMode,
-      initialScreen: initialScreen));
+    locale: Locale(localeCode),
+    isDarkMode: isDarkMode,
+    initialScreen: initialScreen,
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -45,11 +46,12 @@ class MyApp extends StatefulWidget {
   final bool isDarkMode;
   final Widget initialScreen;
 
-  const MyApp(
-      {super.key,
-      required this.locale,
-      required this.isDarkMode,
-      required this.initialScreen});
+  const MyApp({
+    super.key,
+    required this.locale,
+    required this.isDarkMode,
+    required this.initialScreen,
+  });
 
   static void setLocale(BuildContext context, Locale newLocale) {
     MyAppState? state = context.findAncestorStateOfType<MyAppState>();
@@ -92,8 +94,15 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthCubit>(
+          create: (context) => AuthCubit(),
+        ),
+        BlocProvider<AddProductCubit>(
+          create: (context) => AddProductCubit(),
+        ),
+      ],
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           return MaterialApp(

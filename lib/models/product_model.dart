@@ -16,4 +16,16 @@ class Product {
     required this.description,
     required this.category,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'imageUrl': imageUrl,
+      'title': title,
+      'price': price,
+      'quantity': quantity,
+      'description': description,
+      'category': category,
+    };
+  }
 }
