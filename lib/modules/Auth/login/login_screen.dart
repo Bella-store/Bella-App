@@ -1,14 +1,14 @@
-import 'package:bella_app/modules/Auth/cubit/auth_cubit.dart';
-import 'package:bella_app/modules/Auth/signup/signup_screen.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import '../cubit/auth_cubit.dart';
+import '../signup/signup_screen.dart';
 
 import '../../../layout_screen.dart'; // Replace with your main layout screen import
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
+import '../../../shared/custom_snackbar.dart'; // Import the CustomSnackbar
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -30,30 +30,35 @@ class LoginScreenState extends State<LoginScreen> {
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) async {
           if (state is LogingSuccessState) {
-            // Save the login state in SharedPreferences
-            final prefs = await SharedPreferences.getInstance();
-            await prefs.setBool('isLoggedIn', true);
-
             // Navigate to the main layout screen
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const LayoutScreen()), // Replace with your main layout screen
+              MaterialPageRoute(
+                builder: (context) => const LayoutScreen(),
+              ),
             );
 
-            // Show success message
-            Fluttertoast.showToast(
-                backgroundColor: AppColor.successColor,
-                msg: "Login successful!");
+            // Show success message using CustomSnackbar
+            CustomSnackbar.show(
+              context,
+              title: 'Success!',
+              message: 'Login successful!',
+              contentType: ContentType.success,
+            );
           } else if (state is LogingErrorState) {
-            // Show error message
-            Fluttertoast.showToast(
-                backgroundColor: AppColor.errorColor, msg: state.error);
+            // Show error message using CustomSnackbar
+            CustomSnackbar.show(
+              context,
+              title: 'Error',
+              message: state.error,
+              contentType: ContentType.failure,
+            );
           }
         },
         builder: (context, state) {
           return Scaffold(
             body: SingleChildScrollView(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,9 +94,10 @@ class LoginScreenState extends State<LoginScreen> {
                   Text(
                     AppString.welcome(context),
                     style: const TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Montserrat'),
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat',
+                    ),
                   ),
                   const SizedBox(height: 8.0),
                   Text(
@@ -107,8 +113,7 @@ class LoginScreenState extends State<LoginScreen> {
                           controller: emailController,
                           decoration: InputDecoration(
                             labelText: AppString.email(context),
-                            suffixIcon: emailController.text
-                                    .contains('@gmail.com')
+                            suffixIcon: emailController.text.contains('@gmail.com')
                                 ? const Icon(Icons.check, color: Colors.green)
                                 : null,
                           ),
@@ -168,7 +173,9 @@ class LoginScreenState extends State<LoginScreen> {
                           child: Text(
                             AppString.login(context),
                             style: TextStyle(
-                                fontSize: 18.0, color: AppColor.whiteColor),
+                              fontSize: 18.0,
+                              color: AppColor.whiteColor,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 20.0),
@@ -178,25 +185,27 @@ class LoginScreenState extends State<LoginScreen> {
                             Text(
                               AppString.dontHaveAnAccount(context),
                               style: const TextStyle(
-                                  fontSize: 16.0, fontFamily: 'Montserrat'),
+                                fontSize: 16.0,
+                                fontFamily: 'Montserrat',
+                              ),
                             ),
                             TextButton(
                               onPressed: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(
-                                    builder: (BuildContext context) =>
-                                        const SignUpScreen(),
+                                    builder: (BuildContext context) => const SignUpScreen(),
                                   ),
                                 );
                               },
                               child: Text(
                                 AppString.signUp(context),
                                 style: TextStyle(
-                                    fontSize: 16.0,
-                                    color: AppColor.blackColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Montserrat'),
+                                  fontSize: 16.0,
+                                  color: AppColor.blackColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Montserrat',
+                                ),
                               ),
                             ),
                           ],

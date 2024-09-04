@@ -1,10 +1,9 @@
 import 'dart:io';
 
-import 'package:bella_app/shared/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 import 'cubit/add_product_cubit.dart';
 
@@ -43,27 +42,31 @@ class _AddProductScreenState extends State<AddProductScreen> {
       body: BlocConsumer<AddProductCubit, AddProductState>(
         listener: (context, state) {
           if (state is AddProductSuccess) {
-            Fluttertoast.showToast(
-              msg: "Product added successfully",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: AppColor.successColor,
-              textColor: Colors.white,
-              fontSize: 16.0,
+            final snackBar = SnackBar(
+              elevation: 0,
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                title: 'Success!',
+                message: 'Product added successfully',
+                contentType: ContentType.success,
+              ),
             );
-            Navigator.of(context)
-                .pop(); // Navigate back after adding the product
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+            Navigator.of(context).pop(); // Navigate back after adding the product
           } else if (state is AddProductFailure) {
-            Fluttertoast.showToast(
-              msg: "Failed to add product: ${state.error}",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: AppColor.errorColor,
-              textColor: Colors.white,
-              fontSize: 16.0,
+            final snackBar = SnackBar(
+              elevation: 0,
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                title: 'Error',
+                message: 'Failed to add product: ${state.error}',
+                contentType: ContentType.failure,
+              ),
             );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
         },
         builder: (context, state) {
@@ -210,15 +213,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           if (_imagePath == null) {
-                            Fluttertoast.showToast(
-                              msg: "Please upload an image",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0,
+                            final snackBar = SnackBar(
+                              elevation: 0,
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: Colors.transparent,
+                              content: AwesomeSnackbarContent(
+                                title: 'Warning',
+                                message: 'Please upload an image',
+                                contentType: ContentType.warning,
+                              ),
                             );
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             return;
                           }
 

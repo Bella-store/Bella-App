@@ -1,8 +1,10 @@
-import 'package:bella_app/modules/Products/products_screen.dart';
-import 'package:bella_app/modules/Products/widgets/product_item.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../../models/product_model.dart';
 import '../../../shared/app_string.dart';
+import '../../Products/products_screen.dart';
+import '../../Products/widgets/product_item.dart';
+
 
 class ProductsSection extends StatelessWidget {
   const ProductsSection({super.key});
@@ -56,19 +58,35 @@ class ProductsSection extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: crossAxisCount,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 20,
-                  childAspectRatio: 0.75,
-                ),
-                itemCount: productList.length,
-                itemBuilder: (context, index) {
-                  return ProductItem(
-                    product: productList[index],
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance.collection('products').snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return const Center(child: Text("Error loading products"));
+                  }
+
+                  final products = snapshot.data!.docs
+                      .map((doc) => Product.fromMap(doc.data() as Map<String, dynamic>))
+                      .toList();
+
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: crossAxisCount,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 20,
+                      childAspectRatio: 0.75,
+                    ),
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      return ProductItem(
+                        product: products[index],
+                      );
+                    },
                   );
                 },
               ),
@@ -79,40 +97,3 @@ class ProductsSection extends StatelessWidget {
     );
   }
 }
-
-final List<Product> productList = [
-  Product(
-    id: '1',
-    category: 'chair',
-    imageUrl: AppString.chair,
-    title: 'Stylish Wooden Chair',
-    price: 130.0,
-    description: 'This is a stylish wooden chair perfect for modern homes.', quantity: 3,
-  ),
-  Product(
-    id: '2',
-    category: 'table',
-    imageUrl: AppString.table,
-    title: 'Modern Chair',
-    price: 150.0,
-    description:
-        'A modern chair with a sleek design, comfortable for daily use.', quantity: 2,
-  ),
-  Product(
-    id: '3',
-    category: 'table',
-    imageUrl: AppString.table,
-    title: 'Modern Chair',
-    price: 150.0,
-    description:
-        'A modern chair with a sleek design, comfortable for daily use.', quantity: 1,
-  ),
-  Product(
-    id: '4',
-    category: 'chair',
-    imageUrl: AppString.chair,
-    title: 'Stylish Wooden Chair',
-    price: 130.0,
-    description: 'This is a stylish wooden chair perfect for modern homes.', quantity: 2,
-  ),
-];

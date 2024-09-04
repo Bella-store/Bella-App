@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 import '../../../layout_screen.dart'; // Import your main layout screen
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
 import '../cubit/auth_cubit.dart';
+import '../../../shared/custom_snackbar.dart'; // Import the CustomSnackbar
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -21,7 +22,10 @@ class SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   bool _isPasswordVisible = false;
+  bool _isConfirmedPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,26 +41,31 @@ class SignUpScreenState extends State<SignUpScreen> {
             // Navigate to the main layout screen
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const LayoutScreen()), 
+              MaterialPageRoute(builder: (context) => const LayoutScreen()),
             );
 
-            // Show success message
-            Fluttertoast.showToast(
-              backgroundColor: AppColor.successColor,
-              msg: "Signup successful!",
+            // Show success message using CustomSnackbar
+            CustomSnackbar.show(
+              context,
+              title: 'Success!',
+              message: 'Signup successful!',
+              contentType: ContentType.success,
             );
           } else if (state is SignUpErrorState) {
-            // Show error message
-            Fluttertoast.showToast(
-              backgroundColor: AppColor.errorColor,
-              msg: state.error,
+            // Show error message using CustomSnackbar
+            CustomSnackbar.show(
+              context,
+              title: 'Error',
+              message: state.error,
+              contentType: ContentType.failure,
             );
           }
         },
         builder: (context, state) {
           return Scaffold(
             body: SingleChildScrollView(
-              padding: const EdgeInsets.all(20.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,6 +175,34 @@ class SignUpScreenState extends State<SignUpScreen> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return AppString.plzEnterPassword(context);
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 12.0),
+                        TextFormField(
+                          controller: confirmPasswordController,
+                          obscureText: !_isConfirmedPasswordVisible,
+                          decoration: InputDecoration(
+                            labelText:
+                                AppString.plzconfirmYourPassword(context),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isConfirmedPasswordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isConfirmedPasswordVisible = !_isConfirmedPasswordVisible;
+                                });
+                              },
+                            ),
+                          ),
+                          validator: (value) {
+                            if ((value == null || value.isEmpty) ||
+                                value != passwordController.text) {
+                              return AppString.yourPasswordDoesNotMatch(context);
                             }
                             return null;
                           },

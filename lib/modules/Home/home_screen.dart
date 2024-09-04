@@ -10,10 +10,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Theme.of(context);
-
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        heroTag: 'home_fab', // Unique heroTag for Home screen
         backgroundColor: Theme.of(context).cardColor,
         onPressed: () {
           Navigator.push(

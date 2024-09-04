@@ -17,6 +17,18 @@ class Product {
     required this.category,
   });
 
+  factory Product.fromMap(Map<String, dynamic> map) {
+    return Product(
+      id: map['id'],
+      imageUrl: map['imageUrl'],
+      title: map['title'],
+      price: map['price'],
+      quantity: map['quantity'],
+      description: map['description'],
+      category: map['category'],
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
