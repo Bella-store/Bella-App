@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/favorite_item_model.dart';
 import '../../shared/app_color.dart';
 import '../../shared/app_string.dart';
-import 'package:bella_app/modules/Favorites/widgets/favorite_item.dart';
+import 'widgets/favorite_item.dart';
 
 class FavoritesScreen extends StatelessWidget {
   final List<FavoriteItemModel> favoriteItems = [
@@ -29,10 +29,6 @@ class FavoritesScreen extends StatelessWidget {
         title: Text(AppString.favorites(context),
             style: const TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
-        // leading: IconButton(
-        //   icon: Icon(Icons.search, color: theme.iconTheme.color),
-        //   onPressed: () {},
-        // ),
         actions: [
           IconButton(
             icon: Icon(Icons.shopping_cart_outlined,
@@ -42,6 +38,14 @@ class FavoritesScreen extends StatelessWidget {
         ],
         elevation: 0,
         backgroundColor: theme.cardColor,
+      ),
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'favorites_fab', // Unique heroTag for Favorites screen
+        backgroundColor: AppColor.mainColor,
+        onPressed: () {
+          // Implement your action here
+        },
+        child: const Icon(Icons.favorite),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
