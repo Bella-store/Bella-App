@@ -39,14 +39,6 @@ class FavoritesScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: theme.cardColor,
       ),
-      floatingActionButton: FloatingActionButton(
-        heroTag: 'favorites_fab', // Unique heroTag for Favorites screen
-        backgroundColor: AppColor.mainColor,
-        onPressed: () {
-          // Implement your action here
-        },
-        child: const Icon(Icons.favorite),
-      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           double itemHeight = constraints.maxHeight * 0.1;

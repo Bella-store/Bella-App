@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter/services.dart'; // Import for SystemUiOverlayStyle
 import 'Admin/modules/Products/cubit/add_product_cubit.dart';
 import 'layout_screen.dart';
 import 'modules/Splash/splash_screen.dart';
@@ -17,11 +18,12 @@ void main() async {
 
   final prefs = await SharedPreferences.getInstance();
   String? localeCode = prefs.getString('locale') ?? 'en';
-  bool isDarkMode = prefs.getBool('isDarkMode') ?? false; // Default to light mode
+  bool isDarkMode =
+      prefs.getBool('isDarkMode') ?? false; // Default to light mode
   bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
   bool hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
 
-  Widget initialScreen = const SplashScreen(); 
+  Widget initialScreen = const SplashScreen();
 
   if (isLoggedIn) {
     // User is logged in, show the main layout directly
@@ -76,6 +78,7 @@ class MyAppState extends State<MyApp> {
     super.initState();
     _locale = widget.locale;
     _isDarkMode = widget.isDarkMode;
+    _setSystemUIOverlayStyle(); // Set the status bar theme when the app starts
   }
 
   void setLocale(Locale value) {
@@ -89,11 +92,25 @@ class MyAppState extends State<MyApp> {
     await prefs.setBool('isDarkMode', isDarkMode);
     setState(() {
       _isDarkMode = isDarkMode;
+      _setSystemUIOverlayStyle(); // Update the status bar theme when the theme changes
     });
+  }
+
+  void _setSystemUIOverlayStyle() {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: _isDarkMode ? darkTheme.primaryColor : Colors.white,
+        statusBarIconBrightness:
+            _isDarkMode ? Brightness.light : Brightness.dark,
+        statusBarBrightness: _isDarkMode ? Brightness.dark : Brightness.light,
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    _setSystemUIOverlayStyle(); // Ensure the status bar theme is applied when the widget is rebuilt
+
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthCubit>(
