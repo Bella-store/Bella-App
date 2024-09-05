@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../../models/user_model.dart';
 
 part 'auth_state.dart';
 
@@ -26,16 +26,13 @@ class AuthCubit extends Cubit<AuthState> {
           .collection('users')
           .doc(userCredential.user!.uid)
           .get();
-      String name = userDoc['userName'];
+      UserModel userModel =
+          UserModel.fromMap(userDoc.data() as Map<String, dynamic>, userDoc.id);
 
-      // Save login state and user data in SharedPreferences
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isLoggedIn', true);
-      await prefs.setString('uid', userCredential.user!.uid);
-      await prefs.setString('userName', name);
-      await prefs.setString('userEmail', email);
+      // Save user data in SharedPreferences
+      await userModel.saveToPreferences();
 
-      emit(LogingSuccessState());
+      emit(LogingSuccessState(userModel));
     } on FirebaseAuthException catch (e) {
       emit(LogingErrorState(e.message ?? "An error occurred during login"));
     }
@@ -51,27 +48,26 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
       );
 
-      // Get the UID of the registered user
-      String uid = userCredential.user!.uid;
+      // Create a new UserModel
+      UserModel userModel = UserModel(
+        userId: userCredential.user!.uid,
+        userName: name,
+        userEmail: email,
+        favoriteProducts: [],
+        cartProducts: [],
+        role: 'user',
+      );
 
       // Add the user document to Firestore
-      await _firestore.collection('users').doc(uid).set({
-        'userId': uid,
-        'userName': name,
-        'userEmail': email,
-        'favouriteProducts': [], // Initialize with an empty list
-        'cartProducts': [], // Initialize with an empty list
-        'role': 'user', // Set default role as 'user'
-      });
+      await _firestore
+          .collection('users')
+          .doc(userModel.userId)
+          .set(userModel.toMap());
 
       // Save user data in SharedPreferences
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isLoggedIn', true);
-      await prefs.setString('uid', uid);
-      await prefs.setString('userName', name);
-      await prefs.setString('userEmail', email);
+      await userModel.saveToPreferences();
 
-      emit(SignUpSuccessState());
+      emit(SignUpSuccessState(userModel));
     } on FirebaseAuthException catch (e) {
       emit(SignUpErrorState(e.message ?? "An error occurred during sign up"));
     } catch (e) {
@@ -82,8 +78,19 @@ class AuthCubit extends Cubit<AuthState> {
   // Logout function
   void logout() async {
     await _firebaseAuth.signOut();
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.clear(); // Clear all stored data
+    await UserModel
+        .clearFromPreferences(); // Clear user data from SharedPreferences
     emit(AuthInitial()); // Reset the state
+  }
+
+  // Check if a user is already logged in using shared preferences
+  Future<void> checkLoggedIn() async {
+    emit(LogingLoadingState());
+    UserModel? userModel = await UserModel.loadFromPreferences();
+    if (userModel != null) {
+      emit(LogingSuccessState(userModel));
+    } else {
+      emit(AuthInitial());
+    }
   }
 }

@@ -13,6 +13,7 @@ import 'shared/local/languages/app_localizations.dart';
 import 'modules/Auth/cubit/auth_cubit.dart';
 import 'modules/Products/cubit/all_products_cubit.dart';
 import 'modules/Favorites/cubit/favorites_cubit.dart';
+import 'models/user_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,12 +23,13 @@ void main() async {
   String? localeCode = prefs.getString('locale') ?? 'en';
   bool isDarkMode =
       prefs.getBool('isDarkMode') ?? false; // Default to light mode
-  bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
   bool hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
 
-  Widget initialScreen = const SplashScreen();
+  // Load user model from shared preferences to determine the initial screen
+  UserModel? userModel = await UserModel.loadFromPreferences();
+  Widget initialScreen;
 
-  if (isLoggedIn) {
+  if (userModel != null) {
     initialScreen =
         const LayoutScreen(); // User is logged in, show the main layout directly
   } else if (!hasSeenOnboarding) {
@@ -116,7 +118,7 @@ class MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthCubit>(
-          create: (context) => AuthCubit(),
+          create: (context) => AuthCubit()..checkLoggedIn(),
         ),
         BlocProvider<AddProductCubit>(
           create: (context) => AddProductCubit(),
@@ -127,12 +129,18 @@ class MyAppState extends State<MyApp> {
         ),
         BlocProvider<FavoritesCubit>(
           create: (context) => FavoritesCubit(
-              productsCubit: context.read<
-                  AllProductsCubit>()), // Pass AllProductsCubit to FavoritesCubit
+            productsCubit: context.read<AllProductsCubit>(),
+          ), // Pass AllProductsCubit to FavoritesCubit
         ),
       ],
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
+          // Determine the initial screen based on the state
+          Widget initialScreen = widget.initialScreen;
+          if (state is LogingSuccessState || state is SignUpSuccessState) {
+            initialScreen = const LayoutScreen();
+          }
+
           return MaterialApp(
             title: 'Bella App',
             debugShowCheckedModeBanner: false,
@@ -156,7 +164,7 @@ class MyAppState extends State<MyApp> {
               }
               return supportedLocales.first;
             },
-            home: widget.initialScreen,
+            home: initialScreen,
           );
         },
       ),
