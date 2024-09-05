@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:bella_app/modules/Favorites/favorites_screen.dart';
 import 'package:bella_app/modules/Setting/add_payment_method_screen.dart';
@@ -12,10 +13,33 @@ import 'reviews_screen.dart';
 import 'setting_screen.dart';
 import 'widgets/profile_info.dart';
 import 'widgets/profile_menu_option.dart';
-import '../../shared/custom_snackbar.dart';  // Import CustomSnackbar
+import '../../shared/custom_snackbar.dart'; // Import CustomSnackbar
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  String userName = "Bella User"; // Default value
+  String userEmail = "bella@gmail.com"; // Default value
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData(); // Load user data from SharedPreferences
+  }
+
+  // Function to load user data from SharedPreferences
+  Future<void> _loadUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userName = prefs.getString('userName') ?? "Bella User";
+      userEmail = prefs.getString('userEmail') ?? "bella@gmail.com";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +69,8 @@ class ProfileScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ProfileInfo(
-                  name: 'Bella User',
-                  email: 'bella@gmail.com',
+                  name: userName, // Display the actual user name
+                  email: userEmail, // Display the actual user email
                   imageUrl: AppString.profile,
                 ),
                 const SizedBox(height: 20),
@@ -132,9 +156,13 @@ class ProfileScreen extends StatelessWidget {
                   style: const TextStyle(color: Colors.red)),
               onPressed: () async {
                 Navigator.of(context).pop(); // Close the dialog
-                
+
                 // Firebase sign out
                 await FirebaseAuth.instance.signOut();
+
+                // Clear SharedPreferences
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.clear();
 
                 // Show a snackbar message using CustomSnackbar
                 CustomSnackbar.show(
