@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../../models/product_model.dart';
+import '../../../utils/skeleton_loading/skeleton_product_item.dart';
 import '../../Home/widgets/product_details_screen.dart';
 import '../../../shared/app_color.dart';
 
 class ProductItem extends StatefulWidget {
   final Product product;
+  final bool isLoading;
 
-  const ProductItem({super.key, required this.product});
+  const ProductItem({super.key, required this.product, this.isLoading = false});
 
   @override
   ProductItemState createState() => ProductItemState();
@@ -23,6 +25,10 @@ class ProductItemState extends State<ProductItem> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isLoading) {
+      return const SkeletonProductItem(); // Use the skeleton widget when loading
+    }
+
     final theme = Theme.of(context);
 
     return GestureDetector(

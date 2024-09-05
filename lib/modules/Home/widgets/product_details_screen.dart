@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../models/product_model.dart';
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
-import '../../../shared/custom_snackbar.dart'; 
+import '../../../utils/custom_snackbar.dart'; 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class ProductDetailsScreen extends StatefulWidget {

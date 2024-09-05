@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../models/favorite_item_model.dart';
 import '../../shared/app_color.dart';
 import '../../shared/app_string.dart';
+import '../../utils/skeleton_loading/skeleton_favorite_item.dart';
 import 'widgets/favorite_item.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -18,6 +18,8 @@ class FavoritesScreen extends StatelessWidget {
     FavoriteItemModel(
         imageUrl: AppString.chair, title: 'Minimal Lamp', price: 12.00),
   ];
+
+  final bool isLoading = false; // Simulate loading state
 
   FavoritesScreen({super.key});
 
@@ -48,8 +50,13 @@ class FavoritesScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: ListView.builder(
-                  itemCount: favoriteItems.length,
+                  itemCount: isLoading
+                      ? 5
+                      : favoriteItems.length, // Show skeletons if loading
                   itemBuilder: (context, index) {
+                    if (isLoading) {
+                      return SkeletonFavoriteItem(itemHeight: itemHeight);
+                    }
                     return FavoriteItem(
                       item: favoriteItems[index],
                       itemHeight: itemHeight,
@@ -57,25 +64,26 @@ class FavoritesScreen extends StatelessWidget {
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(itemWidth, 50),
-                    backgroundColor: AppColor.mainColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+              if (!isLoading)
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(itemWidth, 50),
+                      backgroundColor: AppColor.mainColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                    onPressed: () {
+                      // Add all to cart logic here
+                    },
+                    child: Text(
+                      AppString.addAllToMyCart(context),
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
-                  onPressed: () {
-                    // Add all to cart logic here
-                  },
-                  child: Text(
-                    AppString.addAllToMyCart(context),
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
-                  ),
                 ),
-              ),
             ],
           );
         },

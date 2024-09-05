@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../../models/product_model.dart';
-import '../../../shared/app_string.dart';
+import '../../../utils/skeleton_loading/skeleton_product_item.dart';
 import '../../Products/products_screen.dart';
 import '../../Products/widgets/product_item.dart';
 
@@ -31,7 +31,7 @@ class ProductsSection extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    AppString.products(context),
+                    'Products',  // Replace with your localization if needed
                     style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Montserrat',
@@ -47,7 +47,7 @@ class ProductsSection extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      AppString.seeAll(context),
+                      'See All',  // Replace with your localization if needed
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
@@ -62,7 +62,20 @@ class ProductsSection extends StatelessWidget {
                 stream: FirebaseFirestore.instance.collection('products').snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 20,
+                        childAspectRatio: 0.75,
+                      ),
+                      itemCount: 8, // Show a few skeleton items while loading
+                      itemBuilder: (context, index) {
+                        return const SkeletonProductItem(); // Use the skeleton widget
+                      },
+                    );
                   }
                   if (snapshot.hasError) {
                     return const Center(child: Text("Error loading products"));

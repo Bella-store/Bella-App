@@ -1,6 +1,6 @@
 import 'package:bella_app/models/favorite_item_model.dart';
 import 'package:flutter/material.dart';
-import '../../../shared/custom_snackbar.dart'; // Import the CustomSnackbar
+import '../../../utils/custom_snackbar.dart'; // Import the CustomSnackbar
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class FavoriteItem extends StatelessWidget {

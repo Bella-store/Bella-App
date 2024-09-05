@@ -12,7 +12,7 @@ import 'reviews_screen.dart';
 import 'setting_screen.dart';
 import 'widgets/profile_info.dart';
 import 'widgets/profile_menu_option.dart';
-import '../../shared/custom_snackbar.dart';  // Import CustomSnackbar
+import '../../utils/custom_snackbar.dart';  // Import CustomSnackbar
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

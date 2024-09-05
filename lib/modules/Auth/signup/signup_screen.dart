@@ -8,7 +8,7 @@ import '../../../layout_screen.dart'; // Import your main layout screen
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
 import '../cubit/auth_cubit.dart';
-import '../../../shared/custom_snackbar.dart'; // Import the CustomSnackbar
+import '../../../utils/custom_snackbar.dart'; // Import the CustomSnackbar
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
