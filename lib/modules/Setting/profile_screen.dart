@@ -1,8 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:bella_app/modules/Favorites/favorites_screen.dart';
 import 'package:bella_app/modules/Setting/add_payment_method_screen.dart';
 import 'package:bella_app/shared/local/languages/app_localizations.dart';
@@ -13,7 +13,8 @@ import 'reviews_screen.dart';
 import 'setting_screen.dart';
 import 'widgets/profile_info.dart';
 import 'widgets/profile_menu_option.dart';
-import '../../shared/custom_snackbar.dart'; // Import CustomSnackbar
+import '../../shared/custom_snackbar.dart';
+import '../../models/user_model.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -23,22 +24,54 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String userName = "Bella User"; // Default value
-  String userEmail = "bella@gmail.com"; // Default value
+  late UserModel _currentUserModel;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _loadUserData(); // Load user data from SharedPreferences
+    _loadUserData(); // Load user data when the screen is initialized
   }
 
-  // Function to load user data from SharedPreferences
+  // Function to load user data from SharedPreferences and synchronize with Firebase
   Future<void> _loadUserData() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      userName = prefs.getString('userName') ?? "Bella User";
-      userEmail = prefs.getString('userEmail') ?? "bella@gmail.com";
-    });
+    try {
+      final userModel = await UserModel.loadFromPreferences();
+      if (userModel != null) {
+        setState(() {
+          _currentUserModel = userModel;
+          _isLoading = false;
+        });
+      } else {
+        // If no user data found in SharedPreferences, fetch from Firebase
+        final currentUser = FirebaseAuth.instance.currentUser;
+        if (currentUser != null) {
+          final userDoc = await FirebaseFirestore.instance
+              .collection('users')
+              .doc(currentUser.uid)
+              .get();
+          if (userDoc.exists) {
+            _currentUserModel = UserModel.fromMap(userDoc.data()!, userDoc.id);
+            await _currentUserModel
+                .saveToPreferences(); // Save fetched user model to SharedPreferences
+            setState(() {
+              _isLoading = false;
+            });
+          }
+        }
+      }
+    } catch (e) {
+      // Handle errors appropriately, e.g., show a message or log the error
+      CustomSnackbar.show(
+        context,
+        title: 'Error',
+        message: 'Failed to load user data.',
+        contentType: ContentType.failure,
+      );
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -60,80 +93,83 @@ class _ProfileScreenState extends State<ProfileScreen> {
         elevation: 0,
         backgroundColor: theme.cardColor,
       ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          double padding = constraints.maxWidth * 0.05;
-          return SingleChildScrollView(
-            padding: EdgeInsets.all(padding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ProfileInfo(
-                  name: userName, // Display the actual user name
-                  email: userEmail, // Display the actual user email
-                  imageUrl: AppString.profile,
-                ),
-                const SizedBox(height: 20),
-                ProfileMenuOption(
-                  title: AppString.myOrders(context),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MyOrderScreen(),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : LayoutBuilder(
+              builder: (context, constraints) {
+                double padding = constraints.maxWidth * 0.05;
+                return SingleChildScrollView(
+                  padding: EdgeInsets.all(padding),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ProfileInfo(
+                        name: _currentUserModel.userName,
+                        email: _currentUserModel.userEmail,
+                        imageUrl: AppString.profile,
                       ),
-                    );
-                  },
-                ),
-                ProfileMenuOption(
-                  title: AppString.favorites(context),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FavoritesScreen(),
+                      const SizedBox(height: 20),
+                      ProfileMenuOption(
+                        title: AppString.myOrders(context),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MyOrderScreen(),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-                ProfileMenuOption(
-                  title: 'Payment Method'.tr(context),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AddPaymentMethodScreen(),
+                      ProfileMenuOption(
+                        title: AppString.favorites(context),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FavoritesScreen(),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-                ProfileMenuOption(
-                  title: 'My reviews'.tr(context),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MyReviewsScreen(),
+                      ProfileMenuOption(
+                        title: 'Payment Method'.tr(context),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const AddPaymentMethodScreen(),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-                ProfileMenuOption(
-                  title: AppString.setting(context),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SettingScreen(),
+                      ProfileMenuOption(
+                        title: 'My reviews'.tr(context),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MyReviewsScreen(),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-              ],
+                      ProfileMenuOption(
+                        title: AppString.setting(context),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SettingScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 

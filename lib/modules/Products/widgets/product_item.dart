@@ -66,7 +66,7 @@ class ProductItem extends StatelessWidget {
                     },
                     builder: (context, state) {
                       final isFavorite = state is FavoritesLoadedState &&
-                          state.favoriteItems.contains(product.id);
+                          state.favoriteProductIds.contains(product.id);
 
                       return IconButton(
                         icon: Icon(

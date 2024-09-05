@@ -1,7 +1,9 @@
 import 'package:bella_app/models/favorite_item_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../shared/custom_snackbar.dart'; // Import the CustomSnackbar
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import '../../Favorites/cubit/favorites_cubit.dart';
 
 class FavoriteItem extends StatelessWidget {
   final FavoriteItemModel item;
@@ -19,7 +21,7 @@ class FavoriteItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: Row(
         children: [
-          Image.asset(
+          Image.network(
             item.imageUrl,
             width: itemHeight,
             height: itemHeight,
@@ -53,7 +55,18 @@ class FavoriteItem extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.cancel_outlined),
                 onPressed: () {
-                  // Remove from favorites logic
+                  // Access FavoritesCubit to remove the product
+                  final favoritesCubit = context.read<FavoritesCubit>();
+                  favoritesCubit.removeFavorite(
+                      item.id); // Use the correct property for product ID
+
+                  // Show a snackbar message to confirm removal
+                  CustomSnackbar.show(
+                    context,
+                    title: 'Removed',
+                    message: 'Product removed from favorites!',
+                    contentType: ContentType.success,
+                  );
                 },
               ),
               const SizedBox(height: 8.0), // Adjust the height as needed

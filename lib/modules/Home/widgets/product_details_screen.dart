@@ -74,7 +74,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     },
                     builder: (context, state) {
                       final isFavorite = state is FavoritesLoadedState &&
-                          state.favoriteItems.contains(widget.product.id);
+                          state.favoriteProductIds.contains(widget.product.id);
 
                       return IconButton(
                         icon: Icon(
