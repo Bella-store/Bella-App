@@ -11,6 +11,8 @@ import 'modules/Splash/splash_screen.dart';
 import 'modules/onboarding/onboarding_screen.dart';
 import 'shared/local/languages/app_localizations.dart';
 import 'modules/Auth/cubit/auth_cubit.dart';
+import 'modules/Products/cubit/all_products_cubit.dart';
+import 'modules/Favorites/cubit/favorites_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -118,6 +120,15 @@ class MyAppState extends State<MyApp> {
         ),
         BlocProvider<AddProductCubit>(
           create: (context) => AddProductCubit(),
+        ),
+        BlocProvider<AllProductsCubit>(
+          create: (context) => AllProductsCubit()
+            ..loadAllProducts(), // Initialize and load all products
+        ),
+        BlocProvider<FavoritesCubit>(
+          create: (context) => FavoritesCubit(
+              productsCubit: context.read<
+                  AllProductsCubit>()), // Initialize FavoritesCubit with ProductsCubit
         ),
       ],
       child: BlocBuilder<AuthCubit, AuthState>(
