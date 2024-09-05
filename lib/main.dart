@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter/services.dart'; // Import for SystemUiOverlayStyle
+import 'package:flutter/services.dart';
 import 'Admin/modules/Products/cubit/add_product_cubit.dart';
 import 'layout_screen.dart';
 import 'modules/Splash/splash_screen.dart';
@@ -28,14 +28,14 @@ void main() async {
   Widget initialScreen = const SplashScreen();
 
   if (isLoggedIn) {
-    // User is logged in, show the main layout directly
-    initialScreen = const LayoutScreen();
+    initialScreen =
+        const LayoutScreen(); // User is logged in, show the main layout directly
   } else if (!hasSeenOnboarding) {
-    // User hasn't seen onboarding, show the onboarding screen
-    initialScreen = const OnboardingScreen();
+    initialScreen =
+        const OnboardingScreen(); // User hasn't seen onboarding, show the onboarding screen
   } else {
-    // User hasn't logged in, show splash screen
-    initialScreen = const SplashScreen();
+    initialScreen =
+        const SplashScreen(); // User hasn't logged in, show splash screen
   }
 
   runApp(MyApp(
@@ -128,7 +128,7 @@ class MyAppState extends State<MyApp> {
         BlocProvider<FavoritesCubit>(
           create: (context) => FavoritesCubit(
               productsCubit: context.read<
-                  AllProductsCubit>()), // Initialize FavoritesCubit with ProductsCubit
+                  AllProductsCubit>()), // Pass AllProductsCubit to FavoritesCubit
         ),
       ],
       child: BlocBuilder<AuthCubit, AuthState>(
