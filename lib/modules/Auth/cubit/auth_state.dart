@@ -6,7 +6,10 @@ class AuthInitial extends AuthState {}
 
 class LogingLoadingState extends AuthState {}
 
-class LogingSuccessState extends AuthState {}
+class LogingSuccessState extends AuthState {
+  final UserModel userModel;
+  LogingSuccessState(this.userModel);
+}
 
 class LogingErrorState extends AuthState {
   final String error;
@@ -15,7 +18,10 @@ class LogingErrorState extends AuthState {
 
 class SignUpLoadingState extends AuthState {}
 
-class SignUpSuccessState extends AuthState {}
+class SignUpSuccessState extends AuthState {
+  final UserModel userModel;
+  SignUpSuccessState(this.userModel);
+}
 
 class SignUpErrorState extends AuthState {
   final String error;
