@@ -138,4 +138,12 @@ class AppString {
   static String cancel(BuildContext context) => 'cancel'.tr(context);
   static String no(BuildContext context) => 'no'.tr(context);
   static String yes(BuildContext context) => 'yes'.tr(context);
+
+  // Choose Categories --------------------------------------------------------------
+  static String chooseCategories(BuildContext context) =>
+      'chooseCategories'.tr(context);
+
+  static String pleaseChooseOneCategory(BuildContext context) =>
+      'pleaseChooseOneCategory'.tr(context);
+  static String submit(BuildContext context) => 'submit'.tr(context);
 }

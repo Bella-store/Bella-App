@@ -92,5 +92,8 @@
     "Payment Method": "Payment Method",
     "My Orders": "My Orders",
     "My reviews": "My reviews",
-    "addAllToMyCart": "Add all to my cart"
+    "addAllToMyCart": "Add all to my cart",
+     "chooseCategories": "Choose Categories",
+    "pleaseChooseOneCategory":"Please Choose at least one category",
+    "submit":"Submit"
 }
