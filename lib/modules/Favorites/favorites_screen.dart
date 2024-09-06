@@ -1,12 +1,28 @@
 import 'package:bella_app/models/favorite_item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../modules/Favorites/cubit/favorites_cubit.dart';
+import '../../models/favorite_item_model.dart';
+import '../../shared/app_color.dart';
 import '../../shared/app_string.dart';
+import '../../utils/skeleton_loading/skeleton_favorite_item.dart';
 import 'widgets/favorite_item.dart';
 
 class FavoritesScreen extends StatelessWidget {
-  const FavoritesScreen({super.key});
+  final List<FavoriteItemModel> favoriteItems = [
+    FavoriteItemModel(
+        imageUrl: AppString.chair, title: 'Coffee Table', price: 50.00),
+    FavoriteItemModel(
+        imageUrl: AppString.table, title: 'Coffee Chair', price: 20.00),
+    FavoriteItemModel(
+        imageUrl: AppString.chair, title: 'Minimal Stand', price: 25.00),
+    FavoriteItemModel(
+        imageUrl: AppString.table, title: 'Minimal Desk', price: 50.00),
+    FavoriteItemModel(
+        imageUrl: AppString.chair, title: 'Minimal Lamp', price: 12.00),
+  ];
+
+  final bool isLoading = false; // Simulate loading state
+
+  FavoritesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,45 +43,51 @@ class FavoritesScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: theme.cardColor,
       ),
-      body: BlocBuilder<FavoritesCubit, FavoritesState>(
-        builder: (context, state) {
-          if (state is FavoritesLoadingState) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is FavoritesLoadedState) {
-            final favoritesCubit = context.read<FavoritesCubit>();
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          double itemHeight = constraints.maxHeight * 0.1;
+          double itemWidth = constraints.maxWidth;
 
-            // Get favorite products from all products based on their IDs
-            final favoriteProducts =
-                favoritesCubit.getFavoriteProducts(state.favoriteProductIds);
-
-            if (favoriteProducts.isEmpty) {
-              return const Center(child: Text("No favorites yet!"));
-            }
-
-            return ListView.builder(
-              itemCount: favoriteProducts.length,
-              itemBuilder: (context, index) {
-                final product = favoriteProducts[index];
-
-                // Convert Product to FavoriteItemModel
-                final favoriteItem = FavoriteItemModel(
-                  id: product.id,
-                  imageUrl: product.imageUrl,
-                  title: product.title,
-                  price: product.price,
-                );
-
-                return FavoriteItem(
-                  item: favoriteItem,
-                  itemHeight: 100,
-                );
-              },
-            );
-          } else if (state is FavoritesErrorState) {
-            return Center(child: Text(state.message));
-          }
-
-          return const Center(child: Text('Something went wrong!'));
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: isLoading
+                      ? 5
+                      : favoriteItems.length, // Show skeletons if loading
+                  itemBuilder: (context, index) {
+                    if (isLoading) {
+                      return SkeletonFavoriteItem(itemHeight: itemHeight);
+                    }
+                    return FavoriteItem(
+                      item: favoriteItems[index],
+                      itemHeight: itemHeight,
+                    );
+                  },
+                ),
+              ),
+              if (!isLoading)
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(itemWidth, 50),
+                      backgroundColor: AppColor.mainColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                    onPressed: () {
+                      // Add all to cart logic here
+                    },
+                    child: Text(
+                      AppString.addAllToMyCart(context),
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                  ),
+                ),
+            ],
+          );
         },
       ),
     );
