@@ -94,5 +94,7 @@
   "addAllToMyCart": "أضف الكل إلى العربة",
   "chooseCategories": "اختر الفئات",
   "pleaseChooseOneCategory": "برجاء اختر فئاة واحدة على الأقل",
-  "submit": "إرسال"
+  "submit": "إرسال",
+  "orderSummary": "ملخص الطلب",
+  "proceedToPayment": "المتابعة إلى الدفع"
 }

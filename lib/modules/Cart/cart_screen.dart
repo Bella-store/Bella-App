@@ -5,6 +5,7 @@ import 'cubit/cart_cubit.dart';
 import 'widgets/cart_item.dart';
 import '../../shared/app_string.dart';
 import '../../shared/app_color.dart';
+import 'widgets/order_summary.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
@@ -131,7 +132,19 @@ class CartScreen extends StatelessWidget {
                     const SizedBox(height: 20.0),
                     ElevatedButton(
                       onPressed: () {
-                        // Checkout logic
+                        // Show modal bottom sheet with order summary
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(25.0),
+                            ),
+                          ),
+                          builder: (context) {
+                            return OrderSummary(context: context, state: state);
+                          },
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 50),

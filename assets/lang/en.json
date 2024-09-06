@@ -95,5 +95,7 @@
     "addAllToMyCart": "Add all to my cart",
      "chooseCategories": "Choose Categories",
     "pleaseChooseOneCategory":"Please Choose at least one category",
-    "submit":"Submit"
+    "submit":"Submit",
+    "orderSummary":"Order Summary",
+    "proceedToPayment":"Proceed to Payment"
 }

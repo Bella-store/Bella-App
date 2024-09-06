@@ -146,4 +146,9 @@ class AppString {
   static String pleaseChooseOneCategory(BuildContext context) =>
       'pleaseChooseOneCategory'.tr(context);
   static String submit(BuildContext context) => 'submit'.tr(context);
+
+  // OrderSummary ---------------------------------------------------------------------
+  static String orderSummary(BuildContext context) => 'orderSummary'.tr(context);
+  static String proceedToPayment(BuildContext context) =>
+      'proceedToPayment'.tr(context);
 }
