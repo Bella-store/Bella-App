@@ -1,5 +1,6 @@
 import 'package:bella_app/models/favorite_item_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../utils/custom_snackbar.dart'; // Import the CustomSnackbar
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import '../../Favorites/cubit/favorites_cubit.dart';
