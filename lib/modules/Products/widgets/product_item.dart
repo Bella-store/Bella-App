@@ -42,7 +42,7 @@ class ProductItem extends StatelessWidget {
               children: [
                 // Display the product image here
                 Container(
-                  height: 160,
+                  height: 150,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
