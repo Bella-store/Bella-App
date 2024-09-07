@@ -148,7 +148,31 @@ class AppString {
   static String submit(BuildContext context) => 'submit'.tr(context);
 
   // OrderSummary ---------------------------------------------------------------------
-  static String orderSummary(BuildContext context) => 'orderSummary'.tr(context);
+  static String orderSummary(BuildContext context) =>
+      'orderSummary'.tr(context);
   static String proceedToPayment(BuildContext context) =>
       'proceedToPayment'.tr(context);
+
+  // checkout screen ------------------------------------------------------------------
+  static String delivery(BuildContext context) => 'delivery'.tr(context);
+  static String paymentMethod(BuildContext context) =>
+      'paymentMethod'.tr(context);
+  static String pickup(BuildContext context) => 'pickup'.tr(context);
+  static String proceed(BuildContext context) => 'proceed'.tr(context);
+  static String payVisa(BuildContext context) => 'payVisa'.tr(context);
+  static String save(BuildContext context) => 'save'.tr(context);
+  static String continuePayment(BuildContext context) => 'continuePayment'.tr(context);
+  static String userInfo(BuildContext context) => 'userInfo'.tr(context);
+  static String changeAddress(BuildContext context) => 'changeAddress'.tr(context);
+  static String changePhoneNumber(BuildContext context) =>
+      'changePhoneNumber'.tr(context);
+  static String changeEmail(BuildContext context) => 'changeEmail'.tr(context);
+  static String enterAddress(BuildContext context) => 'enterAddress'.tr(context);
+
+
+  static String enterPhoneNumber(BuildContext context) => 'enterPhoneNumber'.tr(context);
+
+  static String enterEmail(BuildContext context) => 'enterEmail'.tr(context);
+
+
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
 import '../cubit/cart_cubit.dart';
+import 'checkout_screen.dart';
 
 class OrderSummary extends StatelessWidget {
   const OrderSummary({
@@ -56,6 +57,10 @@ class OrderSummary extends StatelessWidget {
           const SizedBox(height: 20.0),
           ElevatedButton(
             onPressed: () {
+                 Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CheckoutScreen()),
+    );
               // Proceed to payment or next step
             },
             style: ElevatedButton.styleFrom(

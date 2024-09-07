@@ -96,5 +96,23 @@
   "pleaseChooseOneCategory": "برجاء اختر فئاة واحدة على الأقل",
   "submit": "إرسال",
   "orderSummary": "ملخص الطلب",
-  "proceedToPayment": "المتابعة إلى الدفع"
+  "proceedToPayment": "المتابعة إلى الدفع",
+
+  "delivery": "التوصيل",
+  "payment_method": "طريقة الدفع",
+  "visa": "فيزا",
+  "payVisa": "الدفع بواسطة بطاقة فيزا",
+  "pick_up": "استلام من المتجر",
+  "pick_up_subtitle": "استلام من المتجر",
+  "userInfo": "معلومات المستخدم",
+
+  "changeAddress": "تغيير العنوان",
+  "enterAddress": "أدخل عنوانك الجديد",
+
+  "changePhoneNumber": "تغيير رقم الهاتف",
+  "enterPhoneNumber": "أدخل رقم هاتفك الجديد",
+  "changeEmail": "تغيير البريد الإلكتروني",
+  "enterEmail": "أدخل بريدك الإلكتروني الجديد",
+  "continuePayment": "الاستمرار للدفع",
+  "save": "حفظ"
 }

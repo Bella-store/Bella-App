@@ -97,5 +97,24 @@
     "pleaseChooseOneCategory":"Please Choose at least one category",
     "submit":"Submit",
     "orderSummary":"Order Summary",
-    "proceedToPayment":"Proceed to Payment"
+    "proceedToPayment":"Proceed to Payment",
+
+    "delivery": "Delivery",
+    "payment_method": "Payment Method",
+    "visa": "Visa",
+    "payVisa": "Pay with your Visa card",
+    "pick_up": "Pick Up",
+    "pick_up_subtitle": "Pick up at the store",
+    "userInfo": "User Info",
+
+
+    "changeAddress": "Change Address",
+    "enterAddress": "Enter your new address",
+
+    "changePhoneNumber": "Change Phone Number",
+    "enterPhoneNumbert": "Enter your new phone number",
+    "change_email": "Change Email",
+    "enterEmail": "Enter your new email",
+    "continuePayment": "Continue to Payment",
+    "save": "Save"
 }
