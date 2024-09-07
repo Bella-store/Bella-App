@@ -1,6 +1,7 @@
 import 'package:bella_app/shared/theme/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -9,6 +10,7 @@ import 'Admin/modules/Products/cubit/add_product_cubit.dart';
 import 'layout_screen.dart';
 import 'modules/Splash/splash_screen.dart';
 import 'modules/onboarding/onboarding_screen.dart';
+import 'modules/stripe_payment/stripe_keys.dart';
 import 'shared/local/languages/app_localizations.dart';
 import 'modules/Auth/cubit/auth_cubit.dart';
 import 'modules/Products/cubit/all_products_cubit.dart';
@@ -20,6 +22,9 @@ void main() async {
   await Firebase.initializeApp();
 
   final prefs = await SharedPreferences.getInstance();
+
+  Stripe.publishableKey=ApiKeys.pusblishableKey;
+  
   String? localeCode = prefs.getString('locale') ?? 'en';
   bool isDarkMode =
       prefs.getBool('isDarkMode') ?? false; // Default to light mode

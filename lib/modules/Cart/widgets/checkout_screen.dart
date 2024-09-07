@@ -1,4 +1,6 @@
+import 'package:bella_app/modules/stripe_payment/payment_manager.dart';
 import 'package:bella_app/shared/app_string.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/app_color.dart';
 import '../../Setting/myorder_screen.dart';
@@ -120,7 +122,8 @@ class CheckoutScreenState extends State<CheckoutScreen> {
               ),
         ),
         ListTile(
-          leading: Icon(Icons.location_on, color: Theme.of(context).iconTheme.color),
+          leading:
+              Icon(Icons.location_on, color: Theme.of(context).iconTheme.color),
           title: Text(
             '591 Hill',
             style: Theme.of(context).textTheme.bodyLarge,
@@ -132,7 +135,8 @@ class CheckoutScreenState extends State<CheckoutScreen> {
           trailing: Icon(Icons.arrow_forward_ios,
               color: Theme.of(context).iconTheme.color),
           onTap: () {
-            _showChangeDialog(context, AppString.changeAddress(context), AppString.enterAddress(context));
+            _showChangeDialog(context, AppString.changeAddress(context),
+                AppString.enterAddress(context));
           },
         ),
         ListTile(
@@ -144,7 +148,8 @@ class CheckoutScreenState extends State<CheckoutScreen> {
           trailing: Icon(Icons.arrow_forward_ios,
               color: Theme.of(context).iconTheme.color),
           onTap: () {
-           _showChangeDialog(context, AppString.changePhoneNumber(context), AppString.enterPhoneNumber(context));
+            _showChangeDialog(context, AppString.changePhoneNumber(context),
+                AppString.enterPhoneNumber(context));
           },
         ),
         ListTile(
@@ -156,7 +161,8 @@ class CheckoutScreenState extends State<CheckoutScreen> {
           trailing: Icon(Icons.arrow_forward_ios,
               color: Theme.of(context).iconTheme.color),
           onTap: () {
-           _showChangeDialog(context, AppString.changeEmail(context), AppString.enterEmail(context));
+            _showChangeDialog(context, AppString.changeEmail(context),
+                AppString.enterEmail(context));
           },
         ),
       ],
@@ -165,21 +171,31 @@ class CheckoutScreenState extends State<CheckoutScreen> {
 
   Widget _buildProceedButton(BuildContext context, double width) {
     return ElevatedButton(
-      onPressed: () {
-        if (_selectedOption == 'pickup') {
-          // Navigate to My Order screen
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const MyOrderScreen()),
-          );
-        } else {
-          // Proceed to payment stripe
-          
-        }
-      },
+      // onPressed: () => PaymentManager.makePayment(20, "USD"),
+      onPressed: () async {
+  try {
+    if (_selectedOption == 'pickup') {
+      // Navigate to My Order screen
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MyOrderScreen()),
+      );
+    } else {
+      await PaymentManager.makePayment(20, "USD");
+      // Payment successful, handle post-payment actions here
+    }
+  } catch (e) {
+    // Handle any errors that occur during payment, such as the payment being canceled
+    if (kDebugMode) {
+      print("Payment failed: $e");
+    }
+    // Optionally show an error message to the user
+  }
+},
+
       style: ElevatedButton.styleFrom(
         minimumSize: Size(width, 50),
-        backgroundColor:  AppColor.mainColor,
+        backgroundColor: AppColor.mainColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
@@ -209,16 +225,18 @@ class CheckoutScreenState extends State<CheckoutScreen> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); 
+                Navigator.of(context).pop();
               },
-              child: Text(AppString.cancel(context), style: Theme.of(context).textTheme.labelLarge),
+              child: Text(AppString.cancel(context),
+                  style: Theme.of(context).textTheme.labelLarge),
             ),
             TextButton(
               onPressed: () {
                 // Implement your logic to save the updated information
-                Navigator.of(context).pop(); 
+                Navigator.of(context).pop();
               },
-              child: Text(AppString.save(context), style: Theme.of(context).textTheme.labelLarge),
+              child: Text(AppString.save(context),
+                  style: Theme.of(context).textTheme.labelLarge),
             ),
           ],
         );

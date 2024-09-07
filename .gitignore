@@ -30,7 +30,8 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-
+.env
+/lib/modules/stripe_payment/stripe_keys.dart
 # Symbolication related
 app.*.symbols
 
