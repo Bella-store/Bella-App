@@ -8,7 +8,7 @@ import '../../../layout_screen.dart'; // Import your main layout screen
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
 import '../cubit/auth_cubit.dart';
-import '../../../shared/custom_snackbar.dart'; // Import the CustomSnackbar
+import '../../../utils/custom_snackbar.dart'; // Import the CustomSnackbar
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -22,8 +22,7 @@ class SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
   bool _isPasswordVisible = false;
   bool _isConfirmedPasswordVisible = false;
 
@@ -64,8 +63,7 @@ class SignUpScreenState extends State<SignUpScreen> {
         builder: (context, state) {
           return Scaffold(
             body: SingleChildScrollView(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,9 +99,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                   Text(
                     AppString.signUp(context),
                     style: const TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Montserrat'),
+                        fontSize: 24.0, fontWeight: FontWeight.bold, fontFamily: 'Montserrat'),
                   ),
                   const SizedBox(height: 8.0),
                   Text(
@@ -138,8 +134,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                           controller: emailController,
                           decoration: InputDecoration(
                             labelText: AppString.email(context),
-                            suffixIcon: emailController.text
-                                    .contains('@gmail.com')
+                            suffixIcon: emailController.text.contains('@gmail.com')
                                 ? const Icon(Icons.check, color: Colors.green)
                                 : null,
                           ),
@@ -184,8 +179,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                           controller: confirmPasswordController,
                           obscureText: !_isConfirmedPasswordVisible,
                           decoration: InputDecoration(
-                            labelText:
-                                AppString.plzconfirmYourPassword(context),
+                            labelText: AppString.plzconfirmYourPassword(context),
                             suffixIcon: IconButton(
                               icon: Icon(
                                 _isConfirmedPasswordVisible
@@ -212,6 +206,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                           onPressed: () {
                             if (_formKey.currentState?.validate() == true) {
                               BlocProvider.of<AuthCubit>(context).signup(
+                                usernameController.text.trim(),
                                 emailController.text.trim(),
                                 passwordController.text.trim(),
                               );
@@ -226,8 +221,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                           ),
                           child: Text(
                             AppString.signUp(context),
-                            style: TextStyle(
-                                fontSize: 18.0, color: AppColor.whiteColor),
+                            style: TextStyle(fontSize: 18.0, color: AppColor.whiteColor),
                           ),
                         ),
                         const SizedBox(height: 20.0),
@@ -236,8 +230,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                           children: [
                             Text(
                               AppString.alreadyHaveAnAccount(context),
-                              style: const TextStyle(
-                                  fontSize: 16.0, fontFamily: 'Montserrat'),
+                              style: const TextStyle(fontSize: 16.0, fontFamily: 'Montserrat'),
                             ),
                             TextButton(
                               onPressed: () {

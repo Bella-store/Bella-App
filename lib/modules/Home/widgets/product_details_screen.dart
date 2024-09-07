@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/product_model.dart';
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
-import '../../../shared/custom_snackbar.dart'; 
+import '../../../utils/custom_snackbar.dart'; 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import '../../Favorites/cubit/favorites_cubit.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final Product product;
@@ -17,7 +19,10 @@ class ProductDetailsScreen extends StatefulWidget {
 class ProductDetailsScreenState extends State<ProductDetailsScreen> {
   bool _isExpanded = false;
   bool _showSeeMore = false;
-  bool _isFavorite = false;
+
+  final GlobalKey _descriptionKey = GlobalKey();
+  final TextStyle _descriptionTextStyle =
+      const TextStyle(fontSize: 16, fontFamily: 'Montserrat');
 
   @override
   void initState() {
@@ -33,17 +38,12 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
     });
   }
 
-  final GlobalKey _descriptionKey = GlobalKey();
-  final TextStyle _descriptionTextStyle =
-      const TextStyle(fontSize: 16, fontFamily: 'Montserrat');
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final double screenHeight = MediaQuery.of(context).size.height;
     final bool isWideScreen = MediaQuery.of(context).size.width > 600;
-    final double responsiveHeight =
-        screenHeight * 0.01; // Adjust the multiplier as needed
+    final double responsiveHeight = screenHeight * 0.01;
 
     return Scaffold(
       appBar: AppBar(
@@ -63,19 +63,35 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     fit: BoxFit.cover,
                   ),
                 ),
+                // Heart icon with BlocBuilder to rerender only the icon
                 Positioned(
                   top: 16,
                   right: 16,
-                  child: IconButton(
-                    icon: Icon(
-                      _isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: _isFavorite ? Colors.red : theme.iconTheme.color,
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _isFavorite = !_isFavorite;
-                      });
+                  child: BlocBuilder<FavoritesCubit, FavoritesState>(
+                    buildWhen: (previous, current) {
+                      // Only rebuild when the favorites list changes
+                      return current is FavoritesLoadedState;
+                    },
+                    builder: (context, state) {
+                      final isFavorite = state is FavoritesLoadedState &&
+                          state.favoriteProductIds.contains(widget.product.id);
+
+                      return IconButton(
+                        icon: Icon(
+                          isFavorite ? Icons.favorite : Icons.favorite_border,
+                          color:
+                              isFavorite ? Colors.red : theme.iconTheme.color,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          final favoritesCubit = context.read<FavoritesCubit>();
+                          if (isFavorite) {
+                            favoritesCubit.removeFavorite(widget.product.id);
+                          } else {
+                            favoritesCubit.addFavorite(widget.product.id);
+                          }
+                        },
+                      );
                     },
                   ),
                 ),

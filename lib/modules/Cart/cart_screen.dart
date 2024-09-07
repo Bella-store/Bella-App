@@ -1,10 +1,11 @@
-import 'package:bella_app/modules/Cart/cubit/cart_cubit.dart';
-import 'package:bella_app/modules/Cart/widgets/cart_item.dart';
-import 'package:bella_app/shared/app_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import '../../utils/skeleton_loading/skeleton_cart_item.dart';
+import 'cubit/cart_cubit.dart';
+import 'widgets/cart_item.dart';
+import '../../shared/app_string.dart';
 import '../../shared/app_color.dart';
+import 'widgets/order_summary.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
@@ -20,13 +21,17 @@ class CartScreen extends StatelessWidget {
           title: Text(AppString.myCart(context),
               style: const TextStyle(fontWeight: FontWeight.bold)),
           centerTitle: true,
-          // leading: const BackButton(color: theme.iconTheme.color),
           elevation: 0,
         ),
         body: BlocBuilder<CartCubit, CartState>(
           builder: (context, state) {
             if (state is CartInitial) {
-              return const Center(child: CircularProgressIndicator());
+              return ListView.builder(
+                itemCount: 5, // Number of skeleton items to show
+                itemBuilder: (context, index) {
+                  return const SkeletonCartItem(); // Show skeleton items while loading
+                },
+              );
             } else if (state is CartLoaded) {
               return _buildCartContent(context, state);
             } else if (state is CartError) {
@@ -127,7 +132,19 @@ class CartScreen extends StatelessWidget {
                     const SizedBox(height: 20.0),
                     ElevatedButton(
                       onPressed: () {
-                        // Checkout logic
+                        // Show modal bottom sheet with order summary
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(25.0),
+                            ),
+                          ),
+                          builder: (context) {
+                            return OrderSummary(context: context, state: state);
+                          },
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 50),

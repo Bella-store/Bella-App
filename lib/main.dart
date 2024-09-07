@@ -1,39 +1,48 @@
 import 'package:bella_app/shared/theme/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter/services.dart'; // Import for SystemUiOverlayStyle
+import 'package:flutter/services.dart';
 import 'Admin/modules/Products/cubit/add_product_cubit.dart';
 import 'layout_screen.dart';
 import 'modules/Splash/splash_screen.dart';
 import 'modules/onboarding/onboarding_screen.dart';
+import 'modules/stripe_payment/stripe_keys.dart';
 import 'shared/local/languages/app_localizations.dart';
 import 'modules/Auth/cubit/auth_cubit.dart';
+import 'modules/Products/cubit/all_products_cubit.dart';
+import 'modules/Favorites/cubit/favorites_cubit.dart';
+import 'models/user_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   final prefs = await SharedPreferences.getInstance();
+
+  Stripe.publishableKey=ApiKeys.pusblishableKey;
+  
   String? localeCode = prefs.getString('locale') ?? 'en';
   bool isDarkMode =
       prefs.getBool('isDarkMode') ?? false; // Default to light mode
-  bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
   bool hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
 
-  Widget initialScreen = const SplashScreen();
+  // Load user model from shared preferences to determine the initial screen
+  UserModel? userModel = await UserModel.loadFromPreferences();
+  Widget initialScreen;
 
-  if (isLoggedIn) {
-    // User is logged in, show the main layout directly
-    initialScreen = const LayoutScreen();
+  if (userModel != null) {
+    initialScreen =
+        const LayoutScreen(); // User is logged in, show the main layout directly
   } else if (!hasSeenOnboarding) {
-    // User hasn't seen onboarding, show the onboarding screen
-    initialScreen = const OnboardingScreen();
+    initialScreen =
+        const OnboardingScreen(); // User hasn't seen onboarding, show the onboarding screen
   } else {
-    // User hasn't logged in, show splash screen
-    initialScreen = const SplashScreen();
+    initialScreen =
+        const SplashScreen(); // User hasn't logged in, show splash screen
   }
 
   runApp(MyApp(
@@ -114,14 +123,29 @@ class MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthCubit>(
-          create: (context) => AuthCubit(),
+          create: (context) => AuthCubit()..checkLoggedIn(),
         ),
         BlocProvider<AddProductCubit>(
           create: (context) => AddProductCubit(),
         ),
+        BlocProvider<AllProductsCubit>(
+          create: (context) => AllProductsCubit()
+            ..loadAllProducts(), // Initialize and load all products
+        ),
+        BlocProvider<FavoritesCubit>(
+          create: (context) => FavoritesCubit(
+            productsCubit: context.read<AllProductsCubit>(),
+          ), // Pass AllProductsCubit to FavoritesCubit
+        ),
       ],
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
+          // Determine the initial screen based on the state
+          Widget initialScreen = widget.initialScreen;
+          if (state is LogingSuccessState || state is SignUpSuccessState) {
+            initialScreen = const LayoutScreen();
+          }
+
           return MaterialApp(
             title: 'Bella App',
             debugShowCheckedModeBanner: false,
@@ -145,7 +169,7 @@ class MyAppState extends State<MyApp> {
               }
               return supportedLocales.first;
             },
-            home: widget.initialScreen,
+            home: initialScreen,
           );
         },
       ),

@@ -1,53 +1,88 @@
-import 'package:bella_app/models/favorite_item_model.dart';
-import 'package:bella_app/shared/app_string.dart';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bella_app/models/product_model.dart';
+import 'package:bella_app/modules/Products/cubit/all_products_cubit.dart';
 
 part 'favorites_state.dart';
 
 class FavoritesCubit extends Cubit<FavoritesState> {
-  FavoritesCubit() : super(FavoritesInitial());
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final User? _currentUser = FirebaseAuth.instance.currentUser;
+  final AllProductsCubit productsCubit;
 
-  void loadFavorites() {
+  FavoritesCubit({required this.productsCubit}) : super(FavoritesInitial());
+
+  // Load favorite product IDs
+  void loadFavorites() async {
     emit(FavoritesLoadingState());
     try {
-      final List<FavoriteItemModel> favoriteItems = [
-        FavoriteItemModel(
-            imageUrl: AppString.chair, title: 'Coffee Table', price: 50.00),
-        FavoriteItemModel(
-            imageUrl: AppString.table, title: 'Coffee Chair', price: 20.00),
-        FavoriteItemModel(
-            imageUrl: AppString.chair, title: 'Minimal Stand', price: 25.00),
-        FavoriteItemModel(
-            imageUrl: AppString.table, title: 'Minimal Desk', price: 50.00),
-        FavoriteItemModel(
-            imageUrl: AppString.chair, title: 'Minimal Lamp', price: 12.00),
-      ];
-
-      if (favoriteItems.isEmpty) {
-        emit(FavoritesEmptyState());
-      } else {
-        emit(FavoritesLoadedState(favoriteItems));
-      }
+      final userDoc =
+          await _firestore.collection('users').doc(_currentUser?.uid).get();
+      final List<dynamic> favoriteProductIds =
+          userDoc.data()?['favoriteProducts'] ?? [];
+      emit(FavoritesLoadedState(
+          favoriteProductIds.map((id) => id.toString()).toList()));
     } catch (e) {
       emit(FavoritesErrorState("Failed to load favorites."));
     }
   }
 
-  void removeItem(int index) {
-    if (state is FavoritesLoadedState) {
-      final currentState = state as FavoritesLoadedState;
-      final updatedFavorites =
-          List<FavoriteItemModel>.from(currentState.favoriteItems);
-      updatedFavorites.removeAt(index);
-      if (updatedFavorites.isEmpty) {
-        emit(FavoritesEmptyState());
-      } else {
-        emit(FavoritesLoadedState(updatedFavorites));
-      }
+  // Add product ID to favorites
+  void addFavorite(String productId) async {
+    if (_currentUser == null) return;
+
+    try {
+      final userDoc = _firestore.collection('users').doc(_currentUser.uid);
+      await userDoc.update({
+        'favoriteProducts': FieldValue.arrayUnion([productId]),
+      });
+
+      loadFavorites(); // Reload favorites after adding
+    } catch (e) {
+      emit(FavoritesErrorState("Failed to add to favorites."));
     }
   }
 
-  void addToCart(FavoriteItemModel item) {
-    // Logic for adding the item to the cart
+  // Remove product ID from favorites
+  void removeFavorite(String productId) async {
+    if (_currentUser == null) return;
+
+    try {
+      final userDoc = _firestore.collection('users').doc(_currentUser.uid);
+      await userDoc.update({
+        'favoriteProducts': FieldValue.arrayRemove([productId]),
+      });
+
+      loadFavorites(); // Reload favorites after removing
+    } catch (e) {
+      emit(FavoritesErrorState("Failed to remove from favorites."));
+    }
+  }
+
+  // Get favorite products from all products
+  List<Product> getFavoriteProducts(List<String> favoriteProductIds) {
+    if (productsCubit.state is ProductsLoadedState) {
+      final allProducts = (productsCubit.state as ProductsLoadedState).products;
+
+      // Safely retrieve products from the list based on their IDs
+      return favoriteProductIds
+          .map((id) => allProducts.firstWhere(
+                (product) => product.id == id,
+                orElse: () => Product(
+                    id: '',
+                    title: 'Unknown Product',
+                    description: '',
+                    price: 0.0,
+                    category: "",
+                    quantity: 0,
+                    imageUrl: ''), // Create a placeholder product if not found
+              ))
+          .where((product) =>
+              product.id.isNotEmpty) // Exclude placeholder products
+          .toList();
+    } else {
+      return [];
+    }
   }
 }

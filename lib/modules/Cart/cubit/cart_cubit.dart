@@ -8,6 +8,7 @@ class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial()) {
     _loadCart();
   }
+
   void _loadCart() {
     final cartItems = [
       CartItemModel(
@@ -27,7 +28,9 @@ class CartCubit extends Cubit<CartState> {
       ),
     ];
     emit(CartLoaded(
-        cartItems: cartItems, totalAmount: _calculateTotalAmount(cartItems)));
+      cartItems: cartItems,
+      totalAmount: _calculateTotalAmount(cartItems),
+    ));
   }
 
   double _calculateTotalAmount(List<CartItemModel> cartItems) {
@@ -42,7 +45,6 @@ class CartCubit extends Cubit<CartState> {
       emit(CartLoaded(
         cartItems: updatedCart,
         totalAmount: _calculateTotalAmount(updatedCart),
-        discount: currentState.discount,
       ));
     }
   }
@@ -51,10 +53,10 @@ class CartCubit extends Cubit<CartState> {
     if (state is CartLoaded) {
       final currentState = state as CartLoaded;
       final discount = promoCode == 'ysf' ? 0.10 : 0.0;
+      final discountedAmount = currentState.totalAmount * (1 - discount);
       emit(CartLoaded(
         cartItems: currentState.cartItems,
-        totalAmount: currentState.totalAmount,
-        discount: discount,
+        totalAmount: discountedAmount,
       ));
     }
   }
@@ -71,7 +73,6 @@ class CartCubit extends Cubit<CartState> {
       emit(CartLoaded(
         cartItems: updatedCart,
         totalAmount: _calculateTotalAmount(updatedCart),
-        discount: currentState.discount,
       ));
     }
   }

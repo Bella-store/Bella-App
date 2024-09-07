@@ -26,7 +26,7 @@ class AddProductCubit extends Cubit<AddProductState> {
     emit(AddProductLoading());
     try {
       // Generate a unique ID for the product
-      String productId = Uuid().v4();
+      String productId = const Uuid().v4();
 
       // Upload the image to Firebase Storage
       File imageFile = File(imagePath);

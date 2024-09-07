@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
+import '../../Category/categories_selection.dart';
 
 class CategoriesSection extends StatefulWidget {
   const CategoriesSection({super.key});
@@ -10,7 +11,7 @@ class CategoriesSection extends StatefulWidget {
 }
 
 class CategoriesSectionState extends State<CategoriesSection> {
-  String _selectedCategory = "Chair"; // Default selected category
+  String _selectedCategory = "all"; // Default selected category
 
   void _onCategorySelected(String category) {
     setState(() {
@@ -35,20 +36,36 @@ class CategoriesSectionState extends State<CategoriesSection> {
                 fontFamily: 'Montserrat',
               ),
             ),
-            // Text(
-            //   AppString.seeAll(context),
-            //   style: theme.textTheme.bodyMedium?.copyWith(
-            //     color: Colors.grey,
-            //     fontWeight: FontWeight.bold,
-            //     fontFamily: 'Montserrat',
-            //   ),
-            // ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CategorySelectionScreen(),
+                  ),
+                );
+              },
+              child: Text(
+                AppString.seeAll(context),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
+                ),
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 10),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            CategoryButton(
+              label: "All",
+              icon: Icons.redeem,
+              isSelected: _selectedCategory == "all",
+              onTap: () => _onCategorySelected("all"),
+            ),
             CategoryButton(
               label: "Chair",
               icon: Icons.chair,
@@ -67,12 +84,12 @@ class CategoriesSectionState extends State<CategoriesSection> {
               isSelected: _selectedCategory == "Sofa",
               onTap: () => _onCategorySelected("Sofa"),
             ),
-            CategoryButton(
-              label: "Bed",
-              icon: Icons.bed,
-              isSelected: _selectedCategory == "Bed",
-              onTap: () => _onCategorySelected("Bed"),
-            ),
+            // CategoryButton(
+            //   label: "Bed",
+            //   icon: Icons.bed,
+            //   isSelected: _selectedCategory == "Bed",
+            //   onTap: () => _onCategorySelected("Bed"),
+            // ),
           ],
         ),
       ],
@@ -101,6 +118,7 @@ class CategoryButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        width: isSelected ? 70 : null, // Set a fixed width when selected
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected ? AppColor.mainColor : theme.cardColor,
@@ -108,8 +126,10 @@ class CategoryButton extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Icon(icon,
-                color: isSelected ? Colors.white : theme.iconTheme.color),
+            Icon(
+              icon,
+              color: isSelected ? Colors.white : theme.iconTheme.color,
+            ),
             const SizedBox(height: 5),
             Text(
               label,
