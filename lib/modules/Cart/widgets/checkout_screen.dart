@@ -6,7 +6,8 @@ import '../../../shared/app_color.dart';
 import '../../Setting/myorder_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
-  const CheckoutScreen({super.key});
+  const CheckoutScreen({super.key, required this.finalAmount});
+  final double finalAmount;
 
   @override
   CheckoutScreenState createState() => CheckoutScreenState();
@@ -169,45 +170,44 @@ class CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 
-  Widget _buildProceedButton(BuildContext context, double width) {
-    return ElevatedButton(
-      // onPressed: () => PaymentManager.makePayment(20, "USD"),
-      onPressed: () async {
-  try {
-    if (_selectedOption == 'pickup') {
-      // Navigate to My Order screen
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const MyOrderScreen()),
-      );
-    } else {
-      await PaymentManager.makePayment(20, "USD");
-      // Payment successful, handle post-payment actions here
-    }
-  } catch (e) {
-    // Handle any errors that occur during payment, such as the payment being canceled
-    if (kDebugMode) {
-      print("Payment failed: $e");
-    }
-    // Optionally show an error message to the user
-  }
-},
+Widget _buildProceedButton(BuildContext context, double width) {
+  return ElevatedButton(
+    onPressed: () async {
+      try {
+        if (_selectedOption == 'pickup') {
+          // Navigate to My Order screen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const MyOrderScreen()),
+          );
+        } else {
+          await PaymentManager.makePayment(widget.finalAmount.toInt(), "USD");
+          // Payment successful, handle post-payment actions here
+        }
+      } catch (e) {
+        // Handle any errors that occur during payment, such as the payment being canceled
+        if (kDebugMode) {
+          print("Payment failed: $e");
+        }
+        // Optionally show an error message to the user
+      }
+    },
+    style: ElevatedButton.styleFrom(
+      minimumSize: Size(width, 50),
+      backgroundColor: AppColor.mainColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+    ),
+    child: Text(
+      AppString.continuePayment(context),
+      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            color: Colors.white,
+          ),
+    ),
+  );
+}
 
-      style: ElevatedButton.styleFrom(
-        minimumSize: Size(width, 50),
-        backgroundColor: AppColor.mainColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-      child: Text(
-        AppString.continuePayment(context),
-        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: Colors.white,
-            ),
-      ),
-    );
-  }
 
   void _showChangeDialog(BuildContext context, String title, String hint) {
     final TextEditingController controller = TextEditingController();

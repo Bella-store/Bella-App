@@ -56,28 +56,30 @@ class OrderSummary extends StatelessWidget {
           ),
           const SizedBox(height: 20.0),
           ElevatedButton(
-            onPressed: () {
-                 Navigator.push(
+  onPressed: () {
+    Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const CheckoutScreen()),
+      MaterialPageRoute(
+        builder: (context) => CheckoutScreen(finalAmount: state.finalAmount),
+      ),
     );
-              // Proceed to payment or next step
-            },
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(double.infinity, 50),
-              backgroundColor: AppColor.mainColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-            ),
-            child: Text(
-              AppString.proceedToPayment(context),
-              style: const TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.white,
-                  fontFamily: 'Montserrat'),
-            ),
-          ),
+  },
+  style: ElevatedButton.styleFrom(
+    minimumSize: const Size(double.infinity, 50),
+    backgroundColor: AppColor.mainColor,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+  ),
+  child: Text(
+    AppString.proceedToPayment(context),
+    style: const TextStyle(
+        fontSize: 18.0,
+        color: Colors.white,
+        fontFamily: 'Montserrat'),
+  ),
+),
+
         ],
       ),
     );
