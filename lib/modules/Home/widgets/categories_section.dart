@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
 import '../../Category/categories_selection.dart';
+import '../../Products/cubit/all_products_cubit.dart';
 
 class CategoriesSection extends StatefulWidget {
   const CategoriesSection({super.key});
@@ -16,22 +18,36 @@ class CategoriesSectionState extends State<CategoriesSection> {
   void _onCategorySelected(String category) {
     setState(() {
       _selectedCategory = category;
+
+      // Trigger the cubit to filter products based on the selected category
+      if (category == "all") {
+        context.read<AllProductsCubit>().resetProducts();
+      } else {
+        context.read<AllProductsCubit>().loadProductsByCategory(category);
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final screenWidth = MediaQuery.of(context).size.width; // Get the screen width
+
+    // Determine text size based on screen width for responsiveness
+    double textSize = screenWidth < 400 ? 12 : 14;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+
       children: [
+        // Categories and See All Row
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               AppString.categories(context),
               style: theme.textTheme.titleLarge?.copyWith(
+                fontSize: textSize +9, // Adjust title size
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Montserrat',
               ),
@@ -48,6 +64,7 @@ class CategoriesSectionState extends State<CategoriesSection> {
               child: Text(
                 AppString.seeAll(context),
                 style: theme.textTheme.bodyMedium?.copyWith(
+                  fontSize: textSize, // Adjust text size
                   color: Colors.grey,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Montserrat',
@@ -57,39 +74,43 @@ class CategoriesSectionState extends State<CategoriesSection> {
           ],
         ),
         const SizedBox(height: 10),
+
+        // Category buttons row
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CategoryButton(
               label: "All",
+              // label: AppString.all(context),
               icon: Icons.redeem,
               isSelected: _selectedCategory == "all",
               onTap: () => _onCategorySelected("all"),
+              textSize: textSize, // Pass text size for responsiveness
             ),
             CategoryButton(
-              label: "Chair",
-              icon: Icons.chair,
-              isSelected: _selectedCategory == "Chair",
-              onTap: () => _onCategorySelected("Chair"),
+              label: "Living Room",
+              // label: AppString.livingRoom(context), //ToDo: translate here
+              icon: Icons.living,
+              isSelected: _selectedCategory == "Living Room",
+              onTap: () => _onCategorySelected("Living Room"),
+              textSize: textSize, // Pass text size for responsiveness
             ),
             CategoryButton(
-              label: "Table",
-              icon: Icons.table_bar,
-              isSelected: _selectedCategory == "Table",
-              onTap: () => _onCategorySelected("Table"),
+              label: "Bed Room",
+              // label: AppString.bedRoom(context), //ToDo: translate here
+              icon: Icons.bed,
+              isSelected: _selectedCategory == "Bed Room",
+              onTap: () => _onCategorySelected("Bed Room"), 
+              textSize: textSize, // Pass text size for responsiveness
             ),
             CategoryButton(
-              label: "Sofa",
-              icon: Icons.weekend,
-              isSelected: _selectedCategory == "Sofa",
-              onTap: () => _onCategorySelected("Sofa"),
+              label: "Decoration",
+              // label: AppString.decoration(context), //ToDo: translate here
+              icon: Icons.home,
+              isSelected: _selectedCategory == "Decoration",
+              onTap: () => _onCategorySelected("Decoration"),
+              textSize: textSize, // Pass text size for responsiveness
             ),
-            // CategoryButton(
-            //   label: "Bed",
-            //   icon: Icons.bed,
-            //   isSelected: _selectedCategory == "Bed",
-            //   onTap: () => _onCategorySelected("Bed"),
-            // ),
           ],
         ),
       ],
@@ -102,6 +123,7 @@ class CategoryButton extends StatelessWidget {
   final IconData icon;
   final bool isSelected;
   final VoidCallback onTap;
+  final double textSize; // Add textSize parameter for responsive text
 
   const CategoryButton({
     super.key,
@@ -109,6 +131,7 @@ class CategoryButton extends StatelessWidget {
     required this.icon,
     required this.isSelected,
     required this.onTap,
+    required this.textSize, // Add textSize parameter for responsive text
   });
 
   @override
@@ -134,6 +157,7 @@ class CategoryButton extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
+                fontSize: textSize, // Use responsive text size
                 color: isSelected
                     ? Colors.white
                     : theme.textTheme.bodyLarge?.color,
