@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import '../../../shared/app_string.dart';
 
 class SearchWidget extends StatelessWidget {
-  const SearchWidget({super.key});
+  final ValueChanged<String> onChanged; // Callback for search input
+
+  const SearchWidget({super.key, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +14,7 @@ class SearchWidget extends StatelessWidget {
       children: [
         Expanded(
           child: TextField(
+            onChanged: onChanged, // Trigger the callback on input change
             decoration: InputDecoration(
               hintText: AppString.search(context),
               hintStyle: TextStyle(

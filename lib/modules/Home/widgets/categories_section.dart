@@ -47,7 +47,7 @@ class CategoriesSectionState extends State<CategoriesSection> {
             Text(
               AppString.categories(context),
               style: theme.textTheme.titleLarge?.copyWith(
-                fontSize: textSize + 4, // Adjust title size
+                fontSize: textSize +9, // Adjust title size
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Montserrat',
               ),

@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../utils/skeleton_loading/skeleton_product_item.dart';
+
 import '../../../shared/app_string.dart';
+import '../../../utils/skeleton_loading/skeleton_product_item.dart';
 import '../../Products/cubit/all_products_cubit.dart';
 import '../../Products/products_screen.dart';
 import '../../Products/widgets/product_item.dart';
 
 
 class ProductsSection extends StatelessWidget {
-  const ProductsSection({super.key});
+  final String searchTerm;
+
+  const ProductsSection({super.key, required this.searchTerm});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return LayoutBuilder(
       builder: (context, constraints) {
         int crossAxisCount = 2;
@@ -29,7 +31,7 @@ class ProductsSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -72,14 +74,16 @@ class ProductsSection extends StatelessWidget {
                         mainAxisSpacing: 20,
                         childAspectRatio: 0.75,
                       ),
-                      itemCount: 8, // Show a few skeleton items while loading
+                      itemCount: 8,
                       itemBuilder: (context, index) {
-                        return const SkeletonProductItem(); // Use the skeleton widget
+                        return const SkeletonProductItem();
                       },
                     );
                   }
                   if (state is ProductsLoadedState) {
-                    final products = state.products;
+                    final products = state.products.where((product) {
+                      return product.title.toLowerCase().contains(searchTerm.toLowerCase());
+                    }).toList();
 
                     return GridView.builder(
                       shrinkWrap: true,
@@ -98,21 +102,17 @@ class ProductsSection extends StatelessWidget {
                       },
                     );
                   } else if (state is ProductsEmptyState) {
-                    //ToDo: translate here
                     return const Center(
-                   child: Text("No products found")
-                      // child: Text(AppString.noProductsFound(context)),
-                    );
+                      child: Text('noProductsFound')// //ToDo: translate here
+                      // child: Text(AppString.noProductsFound(context))
+                      );
                   } else if (state is ProductsErrorState) {
-                    return Center(
-                      child: Text(state.message),
-                    );
+                    return Center(child: Text(state.message));
                   } else {
-                     //ToDo: translate here
-                    return const Center(
-                      child: Text("Please select a category")
-                      // child: Text(AppString.selectCategory(context)),
-                    );
+                    return const Center(child: Text(
+                      'noProductsFound')
+                      // AppString.selectCategory(context)) //ToDo: translate here
+                      );
                   }
                 },
               ),

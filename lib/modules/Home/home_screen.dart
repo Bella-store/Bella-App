@@ -5,8 +5,15 @@ import 'widgets/products_section.dart';
 import 'widgets/search_bar.dart';
 import 'widgets/categories_section.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String searchTerm = ''; // Holds the current search term
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +41,14 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   CustomAppBar(screenSize: MediaQuery.of(context).size),
                   const SizedBox(height: 20),
-                  const SearchWidget(),
+                  // SearchWidget with a callback to update the searchTerm
+                  SearchWidget(
+                    onChanged: (value) {
+                      setState(() {
+                        searchTerm = value;
+                      });
+                    },
+                  ),
                   const SizedBox(height: 20),
                   const CategoriesSection(),
                   const SizedBox(height: 20),
@@ -42,8 +56,9 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SliverToBoxAdapter(
-            child: ProductsSection(),
+          // Pass the searchTerm to ProductsSection
+          SliverToBoxAdapter(
+            child: ProductsSection(searchTerm: searchTerm),
           ),
         ],
       ),
