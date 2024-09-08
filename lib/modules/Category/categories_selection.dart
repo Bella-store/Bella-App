@@ -1,5 +1,9 @@
-import 'package:bella_app/shared/app_string.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../shared/app_string.dart';
+import '../Products/cubit/all_products_cubit.dart';
+import '../Products/products_screen.dart';
 
 class CategorySelectionScreen extends StatelessWidget {
   const CategorySelectionScreen({super.key});
@@ -24,12 +28,6 @@ class CategorySelectionScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              AppString.pleaseChooseOneCategory(context),
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.textTheme.bodyMedium?.color?.withOpacity(0.6),
-              ),
-            ),
             const SizedBox(height: 20),
             GridView.count(
               crossAxisCount: 2,
@@ -46,7 +44,18 @@ class CategorySelectionScreen extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      final selectedCategory = categoryList
+                          .firstWhere((category) => category.isSelected)
+                          .name;
+                      context.read<AllProductsCubit>().loadProductsByCategory(selectedCategory);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ProductsScreen(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(double.infinity,
                           50), // Full width and specific height
@@ -72,10 +81,15 @@ class CategorySelectionScreen extends StatelessWidget {
                 const SizedBox(width: 10),
                 Expanded(
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      for (var category in categoryList) {
+                        category.isSelected = false;
+                      }
+                      context.read<AllProductsCubit>().resetProducts();
+                      Navigator.pop(context);
+                    },
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 15),
-                      textStyle: theme.textTheme.labelLarge,
                     ),
                     child: Text(AppString.skip(context)),
                   ),
@@ -109,7 +123,7 @@ class CategoryCard extends StatefulWidget {
 class CategoryCardState extends State<CategoryCard> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context); 
+    final theme = Theme.of(context);
 
     return GestureDetector(
       onTap: () {
@@ -120,8 +134,7 @@ class CategoryCardState extends State<CategoryCard> {
       child: Card(
         color: theme.brightness == Brightness.light
             ? Colors.white
-            : theme
-                .cardColor, // White background in light mode, default in dark mode
+            : theme.cardColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
           side: BorderSide(
@@ -160,12 +173,9 @@ class CategoryCardState extends State<CategoryCard> {
   }
 }
 
+// Example of categoryList
 List<Category> categoryList = [
-  Category(name: "Chair", icon: Icons.chair),
-  Category(name: "living", icon: Icons.living),
-  Category(name: "bed", icon: Icons.bed),
-  Category(name: "weekend", icon: Icons.weekend),
-  Category(name: "Sitting", icon: Icons.event_seat),
-  Category(name: "Lying", icon: Icons.airline_seat_flat),
-  Category(name: "bedroom_child", icon: Icons.bedroom_child),
+  Category(name: "Living Room", icon: Icons.living),
+  Category(name: "Bed Room", icon: Icons.bed),
+  Category(name: "Decoration", icon: Icons.home),
 ];

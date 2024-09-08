@@ -1,7 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../../../models/product_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../utils/skeleton_loading/skeleton_product_item.dart';
+import '../../../shared/app_string.dart';
+import '../../Products/cubit/all_products_cubit.dart';
 import '../../Products/products_screen.dart';
 import '../../Products/widgets/product_item.dart';
 
@@ -31,7 +33,7 @@ class ProductsSection extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Products',  // Replace with your localization if needed
+                    AppString.products(context),
                     style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Montserrat',
@@ -47,7 +49,7 @@ class ProductsSection extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      'See All',  // Replace with your localization if needed
+                      AppString.seeAll(context),
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
@@ -58,10 +60,9 @@ class ProductsSection extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('products').snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
+              BlocBuilder<AllProductsCubit, AllProductsState>(
+                builder: (context, state) {
+                  if (state is ProductsLoadingState) {
                     return GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -77,30 +78,42 @@ class ProductsSection extends StatelessWidget {
                       },
                     );
                   }
-                  if (snapshot.hasError) {
-                    return const Center(child: Text("Error loading products"));
+                  if (state is ProductsLoadedState) {
+                    final products = state.products;
+
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 20,
+                        childAspectRatio: 0.75,
+                      ),
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        return ProductItem(
+                          product: products[index],
+                        );
+                      },
+                    );
+                  } else if (state is ProductsEmptyState) {
+                    //ToDo: translate here
+                    return const Center(
+                   child: Text("No products found")
+                      // child: Text(AppString.noProductsFound(context)),
+                    );
+                  } else if (state is ProductsErrorState) {
+                    return Center(
+                      child: Text(state.message),
+                    );
+                  } else {
+                     //ToDo: translate here
+                    return const Center(
+                      child: Text("Please select a category")
+                      // child: Text(AppString.selectCategory(context)),
+                    );
                   }
-
-                  final products = snapshot.data!.docs
-                      .map((doc) => Product.fromMap(doc.data() as Map<String, dynamic>))
-                      .toList();
-
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: crossAxisCount,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 20,
-                      childAspectRatio: 0.75,
-                    ),
-                    itemCount: products.length,
-                    itemBuilder: (context, index) {
-                      return ProductItem(
-                        product: products[index],
-                      );
-                    },
-                  );
                 },
               ),
             ],

@@ -31,7 +31,6 @@ class AllProductsCubit extends Cubit<AllProductsState> {
       emit(ProductsErrorState("Failed to load products."));
     }
   }
-
   // Get product by ID
   // Product? getProductById(String productId) {
   //   if (state is ProductsLoadedState) {
@@ -43,7 +42,6 @@ class AllProductsCubit extends Cubit<AllProductsState> {
   //   }
   //   return null;
   // }
-
   /// Retrieves a product by its ID from the current loaded products.
   Product? getProductById(String productId) {
     if (state is ProductsLoadedState) {
@@ -58,5 +56,39 @@ class AllProductsCubit extends Cubit<AllProductsState> {
       return null; // Return null if no product matches the condition.
     }
     return null;
+  }
+  // Load products by category
+  void loadProductsByCategory(String category) async {
+    emit(ProductsLoadingState());
+    try {
+      final querySnapshot = await _firestore
+          .collection('products')
+          .where('category', isEqualTo: category)
+          .get();
+      final products = querySnapshot.docs.map((doc) {
+        return Product(
+          id: doc.id,
+          category: doc['category'],
+          imageUrl: doc['imageUrl'],
+          title: doc['title'],
+          price: doc['price'],
+          description: doc['description'],
+          quantity: doc['quantity'],
+        );
+      }).toList();
+
+      if (products.isEmpty) {
+        emit(ProductsEmptyState());
+      } else {
+        emit(ProductsLoadedState(products));
+      }
+    } catch (e) {
+      emit(ProductsErrorState("Failed to load products."));
+    }
+  }
+
+  // Reset to all products
+  void resetProducts() {
+    loadAllProducts();
   }
 }
