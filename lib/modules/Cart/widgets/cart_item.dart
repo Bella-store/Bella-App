@@ -1,10 +1,11 @@
+// cart_item.dart
 import 'package:bella_app/models/cart_item_model.dart';
 import 'package:flutter/material.dart';
 
-class CartItem extends StatelessWidget {
+class CartItem extends StatefulWidget {
   final CartItemModel item;
   final VoidCallback onRemove;
-  final void Function(dynamic) onQuantityChanged;
+  final void Function(bool isIncrement) onQuantityChanged;
 
   const CartItem({
     super.key,
@@ -14,14 +15,47 @@ class CartItem extends StatelessWidget {
   });
 
   @override
+  _CartItemState createState() => _CartItemState();
+}
+
+class _CartItemState extends State<CartItem> {
+  late int currentQuantity;
+
+  @override
+  void initState() {
+    super.initState();
+    currentQuantity =
+        widget.item.quantity; // Initialize with the item's quantity
+  }
+
+  void _incrementQuantity() {
+    setState(() {
+      currentQuantity++;
+    });
+    widget.onQuantityChanged(true);
+  }
+
+  void _decrementQuantity() {
+    if (currentQuantity > 1) {
+      setState(() {
+        currentQuantity--;
+      });
+      widget.onQuantityChanged(false);
+    } else {
+      // Optionally remove item if quantity reaches 0
+      widget.onRemove();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(
-            item.imageUrl,
+          Image.network(
+            widget.item.imageUrl,
             width: 80,
             height: 80,
             fit: BoxFit.cover,
@@ -32,7 +66,7 @@ class CartItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  item.title,
+                  widget.item.title,
                   style: const TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
@@ -40,7 +74,7 @@ class CartItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 Text(
-                  '\$${item.price.toStringAsFixed(2)}',
+                  '\$${widget.item.price.toStringAsFixed(2)}',
                   style: const TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
@@ -51,29 +85,25 @@ class CartItem extends StatelessWidget {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.remove_circle_outline),
-                      onPressed: () {
-                        onQuantityChanged(false);
-                      },
+                      onPressed: _decrementQuantity,
                     ),
                     Text(
-                      item.quantity.toString().padLeft(2, '0'),
+                      currentQuantity.toString().padLeft(2, '0'),
                       style: const TextStyle(fontSize: 16.0),
                     ),
                     IconButton(
                       icon: const Icon(Icons.add_circle_outline),
-                      onPressed: () {
-                        onQuantityChanged(true);
-                      },
+                      onPressed: _incrementQuantity,
                     ),
                   ],
                 ),
-                const Divider()
+                const Divider(),
               ],
             ),
           ),
           IconButton(
             icon: const Icon(Icons.cancel),
-            onPressed: onRemove,
+            onPressed: widget.onRemove,
           ),
         ],
       ),

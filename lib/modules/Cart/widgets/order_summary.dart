@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../shared/app_color.dart';
@@ -14,7 +13,7 @@ class OrderSummary extends StatelessWidget {
   });
 
   final BuildContext context;
-  final CartLoaded state;
+  final CartLoadedState state;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +37,10 @@ class OrderSummary extends StatelessWidget {
               final item = state.cartItems[index];
               return ListTile(
                 title: Text(item.title),
-                subtitle: Text('${item.quantity} x \$${item.price.toStringAsFixed(2)}'),
-                trailing: Text('\$${(item.quantity * item.price).toStringAsFixed(2)}'),
+                subtitle: Text(
+                    '${item.quantity} x \$${item.price.toStringAsFixed(2)}'),
+                trailing: Text(
+                    '\$${(item.quantity * item.price).toStringAsFixed(2)}'),
               );
             },
           ),
@@ -56,30 +57,30 @@ class OrderSummary extends StatelessWidget {
           ),
           const SizedBox(height: 20.0),
           ElevatedButton(
-  onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CheckoutScreen(finalAmount: state.finalAmount),
-      ),
-    );
-  },
-  style: ElevatedButton.styleFrom(
-    minimumSize: const Size(double.infinity, 50),
-    backgroundColor: AppColor.mainColor,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10.0),
-    ),
-  ),
-  child: Text(
-    AppString.proceedToPayment(context),
-    style: const TextStyle(
-        fontSize: 18.0,
-        color: Colors.white,
-        fontFamily: 'Montserrat'),
-  ),
-),
-
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      CheckoutScreen(finalAmount: state.finalAmount),
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(double.infinity, 50),
+              backgroundColor: AppColor.mainColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            child: Text(
+              AppString.proceedToPayment(context),
+              style: const TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.white,
+                  fontFamily: 'Montserrat'),
+            ),
+          ),
         ],
       ),
     );

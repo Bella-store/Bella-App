@@ -6,7 +6,6 @@ part 'all_products_state.dart';
 
 class AllProductsCubit extends Cubit<AllProductsState> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
   AllProductsCubit() : super(ProductsInitial());
 
   // Load all products

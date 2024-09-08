@@ -6,8 +6,8 @@ class UserModel {
   final String userId;
   final String userName;
   final String userEmail;
-  final List<String> favoriteProducts; // List of product IDs
-  final List<String> cartProducts; // List of cart product IDs
+  List<String> favoriteProducts; // List of product IDs
+  List<Map<String, dynamic>> cartProducts; // List of cart product IDs
   final String role;
 
   UserModel({
@@ -26,7 +26,7 @@ class UserModel {
       userName: data['userName'] ?? '',
       userEmail: data['userEmail'] ?? '',
       favoriteProducts: List<String>.from(data['favoriteProducts'] ?? []),
-      cartProducts: List<String>.from(data['cartProducts'] ?? []),
+      cartProducts: List<Map<String, dynamic>>.from(data['cartProducts'] ?? []),
       role: data['role'] ?? 'user',
     );
   }
@@ -65,5 +65,18 @@ class UserModel {
   static Future<void> clearFromPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('userModel');
+  }
+
+  // Update cartProducts and save to SharedPreferences
+  Future<void> updateCartProducts(
+      List<Map<String, dynamic>> newCartProducts) async {
+    cartProducts = newCartProducts;
+    await saveToPreferences(); // Save updated model to SharedPreferences
+  }
+
+  // Update favoriteProducts and save to SharedPreferences
+  Future<void> updateFavoriteProducts(List<String> newFavoriteProducts) async {
+    favoriteProducts = newFavoriteProducts;
+    await saveToPreferences(); // Save updated model to SharedPreferences
   }
 }

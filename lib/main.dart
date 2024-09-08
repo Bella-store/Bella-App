@@ -1,3 +1,4 @@
+import 'package:bella_app/modules/Cart/cubit/cart_cubit.dart';
 import 'package:bella_app/shared/theme/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,9 @@ void main() async {
   // Load user model from shared preferences to determine the initial screen
   UserModel? userModel = await UserModel.loadFromPreferences();
   Widget initialScreen;
+
+  print("++++++++++++++++++++");
+  print(userModel?.cartProducts);
 
   if (userModel != null) {
     initialScreen =
@@ -135,7 +139,12 @@ class MyAppState extends State<MyApp> {
         BlocProvider<FavoritesCubit>(
           create: (context) => FavoritesCubit(
             productsCubit: context.read<AllProductsCubit>(),
-          ), // Pass AllProductsCubit to FavoritesCubit
+          )..loadFavorites(), // Pass AllProductsCubit to FavoritesCubit
+        ),
+        BlocProvider<CartCubit>(
+          create: (context) => CartCubit(
+            productsCubit: context.read<AllProductsCubit>(),
+          )..loadCart(), // Pass AllProductsCubit to FavoritesCubit
         ),
       ],
       child: BlocBuilder<AuthCubit, AuthState>(

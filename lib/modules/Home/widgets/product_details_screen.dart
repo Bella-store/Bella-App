@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/product_model.dart';
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
-import '../../../utils/custom_snackbar.dart'; 
+import '../../../utils/custom_snackbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import '../../Favorites/cubit/favorites_cubit.dart';
+import '../../Cart/cubit/cart_cubit.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final Product product;
@@ -218,6 +219,9 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                         ),
                         onPressed: () {
+                          final cartCubit = context.read<CartCubit>();
+                          cartCubit.addToCart(widget.product.id);
+
                           // Show a snackbar message using CustomSnackbar
                           CustomSnackbar.show(
                             context,
