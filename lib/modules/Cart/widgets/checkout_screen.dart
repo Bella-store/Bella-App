@@ -183,14 +183,14 @@ class CheckoutScreenState extends State<CheckoutScreen> {
   // The function to handle order processing
   Future<void> processOrder(String paymentMethod) async {
     try {
-      // Step 1: Get current user ID
+      // Get current user ID
       final User? user = _auth.currentUser;
       if (user == null) {
         // User not logged in
         throw Exception("User not logged in");
       }
 
-      // Step 2: Fetch cart details from Firebase
+      // Fetch cart details from Firebase
       final userDoc = await FirebaseFirestore.instance
           .collection('users')
           .doc(user.uid)
@@ -203,7 +203,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
       final cartProducts =
           List<Map<String, dynamic>>.from(userDoc.data()!['cartProducts']);
 
-      // Step 3: Prepare the cart details to be added to the orders collection
+      // Prepare the cart details to be added to the orders collection
       final List<Map<String, dynamic>> orderDetails =
           cartProducts.map((product) {
         return {
@@ -212,7 +212,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
         };
       }).toList();
 
-      // Step 4: Add order details to Firestore orders collection
+      // Add order details to Firestore orders collection
       DocumentReference orderRef =
           await FirebaseFirestore.instance.collection('orders').add({
         'userId': user.uid,
@@ -224,7 +224,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
       // Update order with the document ID as orderId
       await orderRef.update({'orderId': orderRef.id});
 
-      // Step 5: Update product quantities in the Firestore products collection
+      // Update product quantities in the Firestore products collection
       for (var product in cartProducts) {
         final productRef = FirebaseFirestore.instance
             .collection('products')
@@ -245,20 +245,20 @@ class CheckoutScreenState extends State<CheckoutScreen> {
         });
       }
 
-      // Step 6: Clear the cart in the user's document
+      // Clear the cart in the user's document
       await FirebaseFirestore.instance
           .collection('users')
           .doc(user.uid)
           .update({'cartProducts': []});
 
-      // Step 7: Reload products using AllProductsCubit and wait for it to complete
+      // Reload products using AllProductsCubit and wait for it to complete
       final allProductsCubit = context.read<AllProductsCubit>();
       await allProductsCubit.loadAllProducts();
 
-      // Step 8: Clear cart using CartCubit
+      // Clear cart using CartCubit
       context.read<CartCubit>().loadCart();
 
-      // Step 9: Close all screens up to the Cart Screen and go to Home Screen
+      // Close all screens up to the Cart Screen and go to Home Screen
       Navigator.popUntil(context, (route) => route.isFirst);
       widget.controller.jumpToTab(0);
 

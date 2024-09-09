@@ -136,29 +136,30 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Row(
-                    children: [
-                      Icon(Icons.star, color: Colors.orange, size: 20),
-                      SizedBox(width: 4),
-                      Text(
-                        '4.5', // Replace with actual rating
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          fontFamily: 'Montserrat',
-                        ),
-                      ),
-                      SizedBox(width: 4),
-                      Text(
-                        '(320 Reviews)', // Replace with actual number of reviews
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                          fontFamily: 'Montserrat',
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Rating and number of reviews
+                  // const Row(
+                  //   children: [
+                  //     Icon(Icons.star, color: Colors.orange, size: 20),
+                  //     SizedBox(width: 4),
+                  //     Text(
+                  //       '4.5', // Replace with actual rating
+                  //       style: TextStyle(
+                  //         fontWeight: FontWeight.bold,
+                  //         fontSize: 16,
+                  //         fontFamily: 'Montserrat',
+                  //       ),
+                  //     ),
+                  //     SizedBox(width: 4),
+                  //     Text(
+                  //       '(320 Reviews)', // Replace with actual number of reviews
+                  //       style: TextStyle(
+                  //         color: Colors.grey,
+                  //         fontSize: 14,
+                  //         fontFamily: 'Montserrat',
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(height: 16),
                   widget.product.quantity > 0
                       ? Text(

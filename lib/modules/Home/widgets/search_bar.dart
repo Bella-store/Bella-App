@@ -40,19 +40,21 @@ class SearchWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 8.0),
-        Container(
-          padding: const EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            border: Border.all(color: theme.dividerColor),
-            color: theme.cardColor,
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          child: Icon(
-            Icons.tune,
-            size: 30,
-            color: theme.iconTheme.color,
-          ),
-        ),
+        // filteration button
+        // Container(
+        //   padding: const EdgeInsets.all(8.0),
+        //   decoration: BoxDecoration(
+        //     border: Border.all(color: theme.dividerColor),
+        //     color: theme.cardColor,
+        //     borderRadius: BorderRadius.circular(12.0),
+        //   ),
+
+        //   child: Icon(
+        //     Icons.tune,
+        //     size: 30,
+        //     color: theme.iconTheme.color,
+        //   ),
+        // ),
       ],
     );
   }
