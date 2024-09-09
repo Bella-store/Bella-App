@@ -1,13 +1,19 @@
+import 'package:bella_app/modules/Home/home_screen.dart';
 import 'package:bella_app/modules/stripe_payment/payment_manager.dart';
 import 'package:bella_app/shared/app_string.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../shared/app_color.dart';
 import '../../Setting/myorder_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
-  const CheckoutScreen({super.key, required this.finalAmount});
+  const CheckoutScreen(
+      {super.key, required this.finalAmount, required this.controller});
   final double finalAmount;
+  final PersistentTabController controller;
 
   @override
   CheckoutScreenState createState() => CheckoutScreenState();
@@ -15,6 +21,7 @@ class CheckoutScreen extends StatefulWidget {
 
 class CheckoutScreenState extends State<CheckoutScreen> {
   String _selectedOption = 'visa'; // Default selection
+  final FirebaseAuth _auth = FirebaseAuth.instance; // Firebase Auth instance
 
   @override
   Widget build(BuildContext context) {
@@ -170,44 +177,115 @@ class CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 
-Widget _buildProceedButton(BuildContext context, double width) {
-  return ElevatedButton(
-    onPressed: () async {
-      try {
-        if (_selectedOption == 'pickup') {
-          // Navigate to My Order screen
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const MyOrderScreen()),
-          );
-        } else {
-          await PaymentManager.makePayment(widget.finalAmount.toInt(), "USD");
-          // Payment successful, handle post-payment actions here
-        }
-      } catch (e) {
-        // Handle any errors that occur during payment, such as the payment being canceled
-        if (kDebugMode) {
-          print("Payment failed: $e");
-        }
-        // Optionally show an error message to the user
-      }
-    },
-    style: ElevatedButton.styleFrom(
-      minimumSize: Size(width, 50),
-      backgroundColor: AppColor.mainColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-    ),
-    child: Text(
-      AppString.continuePayment(context),
-      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: Colors.white,
-          ),
-    ),
-  );
-}
+  Widget _buildProceedButton(BuildContext context, double width) {
+    return ElevatedButton(
+      onPressed: () async {
+        try {
+          if (_selectedOption == 'pickup') {
+            // Navigate to My Order screen
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MyOrderScreen()),
+            );
+          } else {
+            await PaymentManager.makePayment(widget.finalAmount.toInt(), "USD");
+            // Payment successful, handle post-payment actions here
+// Step 1: Get current user ID
+            final User? user = _auth.currentUser;
+            if (user == null) {
+              // User not logged in
+              throw Exception("User not logged in");
+            }
 
+            // Step 2: Fetch cart details from Firebase
+            final userDoc = await FirebaseFirestore.instance
+                .collection('users')
+                .doc(user.uid)
+                .get();
+
+            if (!userDoc.exists ||
+                !userDoc.data()!.containsKey('cartProducts')) {
+              throw Exception('Cart is empty or user data is missing.');
+            }
+
+            final cartProducts = List<Map<String, dynamic>>.from(
+                userDoc.data()!['cartProducts']);
+
+            // Step 3: Prepare the cart details to be added to the orders collection
+            final List<Map<String, dynamic>> orderDetails =
+                cartProducts.map((product) {
+              return {
+                'productId': product['id'],
+                'quantity': product['quantity'],
+              };
+            }).toList();
+
+            // Step 4: Add order details to Firestore orders collection
+            await FirebaseFirestore.instance.collection('orders').add({
+              'userId': user.uid,
+              'orderDetails': orderDetails,
+              'orderDate': DateTime.now(),
+            });
+
+            // Step 5: Update product quantities in the Firestore products collection
+            for (var product in cartProducts) {
+              final productRef = FirebaseFirestore.instance
+                  .collection('products')
+                  .doc(product['id']);
+
+              await FirebaseFirestore.instance
+                  .runTransaction((transaction) async {
+                final snapshot = await transaction.get(productRef);
+                if (snapshot.exists) {
+                  final currentQuantity = snapshot.data()?['quantity'] ?? 0;
+                  final newQuantity = currentQuantity - product['quantity'];
+                  if (newQuantity >= 0) {
+                    transaction.update(productRef, {'quantity': newQuantity});
+                  } else {
+                    throw Exception(
+                        'Insufficient stock for product ${product['id']}');
+                  }
+                }
+              });
+            }
+
+            // Step 6: Clear the cart in the user's document
+            await FirebaseFirestore.instance
+                .collection('users')
+                .doc(user.uid)
+                .update({'cartProducts': []});
+
+            // Payment successful, navigate to order confirmation
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      HomeScreen(controller: widget.controller)),
+            );
+          }
+        } catch (e) {
+          // Handle any errors that occur during payment, such as the payment being canceled
+          if (kDebugMode) {
+            print("Payment failed: $e");
+          }
+          // Optionally show an error message to the user
+        }
+      },
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size(width, 50),
+        backgroundColor: AppColor.mainColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
+      child: Text(
+        AppString.continuePayment(context),
+        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: Colors.white,
+            ),
+      ),
+    );
+  }
 
   void _showChangeDialog(BuildContext context, String title, String hint) {
     final TextEditingController controller = TextEditingController();

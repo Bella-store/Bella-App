@@ -2,6 +2,7 @@
 import 'package:bella_app/modules/Products/cubit/all_products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../utils/skeleton_loading/skeleton_cart_item.dart';
 import 'cubit/cart_cubit.dart';
 import 'widgets/cart_item.dart';
@@ -10,9 +11,10 @@ import '../../shared/app_color.dart';
 import 'widgets/order_summary.dart';
 
 class CartScreen extends StatelessWidget {
-  CartScreen({super.key});
+  CartScreen({super.key, required this.controller});
 
   final TextEditingController _promoCodeController = TextEditingController();
+  final PersistentTabController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +155,11 @@ class CartScreen extends StatelessWidget {
                         ),
                       ),
                       builder: (context) {
-                        return OrderSummary(context: context, state: state);
+                        return OrderSummary(
+                          context: context,
+                          state: state,
+                          controller: controller,
+                        );
                       },
                     );
                   },

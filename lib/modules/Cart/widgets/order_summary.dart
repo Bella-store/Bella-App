@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
@@ -10,10 +11,12 @@ class OrderSummary extends StatelessWidget {
     super.key,
     required this.context,
     required this.state,
+    required this.controller,
   });
 
   final BuildContext context;
   final CartLoadedState state;
+  final PersistentTabController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +64,8 @@ class OrderSummary extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      CheckoutScreen(finalAmount: state.finalAmount),
+                  builder: (context) => CheckoutScreen(
+                      finalAmount: state.finalAmount, controller: controller),
                 ),
               );
             },

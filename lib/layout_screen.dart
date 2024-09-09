@@ -33,7 +33,9 @@ class LayoutScreenState extends State<LayoutScreen> {
     return [
       HomeScreen(controller: _controller), // Pass the controller here
       FavoritesScreen(controller: _controller),
-      CartScreen(),
+      CartScreen(
+        controller: _controller,
+      ),
       ProfileScreen(controller: _controller),
     ];
   }
