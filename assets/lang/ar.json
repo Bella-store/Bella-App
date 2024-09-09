@@ -47,6 +47,7 @@
     "productDetails": "تفاصيل المنتج",
     "description": "الوصف",
     "availableInStock": "متوفر في المخزون",
+    "outOfStock": "غير متوفر",
     "addTocart": "أضف إلى العربة",
     "seeless": "عرض أقل",
     "seeMore": "عرض المزيد",

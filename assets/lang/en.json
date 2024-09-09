@@ -47,6 +47,7 @@
     "productDetails": "Product Details",
     "description": "Description",
     "availableInStock": "Available in stock",
+    "outOfStock": "Out of stock",
     "addTocart": "Add to cart",
     "seeless": "See less",
     "seeMore": "See more",

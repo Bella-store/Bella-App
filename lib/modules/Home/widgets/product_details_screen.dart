@@ -129,7 +129,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Vado Odelle Dress',
+                    widget.product.category,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: Colors.grey[600],
                       fontFamily: 'Montserrat',
@@ -160,11 +160,17 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    AppString.availableInStock(context),
-                    style: const TextStyle(
-                        color: Colors.green, fontFamily: 'Montserrat'),
-                  ),
+                  widget.product.quantity > 0
+                      ? Text(
+                          AppString.availableInStock(context),
+                          style: const TextStyle(
+                              color: Colors.green, fontFamily: 'Montserrat'),
+                        )
+                      : Text(
+                          AppString.outOfStock(context),
+                          style: const TextStyle(
+                              color: Colors.red, fontFamily: 'Montserrat'),
+                        ),
                   const SizedBox(height: 16),
                   Text(
                     AppString.description(context),
@@ -213,27 +219,34 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 60.0, vertical: 15.0),
-                          backgroundColor: Colors.black,
+                          backgroundColor: widget.product.quantity > 0
+                              ? Colors.black
+                              : Colors
+                                  .grey, // Grey background when out of stock
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
-                        onPressed: () {
-                          final cartCubit = context.read<CartCubit>();
-                          cartCubit.addToCart(widget.product.id);
+                        onPressed: widget.product.quantity > 0
+                            ? () {
+                                final cartCubit = context.read<CartCubit>();
+                                cartCubit.addToCart(widget.product.id);
 
-                          // Show a snackbar message using CustomSnackbar
-                          CustomSnackbar.show(
-                            context,
-                            title: 'Success',
-                            message: 'Product added to the cart!',
-                            contentType: ContentType.success,
-                          );
-                        },
+                                // Show a snackbar message using CustomSnackbar
+                                CustomSnackbar.show(
+                                  context,
+                                  title: 'Success',
+                                  message: 'Product added to the cart!',
+                                  contentType: ContentType.success,
+                                );
+                              }
+                            : null, // Disable button when out of stock
                         child: Text(
                           AppString.addTocart(context),
                           style: theme.textTheme.labelLarge?.copyWith(
-                            color: Colors.white,
+                            color: widget.product.quantity > 0
+                                ? Colors.white
+                                : Colors.black54, // Lighter text when disabled
                             fontFamily: 'Montserrat',
                           ),
                         ),
