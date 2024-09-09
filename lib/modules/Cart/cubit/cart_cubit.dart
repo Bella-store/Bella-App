@@ -120,7 +120,16 @@ class CartCubit extends Cubit<CartState> {
       );
 
       if (cartItem != null) {
-        cartItem['quantity'] += isIncrement ? 1 : -1;
+        final product = (productsCubit.state as ProductsLoadedState)
+            .products
+            .firstWhere((prod) => prod.id == productId);
+
+        if (isIncrement && cartItem['quantity'] < product.quantity) {
+          cartItem['quantity'] += 1;
+        } else if (!isIncrement && cartItem['quantity'] > 1) {
+          cartItem['quantity'] -= 1;
+        }
+
         if (cartItem['quantity'] <= 0) {
           cartData.remove(cartItem);
         }

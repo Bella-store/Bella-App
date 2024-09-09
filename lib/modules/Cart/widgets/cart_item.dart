@@ -1,4 +1,3 @@
-// cart_item.dart
 import 'package:bella_app/models/cart_item_model.dart';
 import 'package:flutter/material.dart';
 
@@ -6,12 +5,14 @@ class CartItem extends StatefulWidget {
   final CartItemModel item;
   final VoidCallback onRemove;
   final void Function(bool isIncrement) onQuantityChanged;
+  final int maxAvailableQuantity; // Maximum quantity available for the product
 
   const CartItem({
     super.key,
     required this.item,
     required this.onRemove,
     required this.onQuantityChanged,
+    required this.maxAvailableQuantity,
   });
 
   @override
@@ -29,10 +30,12 @@ class _CartItemState extends State<CartItem> {
   }
 
   void _incrementQuantity() {
-    setState(() {
-      currentQuantity++;
-    });
-    widget.onQuantityChanged(true);
+    if (currentQuantity < widget.maxAvailableQuantity) {
+      setState(() {
+        currentQuantity++;
+      });
+      widget.onQuantityChanged(true);
+    }
   }
 
   void _decrementQuantity() {
@@ -42,7 +45,6 @@ class _CartItemState extends State<CartItem> {
       });
       widget.onQuantityChanged(false);
     } else {
-      // Optionally remove item if quantity reaches 0
       widget.onRemove();
     }
   }
@@ -85,7 +87,9 @@ class _CartItemState extends State<CartItem> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.remove_circle_outline),
-                      onPressed: _decrementQuantity,
+                      onPressed: currentQuantity > 1
+                          ? _decrementQuantity
+                          : null, // Disable when quantity is 1
                     ),
                     Text(
                       currentQuantity.toString().padLeft(2, '0'),
@@ -93,7 +97,9 @@ class _CartItemState extends State<CartItem> {
                     ),
                     IconButton(
                       icon: const Icon(Icons.add_circle_outline),
-                      onPressed: _incrementQuantity,
+                      onPressed: currentQuantity < widget.maxAvailableQuantity
+                          ? _incrementQuantity
+                          : null, // Disable when max quantity is reached
                     ),
                   ],
                 ),

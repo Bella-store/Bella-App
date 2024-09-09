@@ -1,3 +1,5 @@
+// cart_screen.dart
+import 'package:bella_app/modules/Products/cubit/all_products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../utils/skeleton_loading/skeleton_cart_item.dart';
@@ -53,12 +55,25 @@ class CartScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             itemCount: state.cartItems.length,
             itemBuilder: (context, index) {
+              final cartItem = state.cartItems[index];
+
+              // Fetch the real product to get the available quantity
+              final product =
+                  cartCubit.productsCubit.state is ProductsLoadedState
+                      ? (cartCubit.productsCubit.state as ProductsLoadedState)
+                          .products
+                          .firstWhere((product) => product.id == cartItem.id)
+                      : null;
+
+              final availableQuantity = product?.quantity ?? 0;
+
               return CartItem(
-                item: state.cartItems[index],
-                onRemove: () =>
-                    cartCubit.removeFromCart(state.cartItems[index].id),
-                onQuantityChanged: (isIncrement) => cartCubit.updateQuantity(
-                    state.cartItems[index].id, isIncrement),
+                item: cartItem,
+                onRemove: () => cartCubit.removeFromCart(cartItem.id),
+                onQuantityChanged: (isIncrement) =>
+                    cartCubit.updateQuantity(cartItem.id, isIncrement),
+                maxAvailableQuantity:
+                    availableQuantity, // Pass available quantity to disable increment when max reached
               );
             },
           ),
