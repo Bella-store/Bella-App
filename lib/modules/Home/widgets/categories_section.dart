@@ -31,14 +31,14 @@ class CategoriesSectionState extends State<CategoriesSection> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final screenWidth = MediaQuery.of(context).size.width; // Get the screen width
+    final screenWidth =
+        MediaQuery.of(context).size.width; // Get the screen width
 
     // Determine text size based on screen width for responsiveness
     double textSize = screenWidth < 400 ? 12 : 14;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-
       children: [
         // Categories and See All Row
         Row(
@@ -47,7 +47,7 @@ class CategoriesSectionState extends State<CategoriesSection> {
             Text(
               AppString.categories(context),
               style: theme.textTheme.titleLarge?.copyWith(
-                fontSize: textSize +9, // Adjust title size
+                fontSize: textSize + 9, // Adjust title size
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Montserrat',
               ),
@@ -80,32 +80,32 @@ class CategoriesSectionState extends State<CategoriesSection> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CategoryButton(
-              label: "All",
-              // label: AppString.all(context),
+              // label: "All",
+              label: AppString.all(context),
               icon: Icons.redeem,
               isSelected: _selectedCategory == "all",
               onTap: () => _onCategorySelected("all"),
               textSize: textSize, // Pass text size for responsiveness
             ),
             CategoryButton(
-              label: "Living Room",
-              // label: AppString.livingRoom(context), //ToDo: translate here
+              // label: "Living Room",
+              label: AppString.livingRoom(context),
               icon: Icons.living,
               isSelected: _selectedCategory == "Living Room",
               onTap: () => _onCategorySelected("Living Room"),
               textSize: textSize, // Pass text size for responsiveness
             ),
             CategoryButton(
-              label: "Bed Room",
-              // label: AppString.bedRoom(context), //ToDo: translate here
+              // label: "Bed Room",
+              label: AppString.bedRoom(context),
               icon: Icons.bed,
               isSelected: _selectedCategory == "Bed Room",
-              onTap: () => _onCategorySelected("Bed Room"), 
+              onTap: () => _onCategorySelected("Bed Room"),
               textSize: textSize, // Pass text size for responsiveness
             ),
             CategoryButton(
-              label: "Decoration",
-              // label: AppString.decoration(context), //ToDo: translate here
+              // label: "Decoration",
+              label: AppString.decoration(context),
               icon: Icons.home,
               isSelected: _selectedCategory == "Decoration",
               onTap: () => _onCategorySelected("Decoration"),

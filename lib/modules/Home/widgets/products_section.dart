@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 import '../../../shared/app_string.dart';
 import '../../../utils/skeleton_loading/skeleton_product_item.dart';
 import '../../Products/cubit/all_products_cubit.dart';
 import '../../Products/products_screen.dart';
 import '../../Products/widgets/product_item.dart';
-
 
 class ProductsSection extends StatelessWidget {
   final String searchTerm;
@@ -31,7 +29,7 @@ class ProductsSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -82,7 +80,9 @@ class ProductsSection extends StatelessWidget {
                   }
                   if (state is ProductsLoadedState) {
                     final products = state.products.where((product) {
-                      return product.title.toLowerCase().contains(searchTerm.toLowerCase());
+                      return product.title
+                          .toLowerCase()
+                          .contains(searchTerm.toLowerCase());
                     }).toList();
 
                     return GridView.builder(
@@ -102,17 +102,14 @@ class ProductsSection extends StatelessWidget {
                       },
                     );
                   } else if (state is ProductsEmptyState) {
-                    return const Center(
-                      child: Text('noProductsFound')// //ToDo: translate here
-                      // child: Text(AppString.noProductsFound(context))
-                      );
+                    return Center(
+                        // child: Text('noProductsFound')
+                        child: Text(AppString.noProductsFound(context)));
                   } else if (state is ProductsErrorState) {
                     return Center(child: Text(state.message));
                   } else {
-                    return const Center(child: Text(
-                      'noProductsFound')
-                      // AppString.selectCategory(context)) //ToDo: translate here
-                      );
+                    return Center(
+                        child: Text(AppString.selectCategory(context)));
                   }
                 },
               ),

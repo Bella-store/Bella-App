@@ -16,7 +16,7 @@
     "plzconfirmYourPassword": "Please confirm your password",
     "yourPasswordDoesNotMatch": "Your password does not match",
     "login": "Login",
-    "logout" : "Logout",
+    "logout": "Logout",
     "areYouSureLogout": "Are you sure you want to logout?",
     "cancel": "Cancel",
     "yes": "Yes",
@@ -93,11 +93,11 @@
     "My Orders": "My Orders",
     "My reviews": "My reviews",
     "addAllToMyCart": "Add all to my cart",
-     "chooseCategories": "Choose Categories",
-    "pleaseChooseOneCategory":"Please Choose at least one category",
-    "submit":"Submit",
-    "orderSummary":"Order Summary",
-    "proceedToPayment":"Proceed to Payment",
+    "chooseCategories": "Choose Categories",
+    "pleaseChooseOneCategory": "Please Choose at least one category",
+    "submit": "Submit",
+    "orderSummary": "Order Summary",
+    "proceedToPayment": "Proceed to Payment",
 
     "delivery": "Delivery",
     "payment_method": "Payment Method",
@@ -107,7 +107,6 @@
     "pick_up_subtitle": "Pick up at the store",
     "userInfo": "User Info",
 
-
     "changeAddress": "Change Address",
     "enterAddress": "Enter your new address",
 
@@ -116,5 +115,16 @@
     "changeEmail": "Change Email",
     "enterEmail": "Enter your new email",
     "continuePayment": "Continue to Payment",
-    "save": "Save"
+    "save": "Save",
+
+    "all": "All",
+    "livingRoom": "Living Room",
+    "bedRoom": "Bed Room",
+    "decoration": "Decoration",
+
+    "noProductsFound": "No Products Found",
+    "selectCategory": "Select Category",
+
+    "noProductsFoundForThisCategory": "No products found for this category.",
+    "pleaseSelectACategory": "Please select a category."
 }

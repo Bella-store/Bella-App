@@ -43,11 +43,13 @@ class ProductsScreen extends StatelessWidget {
               },
             );
           } else if (state is ProductsEmptyState) {
-            return const Center(child: Text("No products found for this category.")); //ToDo: translate here
+            return Center(
+                child: Text(AppString.noProductsFoundForThisCategory(context)));
           } else if (state is ProductsErrorState) {
             return Center(child: Text(state.message));
           } else {
-            return const Center(child: Text("Please select a category.")); //ToDo: translate here
+            return Center(
+                child: Text(AppString.pleaseSelectACategory(context)));
           }
         },
       ),

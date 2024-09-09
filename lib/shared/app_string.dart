@@ -161,18 +161,34 @@ class AppString {
   static String proceed(BuildContext context) => 'proceed'.tr(context);
   static String payVisa(BuildContext context) => 'payVisa'.tr(context);
   static String save(BuildContext context) => 'save'.tr(context);
-  static String continuePayment(BuildContext context) => 'continuePayment'.tr(context);
+  static String continuePayment(BuildContext context) =>
+      'continuePayment'.tr(context);
   static String userInfo(BuildContext context) => 'userInfo'.tr(context);
-  static String changeAddress(BuildContext context) => 'changeAddress'.tr(context);
+  static String changeAddress(BuildContext context) =>
+      'changeAddress'.tr(context);
   static String changePhoneNumber(BuildContext context) =>
       'changePhoneNumber'.tr(context);
   static String changeEmail(BuildContext context) => 'changeEmail'.tr(context);
-  static String enterAddress(BuildContext context) => 'enterAddress'.tr(context);
+  static String enterAddress(BuildContext context) =>
+      'enterAddress'.tr(context);
 
-
-  static String enterPhoneNumber(BuildContext context) => 'enterPhoneNumber'.tr(context);
+  static String enterPhoneNumber(BuildContext context) =>
+      'enterPhoneNumber'.tr(context);
 
   static String enterEmail(BuildContext context) => 'enterEmail'.tr(context);
 
+  static String all(BuildContext context) => 'all'.tr(context);
+  static String livingRoom(BuildContext context) => 'livingRoom'.tr(context);
+  static String bedRoom(BuildContext context) => 'bedRoom'.tr(context);
+  static String decoration(BuildContext context) => 'decoration'.tr(context);
 
+  static String noProductsFound(BuildContext context) =>
+      'noProductsFound'.tr(context);
+  static String selectCategory(BuildContext context) =>
+      "selectCategory".tr(context);
+
+  static String noProductsFoundForThisCategory(BuildContext context) =>
+      "noProductsFoundForThisCategory".tr(context);
+  static String pleaseSelectACategory(BuildContext context) =>
+      "pleaseSelectACategory".tr(context);
 }
