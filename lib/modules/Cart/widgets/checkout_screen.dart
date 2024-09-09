@@ -1,14 +1,15 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:bella_app/modules/Cart/cubit/cart_cubit.dart';
 import 'package:bella_app/modules/Products/cubit/all_products_cubit.dart';
 import 'package:bella_app/modules/stripe_payment/payment_manager.dart';
 import 'package:bella_app/shared/app_string.dart';
+import 'package:bella_app/utils/custom_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../shared/app_color.dart';
-import '../../Setting/myorder_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -179,103 +180,158 @@ class CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 
+  // The function to handle order processing
+  Future<void> processOrder(String paymentMethod) async {
+    try {
+      // Step 1: Get current user ID
+      final User? user = _auth.currentUser;
+      if (user == null) {
+        // User not logged in
+        throw Exception("User not logged in");
+      }
+
+      // Step 2: Fetch cart details from Firebase
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+
+      if (!userDoc.exists || !userDoc.data()!.containsKey('cartProducts')) {
+        throw Exception('Cart is empty or user data is missing.');
+      }
+
+      final cartProducts =
+          List<Map<String, dynamic>>.from(userDoc.data()!['cartProducts']);
+
+      // Step 3: Prepare the cart details to be added to the orders collection
+      final List<Map<String, dynamic>> orderDetails =
+          cartProducts.map((product) {
+        return {
+          'productId': product['id'],
+          'quantity': product['quantity'],
+        };
+      }).toList();
+
+      // Step 4: Add order details to Firestore orders collection
+      DocumentReference orderRef =
+          await FirebaseFirestore.instance.collection('orders').add({
+        'userId': user.uid,
+        'orderDetails': orderDetails,
+        'orderDate': DateTime.now(),
+        'paymentMethod': paymentMethod,
+      });
+
+      // Update order with the document ID as orderId
+      await orderRef.update({'orderId': orderRef.id});
+
+      // Step 5: Update product quantities in the Firestore products collection
+      for (var product in cartProducts) {
+        final productRef = FirebaseFirestore.instance
+            .collection('products')
+            .doc(product['id']);
+
+        await FirebaseFirestore.instance.runTransaction((transaction) async {
+          final snapshot = await transaction.get(productRef);
+          if (snapshot.exists) {
+            final currentQuantity = snapshot.data()?['quantity'] ?? 0;
+            final newQuantity = currentQuantity - product['quantity'];
+            if (newQuantity >= 0) {
+              transaction.update(productRef, {'quantity': newQuantity});
+            } else {
+              throw Exception(
+                  'Insufficient stock for product ${product['id']}');
+            }
+          }
+        });
+      }
+
+      // Step 6: Clear the cart in the user's document
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .update({'cartProducts': []});
+
+      // Step 7: Reload products using AllProductsCubit and wait for it to complete
+      final allProductsCubit = context.read<AllProductsCubit>();
+      await allProductsCubit.loadAllProducts();
+
+      // Step 8: Clear cart using CartCubit
+      context.read<CartCubit>().loadCart();
+
+      // Step 9: Close all screens up to the Cart Screen and go to Home Screen
+      Navigator.popUntil(context, (route) => route.isFirst);
+      widget.controller.jumpToTab(0);
+
+      // Show success message using CustomSnackbar
+      CustomSnackbar.show(
+        context,
+        title: 'Success!',
+        message: 'Order Placed Successfully',
+        contentType: ContentType.success,
+      );
+    } catch (e) {
+      // Handle any errors that occur during order processing
+      if (kDebugMode) {
+        print("Order processing failed: $e");
+      }
+      // Optionally show an error message to the user
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text(e.toString()),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
   Widget _buildProceedButton(BuildContext context, double width) {
     return ElevatedButton(
       onPressed: () async {
         try {
           String paymentMethod = _selectedOption;
 
-          if (_selectedOption == 'pickup') {
-            // Navigate to My Order screen
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MyOrderScreen()),
-            );
-          } else {
+          // Check payment method and handle accordingly
+          if (paymentMethod == 'visa') {
+            // Trigger the Visa payment process
             await PaymentManager.makePayment(widget.finalAmount.toInt(), "USD");
-            // Payment successful, handle post-payment actions here
-// Step 1: Get current user ID
-            final User? user = _auth.currentUser;
-            if (user == null) {
-              // User not logged in
-              throw Exception("User not logged in");
-            }
+            // If payment is successful, process the order
+            await processOrder(paymentMethod);
+          } else if (paymentMethod == 'pickup') {
+            // If paying on pickup, process the order directly
+            await processOrder(paymentMethod);
 
-            // Step 2: Fetch cart details from Firebase
-            final userDoc = await FirebaseFirestore.instance
-                .collection('users')
-                .doc(user.uid)
-                .get();
-
-            if (!userDoc.exists ||
-                !userDoc.data()!.containsKey('cartProducts')) {
-              throw Exception('Cart is empty or user data is missing.');
-            }
-
-            final cartProducts = List<Map<String, dynamic>>.from(
-                userDoc.data()!['cartProducts']);
-
-            // Step 3: Prepare the cart details to be added to the orders collection
-            final List<Map<String, dynamic>> orderDetails =
-                cartProducts.map((product) {
-              return {
-                'productId': product['id'],
-                'quantity': product['quantity'],
-              };
-            }).toList();
-
-            // Step 4: Add order details to Firestore orders collection
-            await FirebaseFirestore.instance.collection('orders').add({
-              'userId': user.uid,
-              'orderDetails': orderDetails,
-              'orderDate': DateTime.now(),
-              'paymentMethod': paymentMethod,
-            });
-
-            // Step 5: Update product quantities in the Firestore products collection
-            for (var product in cartProducts) {
-              final productRef = FirebaseFirestore.instance
-                  .collection('products')
-                  .doc(product['id']);
-
-              await FirebaseFirestore.instance
-                  .runTransaction((transaction) async {
-                final snapshot = await transaction.get(productRef);
-                if (snapshot.exists) {
-                  final currentQuantity = snapshot.data()?['quantity'] ?? 0;
-                  final newQuantity = currentQuantity - product['quantity'];
-                  if (newQuantity >= 0) {
-                    transaction.update(productRef, {'quantity': newQuantity});
-                  } else {
-                    throw Exception(
-                        'Insufficient stock for product ${product['id']}');
-                  }
-                }
-              });
-            }
-
-            // Step 6: Clear the cart in the user's document
-            await FirebaseFirestore.instance
-                .collection('users')
-                .doc(user.uid)
-                .update({'cartProducts': []});
-
-            // Step 8: Reload products using ProductsCubit
-            context.read<AllProductsCubit>().loadAllProducts();
-
-            // Step 9: Clear cart using CartCubit
-            context.read<CartCubit>().loadCart();
-
-            // Step 10: Close all screens up to the Cart Screen and go to Home Screen
-            Navigator.popUntil(context, (route) => route.isFirst);
-            widget.controller.jumpToTab(0);
+            // Navigate to My Order screen after order processing
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const MyOrderScreen()),
+            // );
           }
         } catch (e) {
-          // Handle any errors that occur during payment, such as the payment being canceled
+          // Handle any errors that occur during payment or order processing
           if (kDebugMode) {
             print("Payment failed: $e");
           }
           // Optionally show an error message to the user
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Error'),
+              content: Text(e.toString()),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('OK'),
+                ),
+              ],
+            ),
+          );
         }
       },
       style: ElevatedButton.styleFrom(

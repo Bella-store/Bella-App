@@ -22,10 +22,10 @@ class CartCubit extends Cubit<CartState> {
       final userDoc =
           await _firestore.collection('users').doc(_currentUser?.uid).get();
       final List<dynamic> cartProducts = userDoc.data()?['cartProducts'] ?? [];
-
       if (productsCubit.state is ProductsLoadedState) {
         final allProducts =
             (productsCubit.state as ProductsLoadedState).products;
+
         // Map cart products from Firestore to CartItemModel
         final cartItems = cartProducts
             .map((cartItem) {
@@ -53,7 +53,6 @@ class CartCubit extends Cubit<CartState> {
             })
             .whereType<CartItemModel>()
             .toList();
-
         emit(CartLoadedState(cartItems: cartItems));
       } else {
         emit(CartErrorState("Failed to load products."));

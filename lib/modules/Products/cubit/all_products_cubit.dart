@@ -9,7 +9,7 @@ class AllProductsCubit extends Cubit<AllProductsState> {
   AllProductsCubit() : super(ProductsInitial());
 
   // Load all products
-  void loadAllProducts() async {
+  Future<void> loadAllProducts() async {
     emit(ProductsLoadingState());
     try {
       final querySnapshot = await _firestore.collection('products').get();
@@ -24,12 +24,12 @@ class AllProductsCubit extends Cubit<AllProductsState> {
           quantity: doc['quantity'],
         );
       }).toList();
-
       emit(ProductsLoadedState(products));
     } catch (e) {
       emit(ProductsErrorState("Failed to load products."));
     }
   }
+
   // Get product by ID
   // Product? getProductById(String productId) {
   //   if (state is ProductsLoadedState) {
@@ -56,6 +56,7 @@ class AllProductsCubit extends Cubit<AllProductsState> {
     }
     return null;
   }
+
   // Load products by category
   void loadProductsByCategory(String category) async {
     emit(ProductsLoadingState());
