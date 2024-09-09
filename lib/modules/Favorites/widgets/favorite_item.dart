@@ -1,4 +1,5 @@
 import 'package:bella_app/models/favorite_item_model.dart';
+import 'package:bella_app/modules/Cart/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../utils/custom_snackbar.dart'; // Import the CustomSnackbar
@@ -79,7 +80,8 @@ class FavoriteItem extends StatelessWidget {
                 ),
                 onPressed: () {
                   // Add your add-to-cart logic
-
+                  final cartCubit = context.read<CartCubit>();
+                  cartCubit.addToCart(item.id);
                   // Show a snackbar message using CustomSnackbar
                   CustomSnackbar.show(
                     context,

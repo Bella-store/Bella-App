@@ -79,4 +79,10 @@ class UserModel {
     favoriteProducts = newFavoriteProducts;
     await saveToPreferences(); // Save updated model to SharedPreferences
   }
+
+  // Method to clear cart products from user model
+  Future<void> clearCartProducts() async {
+    cartProducts = []; // Clear the cartProducts list
+    await saveToPreferences(); // Save the updated user model back to SharedPreferences
+  }
 }

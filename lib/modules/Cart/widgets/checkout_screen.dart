@@ -1,4 +1,5 @@
-import 'package:bella_app/modules/Home/home_screen.dart';
+import 'package:bella_app/modules/Cart/cubit/cart_cubit.dart';
+import 'package:bella_app/modules/Products/cubit/all_products_cubit.dart';
 import 'package:bella_app/modules/stripe_payment/payment_manager.dart';
 import 'package:bella_app/shared/app_string.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../shared/app_color.dart';
 import '../../Setting/myorder_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen(
@@ -181,6 +183,8 @@ class CheckoutScreenState extends State<CheckoutScreen> {
     return ElevatedButton(
       onPressed: () async {
         try {
+          String paymentMethod = _selectedOption;
+
           if (_selectedOption == 'pickup') {
             // Navigate to My Order screen
             Navigator.push(
@@ -225,6 +229,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
               'userId': user.uid,
               'orderDetails': orderDetails,
               'orderDate': DateTime.now(),
+              'paymentMethod': paymentMethod,
             });
 
             // Step 5: Update product quantities in the Firestore products collection
@@ -255,13 +260,15 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                 .doc(user.uid)
                 .update({'cartProducts': []});
 
-            // Payment successful, navigate to order confirmation
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      HomeScreen(controller: widget.controller)),
-            );
+            // Step 8: Reload products using ProductsCubit
+            context.read<AllProductsCubit>().loadAllProducts();
+
+            // Step 9: Clear cart using CartCubit
+            context.read<CartCubit>().loadCart();
+
+            // Step 10: Close all screens up to the Cart Screen and go to Home Screen
+            Navigator.popUntil(context, (route) => route.isFirst);
+            widget.controller.jumpToTab(0);
           }
         } catch (e) {
           // Handle any errors that occur during payment, such as the payment being canceled

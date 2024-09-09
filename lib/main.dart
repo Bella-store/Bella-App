@@ -24,8 +24,8 @@ void main() async {
 
   final prefs = await SharedPreferences.getInstance();
 
-  Stripe.publishableKey=ApiKeys.pusblishableKey;
-  
+  Stripe.publishableKey = ApiKeys.pusblishableKey;
+
   String? localeCode = prefs.getString('locale') ?? 'en';
   bool isDarkMode =
       prefs.getBool('isDarkMode') ?? false; // Default to light mode
@@ -34,9 +34,6 @@ void main() async {
   // Load user model from shared preferences to determine the initial screen
   UserModel? userModel = await UserModel.loadFromPreferences();
   Widget initialScreen;
-
-  print("++++++++++++++++++++");
-  print(userModel?.cartProducts);
 
   if (userModel != null) {
     initialScreen =

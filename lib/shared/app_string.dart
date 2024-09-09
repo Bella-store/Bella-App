@@ -92,6 +92,7 @@ class AppString {
   static String description(BuildContext context) => 'description'.tr(context);
   static String availableInStock(BuildContext context) =>
       'availableInStock'.tr(context);
+  static String outOfStock(BuildContext context) => 'outOfStock'.tr(context);
   static String addTocart(BuildContext context) => 'addTocart'.tr(context);
 // Cart screen -------------------------------------------------------------
   static String myCart(BuildContext context) => 'myCart'.tr(context);
