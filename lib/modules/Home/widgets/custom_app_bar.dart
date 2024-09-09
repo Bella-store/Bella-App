@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../shared/app_string.dart';
-import '../../Cart/cart_screen.dart';
 
 class CustomAppBar extends StatelessWidget {
   final Size screenSize;
+  final PersistentTabController navController; // Accept PersistentTabController
 
-  const CustomAppBar({super.key, required this.screenSize});
+  const CustomAppBar(
+      {super.key, required this.screenSize, required this.navController});
 
   @override
   Widget build(BuildContext context) {
@@ -46,20 +47,11 @@ class CustomAppBar extends StatelessWidget {
           ),
           child: IconButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CartScreen(),
-                  ),
-                );
+                // Set the tab index directly to Cart (index 2 in this example)
+                navController.jumpToTab(2); // Index for Cart tab
               },
               icon: const Icon(Icons.shopping_cart_outlined)),
-        )
-        // CircleAvatar(
-        //   radius: 25,
-        //   backgroundImage: AssetImage(
-        //       AppString.profile), // Replace with your image asset
-        // ),
+        ),
       ],
     );
   }

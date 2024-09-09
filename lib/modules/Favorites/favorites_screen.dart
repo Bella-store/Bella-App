@@ -1,12 +1,14 @@
 import 'package:bella_app/models/favorite_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../modules/Favorites/cubit/favorites_cubit.dart';
 import '../../shared/app_string.dart';
 import 'widgets/favorite_item.dart';
 
 class FavoritesScreen extends StatelessWidget {
-  const FavoritesScreen({super.key});
+  final PersistentTabController controller;
+  const FavoritesScreen({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,9 @@ class FavoritesScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.shopping_cart_outlined,
                 color: theme.iconTheme.color),
-            onPressed: () {},
+            onPressed: () {
+              controller.jumpToTab(2);
+            },
           ),
         ],
         elevation: 0,
@@ -39,7 +43,8 @@ class FavoritesScreen extends StatelessWidget {
                 favoritesCubit.getFavoriteProducts(state.favoriteProductIds);
 
             if (favoriteProducts.isEmpty) {
-              return const Center(child: Text("No favorites yet!"));
+              return const Center(
+                  child: Text("No favorites yet!")); //TODO: translate here plz
             }
 
             return ListView.builder(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../Admin/modules/Products/add_products_screen.dart';
 import 'widgets/custom_app_bar.dart';
 import 'widgets/products_section.dart';
@@ -6,7 +7,9 @@ import 'widgets/search_bar.dart';
 import 'widgets/categories_section.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final PersistentTabController controller;
+
+  const HomeScreen({super.key, required this.controller});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -39,7 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomAppBar(screenSize: MediaQuery.of(context).size),
+                  // Pass the PageController to the CustomAppBar for navigation purposes
+                  CustomAppBar(
+                    screenSize: MediaQuery.of(context).size,
+                    navController: widget.controller,
+                  ),
                   const SizedBox(height: 20),
                   // SearchWidget with a callback to update the searchTerm
                   SearchWidget(

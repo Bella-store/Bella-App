@@ -31,10 +31,10 @@ class LayoutScreenState extends State<LayoutScreen> {
 
   List<Widget> _buildScreens() {
     return [
-      const HomeScreen(),
-      FavoritesScreen(),
+      HomeScreen(controller: _controller), // Pass the controller here
+      FavoritesScreen(controller: _controller),
       CartScreen(),
-      const ProfileScreen(),
+      ProfileScreen(controller: _controller),
     ];
   }
 
@@ -71,12 +71,6 @@ class LayoutScreenState extends State<LayoutScreen> {
     ];
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _controller.jumpToTab(index);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -88,7 +82,6 @@ class LayoutScreenState extends State<LayoutScreen> {
           controller: _controller,
           screens: _buildScreens(),
           items: _navBarsItems(context),
-          onItemSelected: _onItemTapped,
           confineToSafeArea: true,
           handleAndroidBackButtonPress: true,
           resizeToAvoidBottomInset: true,

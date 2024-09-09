@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bella_app/modules/Favorites/favorites_screen.dart';
 import 'package:bella_app/modules/Setting/add_payment_method_screen.dart';
@@ -17,7 +18,8 @@ import '../../utils/custom_snackbar.dart';
 import '../../models/user_model.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  final PersistentTabController controller;
+  const ProfileScreen({super.key, required this.controller});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -123,12 +125,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ProfileMenuOption(
                         title: AppString.favorites(context),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => FavoritesScreen(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => FavoritesScreen(
+                          //       controller: widget.controller,
+                          //     ),
+                          //   ),
+                          // );
+                          widget.controller.jumpToTab(1);
                         },
                       ),
                       ProfileMenuOption(
