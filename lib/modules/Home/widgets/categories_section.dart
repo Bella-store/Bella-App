@@ -77,16 +77,16 @@ class CategoriesSectionState extends State<CategoriesSection> {
 
         // Category buttons row
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CategoryButton(
-              // label: "All",
-              label: AppString.all(context),
-              icon: Icons.redeem,
-              isSelected: _selectedCategory == "all",
-              onTap: () => _onCategorySelected("all"),
-              textSize: textSize, // Pass text size for responsiveness
-            ),
+                // label: "All",
+                label: AppString.all(context),
+                icon: Icons.redeem,
+                isSelected: _selectedCategory == "all",
+                onTap: () => _onCategorySelected("all"),
+                textSize: textSize, // Pass text size for responsiveness
+                width: 70),
             CategoryButton(
               // label: "Living Room",
               label: AppString.livingRoom(context),
@@ -124,6 +124,7 @@ class CategoryButton extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
   final double textSize; // Add textSize parameter for responsive text
+  final double width;
 
   const CategoryButton({
     super.key,
@@ -132,6 +133,7 @@ class CategoryButton extends StatelessWidget {
     required this.isSelected,
     required this.onTap,
     required this.textSize, // Add textSize parameter for responsive text
+    this.width = 0,
   });
 
   @override
@@ -141,7 +143,8 @@ class CategoryButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: isSelected ? 70 : null, // Set a fixed width when selected
+        // width: isSelected ? 70 : null, // Set a fixed width when selected
+        width: width > 0 ? width : null, // Set a fixed width when selected
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected ? AppColor.mainColor : theme.cardColor,
