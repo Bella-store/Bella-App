@@ -21,6 +21,10 @@ class CartLoadedState extends CartState {
 
   // Calculate the final amount after applying the discount
   double get finalAmount => totalAmount - (totalAmount * discount);
+
+  // Calculate the total quantity of items in the cart
+  int get totalQuantity =>
+      cartItems.fold(0, (sum, item) => sum + item.quantity);
 }
 
 class CartErrorState extends CartState {
