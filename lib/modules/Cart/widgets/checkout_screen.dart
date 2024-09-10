@@ -219,6 +219,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
         'orderDetails': orderDetails,
         'orderDate': DateTime.now(),
         'paymentMethod': paymentMethod,
+        'orderStatusId': 'TUgeq6U27JsTojE1XukC',
       });
 
       // Update order with the document ID as orderId
