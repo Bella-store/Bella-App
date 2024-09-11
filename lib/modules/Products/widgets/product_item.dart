@@ -71,7 +71,7 @@ class ProductItem extends StatelessWidget {
                       return IconButton(
                         icon: Icon(
                           isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: isFavorite ? Colors.red : AppColor.blackColor,
+                          color: isFavorite ? Colors.red : AppColor.whiteColor,
                         ),
                         onPressed: () {
                           final favoritesCubit = context.read<FavoritesCubit>();

@@ -135,7 +135,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       fontFamily: 'Montserrat',
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  // const SizedBox(height: 8),
                   // Rating and number of reviews
                   // const Row(
                   //   children: [
@@ -205,7 +205,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                       ),
                     ),
-                  SizedBox(height: responsiveHeight), // Use responsive height
+                  SizedBox(height: responsiveHeight*screenHeight/55), // Use responsive height
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -221,7 +221,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 60.0, vertical: 15.0),
                           backgroundColor: widget.product.quantity > 0
-                              ? Colors.black
+                              ? AppColor.mainColor
                               : Colors
                                   .grey, // Grey background when out of stock
                           shape: RoundedRectangleBorder(
@@ -249,7 +249,7 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           style: theme.textTheme.labelLarge?.copyWith(
                             color: widget.product.quantity > 0
                                 ? Colors.white
-                                : Colors.black54, // Lighter text when disabled
+                                : AppColor.mainColor, // Lighter text when disabled
                             fontFamily: 'Montserrat',
                           ),
                         ),
