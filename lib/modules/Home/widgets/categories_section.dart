@@ -14,6 +14,49 @@ class CategoriesSection extends StatefulWidget {
 
 class CategoriesSectionState extends State<CategoriesSection> {
   String _selectedCategory = "all"; // Default selected category
+   late double _buttonWidth=0;
+
+   @override
+  void initState() {
+    super.initState();
+    // Calculate the maximum width for the buttons
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _buttonWidth = _calculateMaxButtonWidth(context);
+      setState(() {});
+    });
+  }
+
+  double _calculateMaxButtonWidth(BuildContext context) {
+    List<String> labels = [
+      AppString.all(context),
+      AppString.livingRoom(context),
+      AppString.bedRoom(context),
+      AppString.decoration(context),
+    ];
+
+    double maxWidth = 0;
+
+    for (var label in labels) {
+      final textPainter = TextPainter(
+        text: TextSpan(
+          text: label,
+          style: TextStyle(
+            fontSize: 14, // Assuming text size as 14 (adjust as needed)
+            fontFamily: 'Montserrat',
+          ),
+        ),
+        maxLines: 1,
+        textDirection: TextDirection.ltr,
+      )..layout();
+
+      final width = textPainter.size.width + 40; // Adding some padding space
+      if (width > maxWidth) {
+        maxWidth = width;
+      }
+    }
+
+    return maxWidth;
+  }
 
   void _onCategorySelected(String category) {
     setState(() {
@@ -76,42 +119,52 @@ class CategoriesSectionState extends State<CategoriesSection> {
         const SizedBox(height: 10),
 
         // Category buttons row
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CategoryButton(
-                // label: "All",
-                label: AppString.all(context),
-                icon: Icons.redeem,
-                isSelected: _selectedCategory == "all",
-                onTap: () => _onCategorySelected("all"),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CategoryButton(
+                  // label: "All",
+                  label: AppString.all(context),
+                  icon: Icons.redeem,
+                  isSelected: _selectedCategory == "all",
+                  onTap: () => _onCategorySelected("all"),
+                  textSize: textSize, // Pass text size for responsiveness
+                  width: _buttonWidth, // Set all buttons to the same width
+                  ),
+                   const SizedBox(width: 10),
+              CategoryButton(
+                // label: "Living Room",
+                label: AppString.livingRoom(context),
+                icon: Icons.living,
+                isSelected: _selectedCategory == "Living Room",
+                onTap: () => _onCategorySelected("Living Room"),
                 textSize: textSize, // Pass text size for responsiveness
-                width: 70),
-            CategoryButton(
-              // label: "Living Room",
-              label: AppString.livingRoom(context),
-              icon: Icons.living,
-              isSelected: _selectedCategory == "Living Room",
-              onTap: () => _onCategorySelected("Living Room"),
-              textSize: textSize, // Pass text size for responsiveness
-            ),
-            CategoryButton(
-              // label: "Bed Room",
-              label: AppString.bedRoom(context),
-              icon: Icons.bed,
-              isSelected: _selectedCategory == "Bed Room",
-              onTap: () => _onCategorySelected("Bed Room"),
-              textSize: textSize, // Pass text size for responsiveness
-            ),
-            CategoryButton(
-              // label: "Decoration",
-              label: AppString.decoration(context),
-              icon: Icons.home,
-              isSelected: _selectedCategory == "Decoration",
-              onTap: () => _onCategorySelected("Decoration"),
-              textSize: textSize, // Pass text size for responsiveness
-            ),
-          ],
+                width: _buttonWidth,
+              ),
+               const SizedBox(width: 10),
+              CategoryButton(
+                // label: "Bed Room",
+                label: AppString.bedRoom(context),
+                icon: Icons.bed,
+                isSelected: _selectedCategory == "Bed Room",
+                onTap: () => _onCategorySelected("Bed Room"),
+                textSize: textSize, // Pass text size for responsiveness
+                width: _buttonWidth, // Set all buttons to the same width
+              ),
+               const SizedBox(width: 10),
+              CategoryButton(
+                // label: "Decoration",
+                label: AppString.decoration(context),
+                icon: Icons.home,
+                isSelected: _selectedCategory == "Decoration",
+                onTap: () => _onCategorySelected("Decoration"),
+                textSize: textSize, // Pass text size for responsiveness
+                width: _buttonWidth,
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -133,7 +186,7 @@ class CategoryButton extends StatelessWidget {
     required this.isSelected,
     required this.onTap,
     required this.textSize, // Add textSize parameter for responsive text
-    this.width = 0,
+    required this.width,
   });
 
   @override
@@ -145,7 +198,7 @@ class CategoryButton extends StatelessWidget {
       child: Container(
         // width: isSelected ? 70 : null, // Set a fixed width when selected
         width: width > 0 ? width : null, // Set a fixed width when selected
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected ? AppColor.mainColor : theme.cardColor,
           borderRadius: BorderRadius.circular(20),
