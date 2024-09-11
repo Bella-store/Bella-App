@@ -4,12 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:bella_app/modules/Setting/add_payment_method_screen.dart';
 import 'package:bella_app/shared/local/languages/app_localizations.dart';
 import '../../shared/app_string.dart';
 import '../Auth/login/login_screen.dart';
 import 'myorder_screen.dart';
-import 'reviews_screen.dart';
 import 'setting_screen.dart';
 import 'widgets/profile_info.dart';
 import 'widgets/profile_menu_option.dart';
@@ -135,29 +133,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           widget.controller.jumpToTab(1);
                         },
                       ),
-                      ProfileMenuOption(
-                        title: 'Payment Method'.tr(context),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const AddPaymentMethodScreen(),
-                            ),
-                          );
-                        },
-                      ),
-                      ProfileMenuOption(
-                        title: 'My reviews'.tr(context),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MyReviewsScreen(),
-                            ),
-                          );
-                        },
-                      ),
+                      // ProfileMenuOption(
+                      //   title: 'Payment Method'.tr(context),
+                      //   onTap: () {
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) =>
+                      //             const AddPaymentMethodScreen(),
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
+                      // ProfileMenuOption(
+                      //   title: 'My reviews'.tr(context),
+                      //   onTap: () {
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) => const MyReviewsScreen(),
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
                       ProfileMenuOption(
                         title: AppString.setting(context),
                         onTap: () {
