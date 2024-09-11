@@ -102,6 +102,7 @@ class AppString {
 // my order screen---------------------------------------------------------
   static String myOrders(BuildContext context) => 'myOrders'.tr(context);
   static String delivered(BuildContext context) => 'delivered'.tr(context);
+  static String completed(BuildContext context) => 'completed'.tr(context);
   static String processing(BuildContext context) => 'processing'.tr(context);
   static String canceled(BuildContext context) => 'canceled'.tr(context);
   static String detail(BuildContext context) => 'detail'.tr(context);

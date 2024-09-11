@@ -69,6 +69,7 @@
     "paymentMethod": "Payment Method",
     "myOrders": "My orders",
     "delivered": "Delivered",
+    "completed": "Completed",
     "processing": "Processing",
     "canceled": "Canceled",
     "detail": "Detail",

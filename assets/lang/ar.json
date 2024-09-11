@@ -69,6 +69,7 @@
     "paymentMethod": "طريقة الدفع",
     "myOrders": "طلباتي",
     "delivered": "تم التوصيل",
+    "completed": "مكتمل",
     "processing": "قيد المعالجة",
     "canceled": "ملغي",
     "detail": "تفاصيل",
