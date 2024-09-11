@@ -2,7 +2,7 @@ class FavoriteItemModel {
   final String id;
   final String imageUrl;
   final String title;
-  final double price;
+  final num price;
   bool isFavorite;
   bool isInCart;
 

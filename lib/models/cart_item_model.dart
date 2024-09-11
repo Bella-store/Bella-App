@@ -2,7 +2,7 @@ class CartItemModel {
   final String id;
   final String imageUrl;
   final String title;
-  final double price;
+  final num price;
   int quantity;
 
   CartItemModel({
@@ -13,7 +13,7 @@ class CartItemModel {
     this.quantity = 1,
   });
 
-  double get totalPrice => price * quantity;
+  num get totalPrice => price * quantity;
 
   void increaseQuantity() {
     quantity++;
