@@ -1,6 +1,5 @@
 import 'package:bella_app/shared/app_color.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});

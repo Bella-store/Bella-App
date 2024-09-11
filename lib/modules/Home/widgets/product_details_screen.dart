@@ -243,7 +243,9 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               }
                             : null, // Disable button when out of stock
                         child: Text(
-                          AppString.addTocart(context),
+                          widget.product.quantity > 0
+                              ? AppString.addTocart(context)
+                              : AppString.outOfStock(context),
                           style: theme.textTheme.labelLarge?.copyWith(
                             color: widget.product.quantity > 0
                                 ? Colors.white
