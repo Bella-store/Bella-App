@@ -1,3 +1,4 @@
+import 'package:bella_app/modules/Setting/edit_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,7 +17,8 @@ import '../../models/user_model.dart';
 
 class ProfileScreen extends StatefulWidget {
   final PersistentTabController controller;
-  const ProfileScreen({super.key, required this.controller});
+    final UserModel currentUser;
+  const ProfileScreen({super.key, required this.controller, required this.currentUser});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -105,7 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ProfileInfo(
                         name: _currentUserModel.userName,
                         email: _currentUserModel.userEmail,
-                        imageUrl: AppString.profile,
+                        imageUrl: widget.currentUser.userImage==''?AppString.profile:widget.currentUser.userImage,
                       ),
                       const SizedBox(height: 20),
                       ProfileMenuOption(
@@ -156,6 +158,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       //     );
                       //   },
                       // ),
+                      // Inside the ProfileScreen Widget
+                      ProfileMenuOption(
+                        title: 'Edit Profile',
+                        onTap: () async {
+                          final updatedUser = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditProfileScreen(
+                                currentUser: _currentUserModel,
+                              ),
+                            ),
+                          );
+
+                          if (updatedUser != null) {
+                            setState(() {
+                              _currentUserModel = updatedUser;
+                            });
+                          }
+                        },
+                      ),
+
                       ProfileMenuOption(
                         title: AppString.setting(context),
                         onTap: () {

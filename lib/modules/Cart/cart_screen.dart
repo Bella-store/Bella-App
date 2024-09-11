@@ -34,9 +34,27 @@ class CartScreen extends StatelessWidget {
                 return const SkeletonCartItem(); // Show skeleton items while loading
               },
             );
-          } else if (state is CartLoadedState) {
+          }else if (state is CartLoadedState && state.cartItems.isEmpty){
+            return Center(
+                child: Column(
+              children: [
+                Image.asset(AppString.notFound),
+                Text(
+                  'Your cart is empty',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: AppColor.greyColor,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Montserrat',
+                  ),
+                ),
+              ],
+            ));
+          } 
+          else if (state is CartLoadedState) {
             return _buildCartContent(context, state);
-          } else if (state is CartErrorState) {
+          }
+           else if (state is CartErrorState) {
             return Center(
                 child: Column(
               children: [

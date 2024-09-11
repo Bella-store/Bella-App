@@ -1,11 +1,14 @@
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 class UserModel {
   final String userId;
   final String userName;
   final String userEmail;
+  final String userImage; // New field for user image
+  final String address; // New field for address
+  final String phone; // New field for phone
   List<String> favoriteProducts; // List of product IDs
   List<Map<String, dynamic>> cartProducts; // List of cart product IDs
   final String role;
@@ -14,6 +17,9 @@ class UserModel {
     required this.userId,
     required this.userName,
     required this.userEmail,
+    this.userImage = '', // Default value for user image
+    this.address = "Ex:-Ismailia", // Default value for address
+    this.phone = "Ex:-201025879212", // Default value for phone
     required this.favoriteProducts,
     required this.cartProducts,
     required this.role,
@@ -25,6 +31,9 @@ class UserModel {
       userId: userId,
       userName: data['userName'] ?? '',
       userEmail: data['userEmail'] ?? '',
+      userImage: data['userImage'] ?? '',
+      address: data['address'] ?? 'Ex:-Ismailia',
+      phone: data['phone'] ?? 'Ex:-201025879212',
       favoriteProducts: List<String>.from(data['favoriteProducts'] ?? []),
       cartProducts: List<Map<String, dynamic>>.from(data['cartProducts'] ?? []),
       role: data['role'] ?? 'user',
@@ -37,6 +46,9 @@ class UserModel {
       'userId': userId,
       'userName': userName,
       'userEmail': userEmail,
+      'userImage': userImage,
+      'address': address,
+      'phone': phone,
       'favoriteProducts': favoriteProducts,
       'cartProducts': cartProducts,
       'role': role,
@@ -67,22 +79,27 @@ class UserModel {
     await prefs.remove('userModel');
   }
 
-  // Update cartProducts and save to SharedPreferences
-  Future<void> updateCartProducts(
-      List<Map<String, dynamic>> newCartProducts) async {
-    cartProducts = newCartProducts;
-    await saveToPreferences(); // Save updated model to SharedPreferences
-  }
-
-  // Update favoriteProducts and save to SharedPreferences
-  Future<void> updateFavoriteProducts(List<String> newFavoriteProducts) async {
-    favoriteProducts = newFavoriteProducts;
-    await saveToPreferences(); // Save updated model to SharedPreferences
-  }
-
-  // Method to clear cart products from user model
-  Future<void> clearCartProducts() async {
-    cartProducts = []; // Clear the cartProducts list
-    await saveToPreferences(); // Save the updated user model back to SharedPreferences
+  // Method to update the UserModel with new values using copyWith
+  UserModel copyWith({
+    String? userName,
+    String? userEmail,
+    String? userImage,
+    String? address,
+    String? phone,
+    List<String>? favoriteProducts,
+    List<Map<String, dynamic>>? cartProducts,
+    String? role,
+  }) {
+    return UserModel(
+      userId: userId,
+      userName: userName ?? this.userName,
+      userEmail: userEmail ?? this.userEmail,
+      userImage: userImage ?? this.userImage,
+      address: address ?? this.address,
+      phone: phone ?? this.phone,
+      favoriteProducts: favoriteProducts ?? this.favoriteProducts,
+      cartProducts: cartProducts ?? this.cartProducts,
+      role: role ?? this.role,
+    );
   }
 }

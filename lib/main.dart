@@ -1,4 +1,5 @@
 import 'package:bella_app/modules/Cart/cubit/cart_cubit.dart';
+import 'package:bella_app/modules/Setting/cubit/edit_profile_cubit.dart';
 import 'package:bella_app/shared/theme/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -143,6 +144,9 @@ class MyAppState extends State<MyApp> {
             productsCubit: context.read<AllProductsCubit>(),
           )..loadCart(), // Pass AllProductsCubit to FavoritesCubit
         ),
+          BlocProvider<EditProfileCubit>(
+      create: (context) => EditProfileCubit(),
+    ), 
       ],
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
