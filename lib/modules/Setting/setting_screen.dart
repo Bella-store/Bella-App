@@ -1,6 +1,6 @@
-import 'package:bella_app/modules/About/about_screen.dart';
-import 'package:bella_app/modules/Help&Support/help_and_support.dart';
-import 'package:bella_app/modules/Terms&Conditions/terms_conditions.dart';
+import 'package:bella_app/modules/Setting/About_App/about_screen.dart';
+import 'package:bella_app/modules/Setting/About_App/help_and_support.dart';
+import 'package:bella_app/modules/Setting/About_App/terms_conditions.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../main.dart';
