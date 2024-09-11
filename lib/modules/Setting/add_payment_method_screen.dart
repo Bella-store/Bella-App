@@ -89,7 +89,7 @@ class CreditCardDisplayState extends State<CreditCardDisplay> {
   @override
   Widget build(BuildContext context) {
     // final theme = Theme.of(context);
-    
+
     return LayoutBuilder(
       builder: (context, constraints) {
         return Container(
@@ -105,7 +105,7 @@ class CreditCardDisplayState extends State<CreditCardDisplay> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SvgPicture.asset(AppString.masterCard, height: 30),
-                  SvgPicture.asset(AppString.visa, height: 30),
+                  SvgPicture.asset(AppString.visaCard, height: 30),
                 ],
               ),
               const SizedBox(height: 20),
@@ -171,7 +171,7 @@ class PaymentForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Form(
       child: Column(
         children: [

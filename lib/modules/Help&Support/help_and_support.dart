@@ -12,11 +12,13 @@ class HelpSupportScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Help & Support',
           style: TextStyle(
-            color: Colors.white,
+            fontSize: 16.0,
+            color: AppColor.whiteColor,
             fontWeight: FontWeight.bold,
+            fontFamily: 'Montserrat',
           ),
         ),
         centerTitle: true,
@@ -78,9 +80,10 @@ class HelpSupportScreen extends StatelessWidget {
     return Text(
       title,
       style: theme.textTheme.bodyLarge?.copyWith(
+        fontSize: 16.0,
         color: AppColor.mainColor,
         fontWeight: FontWeight.bold,
-        fontSize: 18,
+        fontFamily: 'Montserrat',
       ),
     );
   }
@@ -91,8 +94,10 @@ class HelpSupportScreen extends StatelessWidget {
       title: Text(
         question,
         style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.black87,
+          fontSize: 16.0,
+          
+          fontWeight: FontWeight.w500,
+          fontFamily: 'Montserrat',
         ),
       ),
       children: [
@@ -100,8 +105,11 @@ class HelpSupportScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             answer,
-            style: const TextStyle(
-              color: Colors.black54,
+            style: TextStyle(
+              fontSize: 12.0,
+              color: AppColor.greyColor,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Montserrat',
             ),
           ),
         ),
@@ -120,7 +128,10 @@ class HelpSupportScreen extends StatelessWidget {
       title: Text(
         text,
         style: TextStyle(
+          fontSize: 14.0,
           color: AppColor.mainColor,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Montserrat',
         ),
       ),
       onTap: onTap,
@@ -133,20 +144,30 @@ class HelpSupportScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'We value your feedback. Please let us know your thoughts:',
-          style: TextStyle(color: Colors.black87),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: AppColor.greyColor,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Montserrat',
+          ),
         ),
         const SizedBox(height: 10),
         TextField(
           controller: feedbackController,
           maxLines: 4,
           decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            hintText: 'Enter your feedback here...',
-          ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              hintText: 'Enter your feedback here...',
+              hintStyle: TextStyle(
+                fontSize: 12.0,
+                color: AppColor.greyColor,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Montserrat',
+              )),
         ),
         const SizedBox(height: 10),
         Center(
@@ -171,11 +192,13 @@ class HelpSupportScreen extends StatelessWidget {
                 vertical: 10,
               ),
             ),
-            child: const Text(
+            child: Text(
               'Submit',
               style: TextStyle(
-                color: Colors.white,
+                fontSize: 16.0,
+                color: AppColor.whiteColor,
                 fontWeight: FontWeight.bold,
+                fontFamily: 'Montserrat',
               ),
             ),
           ),

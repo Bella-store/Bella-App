@@ -103,10 +103,10 @@
 
     "delivery": "Delivery",
     "payment_method": "Payment Method",
-    "visa": "Visa",
+    "Visa": "Visa",
     "payVisa": "Pay with your Visa card",
-    "pick_up": "Pick Up",
-    "pick_up_subtitle": "Pick up at the store",
+    "pickUp": "Pick Up",
+    "pickUpSubtitle": "Pick up at the store",
     "userInfo": "User Info",
 
     "changeAddress": "Change Address",

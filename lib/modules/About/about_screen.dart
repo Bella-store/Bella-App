@@ -9,7 +9,7 @@ class AboutScreen extends StatelessWidget {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'About App',
           style: TextStyle(
             color: Colors.white,
@@ -23,7 +23,7 @@ class AboutScreen extends StatelessWidget {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // App Name
             Text(
@@ -31,6 +31,7 @@ class AboutScreen extends StatelessWidget {
               style: theme.textTheme.headlineLarge?.copyWith(
                 color: AppColor.mainColor,
                 fontWeight: FontWeight.bold,
+                fontFamily: 'Montserrat',
               ),
             ),
             const SizedBox(height: 10),
@@ -38,16 +39,22 @@ class AboutScreen extends StatelessWidget {
             Text(
               'Version 1.0.0',
               style: theme.textTheme.titleSmall?.copyWith(
-                color: Colors.grey[600],
+                fontSize: 14.0,
+                color: AppColor.greyColor,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Montserrat',
               ),
             ),
             const SizedBox(height: 20),
             // App Description
             Text(
               'This application is an modern furniture store. This is the official app of the Bella Company.',
-              textAlign: TextAlign.center,
+              // textAlign: TextAlign.center,
               style: theme.textTheme.titleMedium?.copyWith(
-                color: Colors.black87,
+                fontSize: 14.0,
+                color: AppColor.greyColor,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Montserrat',
               ),
             ),
             const SizedBox(height: 30),
@@ -55,19 +62,21 @@ class AboutScreen extends StatelessWidget {
             _buildSectionHeader('Developers'),
             _buildDeveloperInfo(
               name: 'John Doe',
-              role: 'Lead Developer',
+              role: 'Flutter Developer',
               email: 'johndoe@example.com',
               theme: theme,
             ),
             _buildDeveloperInfo(
               name: 'Jane Smith',
-              role: 'UI/UX Designer',
+              role: 'Front-End Developer',
               email: 'janesmith@example.com',
               theme: theme,
             ),
             const SizedBox(height: 30),
             // Contact Information
-            _buildSectionHeader('Contact Us'),
+            _buildSectionHeader(
+              'Contact Us',
+            ),
             _buildContactRow(
               icon: Icons.email,
               text: 'support@bella.com',
@@ -90,9 +99,10 @@ class AboutScreen extends StatelessWidget {
     return Text(
       title,
       style: TextStyle(
+        fontSize: 15.0,
         color: AppColor.mainColor,
         fontWeight: FontWeight.bold,
-        fontSize: 18,
+        fontFamily: 'Montserrat',
       ),
     );
   }
@@ -109,18 +119,24 @@ class AboutScreen extends StatelessWidget {
         ListTile(
           leading: CircleAvatar(
             backgroundColor: AppColor.mainColor,
-            child: Icon(Icons.person, color: Colors.white),
+            child: const Icon(Icons.person, color: Colors.white),
           ),
           title: Text(
             name,
             style: theme.textTheme.titleSmall?.copyWith(
+              fontSize: 14.0,
+              // color: AppColor.greyColor,
               fontWeight: FontWeight.bold,
+              fontFamily: 'Montserrat',
             ),
           ),
           subtitle: Text(
             role,
             style: theme.textTheme.titleSmall?.copyWith(
-              color: Colors.grey[600],
+              fontSize: 11.0,
+              color: AppColor.greyColor,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Montserrat',
             ),
           ),
           trailing: IconButton(
@@ -144,7 +160,10 @@ class AboutScreen extends StatelessWidget {
       title: Text(
         text,
         style: theme.textTheme.titleSmall?.copyWith(
+          fontSize: 12.0,
           color: AppColor.mainColor,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Montserrat',
         ),
       ),
       onTap: onTap,

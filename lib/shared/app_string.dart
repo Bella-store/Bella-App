@@ -13,7 +13,7 @@ class AppString {
   static String chair = "assets/images/chair.jpeg";
   static String table = "assets/images/table.jpeg";
   static String masterCard = "assets/images/mastercard_logo.svg";
-  static String visa = "assets/images/visa_logo.svg";
+  static String visaCard = "assets/images/visa_logo.svg";
   static String notFound = "assets/images/notfound_img.png";
   // Localization properties
   static String setting(BuildContext context) => 'setting'.tr(context);
@@ -161,8 +161,9 @@ class AppString {
   static String delivery(BuildContext context) => 'delivery'.tr(context);
   static String paymentMethod(BuildContext context) =>
       'paymentMethod'.tr(context);
-  static String pickup(BuildContext context) => 'pickup'.tr(context);
+  static String pickUp(BuildContext context) => 'pickUp'.tr(context);
   static String proceed(BuildContext context) => 'proceed'.tr(context);
+  static String visa(BuildContext context) => 'visa'.tr(context);
   static String payVisa(BuildContext context) => 'payVisa'.tr(context);
   static String save(BuildContext context) => 'save'.tr(context);
   static String continuePayment(BuildContext context) =>
@@ -180,6 +181,8 @@ class AppString {
       'enterPhoneNumber'.tr(context);
 
   static String enterEmail(BuildContext context) => 'enterEmail'.tr(context);
+  static String pickUpSubtitle(BuildContext context) =>
+      'pickUpSubtitle'.tr(context);
 
   static String all(BuildContext context) => 'all'.tr(context);
   static String livingRoom(BuildContext context) => 'livingRoom'.tr(context);

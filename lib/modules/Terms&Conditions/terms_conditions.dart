@@ -40,7 +40,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
               Text(
                 'These terms and conditions outline the rules and regulations for the use of Bella’s application.',
                 style: theme.textTheme.titleSmall?.copyWith(
-                  color: Colors.black87,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
                 ),
               ),
               const SizedBox(height: 20),
@@ -49,7 +51,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
               Text(
                 'By accessing or using Bella, you agree to be bound by these terms. If you disagree with any part of the terms, you may not use our service.',
                 style: theme.textTheme.titleSmall?.copyWith(
-                  color: Colors.black87,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
                 ),
               ),
               const SizedBox(height: 20),
@@ -58,7 +62,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
               Text(
                 'Bella offers a wide range of modern furniture products. All payments are processed securely, and you agree to provide accurate payment information.',
                 style: theme.textTheme.titleSmall?.copyWith(
-                  color: Colors.black87,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
                 ),
               ),
               const SizedBox(height: 20),
@@ -67,7 +73,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
               Text(
                 'Orders will be processed and shipped according to our delivery policy. Bella is not responsible for delays caused by external factors.',
                 style: theme.textTheme.titleSmall?.copyWith(
-                  color: Colors.black87,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
                 ),
               ),
               const SizedBox(height: 20),
@@ -76,7 +84,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
               Text(
                 'You can return products in accordance with our return and refund policy. Products must be in original condition and returned within the specified period.',
                 style: theme.textTheme.titleSmall?.copyWith(
-                  color: Colors.black87,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
                 ),
               ),
               const SizedBox(height: 20),
@@ -85,7 +95,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
               Text(
                 'Users agree not to misuse the app by engaging in prohibited activities such as fraud, harassment, or unauthorized access to the app’s resources.',
                 style: theme.textTheme.titleSmall?.copyWith(
-                  color: Colors.black87,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
                 ),
               ),
               const SizedBox(height: 20),
@@ -94,7 +106,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
               Text(
                 'Bella respects your privacy. Please read our Privacy Policy to understand how we collect, use, and protect your personal information.',
                 style: theme.textTheme.titleSmall?.copyWith(
-                  color: Colors.black87,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
                 ),
               ),
               const SizedBox(height: 20),
@@ -103,7 +117,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
               Text(
                 'Bella reserves the right to modify these terms at any time. Continued use of the app after changes implies acceptance of the revised terms.',
                 style: theme.textTheme.titleSmall?.copyWith(
-                  color: Colors.black87,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
                 ),
               ),
               const SizedBox(height: 20),
@@ -111,7 +127,10 @@ class TermsAndConditionsScreen extends StatelessWidget {
               Text(
                 'If you have any questions or concerns about these terms, please contact us at support@bella.com.',
                 style: theme.textTheme.titleSmall?.copyWith(
-                  color: Colors.black87,
+                  fontSize: 12.0,
+                  color: AppColor.greyColor,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
                 ),
               ),
               const SizedBox(height: 20),
@@ -133,11 +152,13 @@ class TermsAndConditionsScreen extends StatelessWidget {
                         vertical: 10,
                       ),
                       backgroundColor: AppColor.mainColor),
-                  child: const Text(
+                  child: Text(
                     'Contact Us',
                     style: TextStyle(
-                      color: Colors.white,
+                      fontSize: 14.0,
+                      color: AppColor.whiteColor,
                       fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat',
                     ),
                   ),
                 ),
@@ -154,9 +175,10 @@ class TermsAndConditionsScreen extends StatelessWidget {
     return Text(
       title,
       style: theme.textTheme.titleSmall?.copyWith(
+        fontSize: 16.0,
         color: AppColor.mainColor,
         fontWeight: FontWeight.bold,
-        fontSize: 16,
+        fontFamily: 'Montserrat',
       ),
     );
   }

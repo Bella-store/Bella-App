@@ -102,10 +102,10 @@
 
     "delivery": "التوصيل",
     "payment_method": "طريقة الدفع",
-    "visa": "فيزا",
+    "Visa": "فيزا",
     "payVisa": "الدفع بواسطة بطاقة فيزا",
-    "pick_up": "استلام من المتجر",
-    "pick_up_subtitle": "استلام من المتجر",
+    "pickUp": "استلام من المتجر",
+    "pickUpSubtitle": "استلام من المتجر",
     "userInfo": "معلومات المستخدم",
 
     "changeAddress": "تغيير العنوان",

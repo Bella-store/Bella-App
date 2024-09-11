@@ -72,7 +72,9 @@ class CheckoutScreenState extends State<CheckoutScreen> {
         Text(
           AppString.paymentMethod(context),
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontSize: 15.0,
                 fontWeight: FontWeight.bold,
+                fontFamily: 'Montserrat',
               ),
         ),
         SizedBox(height: height * 0.01),
@@ -85,8 +87,12 @@ class CheckoutScreenState extends State<CheckoutScreen> {
             });
           },
           title: Text(
-            'Visa',
-            style: Theme.of(context).textTheme.bodyLarge,
+            AppString.visa(context),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
+                ),
           ),
           subtitle: Text(
             AppString.payVisa(context),
@@ -106,11 +112,11 @@ class CheckoutScreenState extends State<CheckoutScreen> {
             });
           },
           title: Text(
-            'Pick Up',
+            AppString.pickUp(context),
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           subtitle: Text(
-            'Pick up at the store',
+            AppString.pickUpSubtitle(context),
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           secondary: Icon(
@@ -137,11 +143,19 @@ class CheckoutScreenState extends State<CheckoutScreen> {
               Icon(Icons.location_on, color: Theme.of(context).iconTheme.color),
           title: Text(
             '591 Hill',
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
+                ),
           ),
           subtitle: Text(
             'Florida, Miami',
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
+                ),
           ),
           trailing: Icon(Icons.arrow_forward_ios,
               color: Theme.of(context).iconTheme.color),
@@ -154,7 +168,11 @@ class CheckoutScreenState extends State<CheckoutScreen> {
           leading: Icon(Icons.phone, color: Theme.of(context).iconTheme.color),
           title: Text(
             '(620) 555-0273',
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
+                ),
           ),
           trailing: Icon(Icons.arrow_forward_ios,
               color: Theme.of(context).iconTheme.color),
@@ -167,7 +185,11 @@ class CheckoutScreenState extends State<CheckoutScreen> {
           leading: Icon(Icons.email, color: Theme.of(context).iconTheme.color),
           title: Text(
             'joan.aubrey@gmail.com',
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
+                ),
           ),
           trailing: Icon(Icons.arrow_forward_ios,
               color: Theme.of(context).iconTheme.color),
@@ -279,12 +301,12 @@ class CheckoutScreenState extends State<CheckoutScreen> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Error'),
+          title: const Text('Error'),
           content: Text(e.toString()),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -316,23 +338,23 @@ class CheckoutScreenState extends State<CheckoutScreen> {
           }
         } catch (e) {
           // Handle any errors that occur during payment or order processing
-          if (kDebugMode) {
-            print("Payment failed: $e");
-          }
+          // if (kDebugMode) {
+          //   print("Payment failed: $e");
+          // }
           // Optionally show an error message to the user
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: Text('Error'),
-              content: Text(e.toString()),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text('OK'),
-                ),
-              ],
-            ),
-          );
+          // showDialog(
+          //   context: context,
+          //   builder: (context) => AlertDialog(
+          //     title: Text('Error'),
+          //     content: Text(e.toString()),
+          //     actions: [
+          //       TextButton(
+          //         onPressed: () => Navigator.pop(context),
+          //         child: Text('OK'),
+          //       ),
+          //     ],
+          //   ),
+          // );
         }
       },
       style: ElevatedButton.styleFrom(
