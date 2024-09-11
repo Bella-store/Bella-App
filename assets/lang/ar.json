@@ -127,5 +127,6 @@
     "selectCategory": "اختر الفئات",
 
     "noProductsFoundForThisCategory": "لا يوجد منتجات لهذه الفئة",
-    "pleaseSelectACategory": "برجاء أختيار فئة واحدة على الأقل"
+    "pleaseSelectACategory": "برجاء أختيار فئة واحدة على الأقل",
+    "noFavoritesYet":"لا يوجد قائمة المفضلة بعد"
 }

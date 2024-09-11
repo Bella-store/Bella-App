@@ -128,5 +128,7 @@
     "selectCategory": "Select Category",
 
     "noProductsFoundForThisCategory": "No products found for this category.",
-    "pleaseSelectACategory": "Please select a category."
+    "pleaseSelectACategory": "Please select a category.",
+
+    "noFavoritesYet": "No favorites yet"
 }

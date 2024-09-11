@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../modules/Favorites/cubit/favorites_cubit.dart';
+import '../../shared/app_color.dart';
 import '../../shared/app_string.dart';
 import 'widgets/favorite_item.dart';
 
@@ -43,8 +44,21 @@ class FavoritesScreen extends StatelessWidget {
                 favoritesCubit.getFavoriteProducts(state.favoriteProductIds);
 
             if (favoriteProducts.isEmpty) {
-              return const Center(
-                  child: Text("No favorites yet!")); //TODO: translate here plz
+              return Center(
+                  child: Column(
+                children: [
+                  Image.asset(AppString.notFound),
+                  Text(
+                    AppString.noFavoritesYet(context),
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: AppColor.greyColor,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat',
+                    ),
+                  ),
+                ],
+              ));
             }
 
             return ListView.builder(

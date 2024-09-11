@@ -14,7 +14,7 @@ class AppString {
   static String table = "assets/images/table.jpeg";
   static String masterCard = "assets/images/mastercard_logo.svg";
   static String visa = "assets/images/visa_logo.svg";
-
+  static String notFound = "assets/images/notfound_img.png";
   // Localization properties
   static String setting(BuildContext context) => 'setting'.tr(context);
   static String general(BuildContext context) => 'general'.tr(context);
@@ -131,6 +131,8 @@ class AppString {
   static String favorites(BuildContext context) => 'Favorites'.tr(context);
   static String addAllToMyCart(BuildContext context) =>
       'addAllToMyCart'.tr(context);
+  static String noFavoritesYet(BuildContext context) =>
+      'noFavoritesYet'.tr(context);
 
   // products screen -------------------------------------------------------------
   static String allProducts(BuildContext context) => 'allProducts'.tr(context);

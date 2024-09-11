@@ -37,7 +37,21 @@ class CartScreen extends StatelessWidget {
           } else if (state is CartLoadedState) {
             return _buildCartContent(context, state);
           } else if (state is CartErrorState) {
-            return Center(child: Text(state.message));
+            return Center(
+                child: Column(
+              children: [
+                Image.asset(AppString.notFound),
+                Text(
+                  state.message,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: AppColor.greyColor,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Montserrat',
+                  ),
+                ),
+              ],
+            ));
           }
           return const Center(child: Text('Unknown state'));
         },

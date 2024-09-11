@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../shared/app_color.dart';
 import '../../../shared/app_string.dart';
 import '../../../utils/skeleton_loading/skeleton_product_item.dart';
 import '../../Products/cubit/all_products_cubit.dart';
@@ -103,10 +104,29 @@ class ProductsSection extends StatelessWidget {
                     );
                   } else if (state is ProductsEmptyState) {
                     return Center(
-                        // child: Text('noProductsFound')
-                        child: Text(AppString.noProductsFound(context)));
+                        child: Column(
+                      children: [
+                        Image.asset(AppString.notFound),
+                        Text(AppString.noProductsFound(context),style: TextStyle(
+                        fontSize: 16.0,
+                        color: AppColor.greyColor,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Montserrat',
+                      ),),
+                      ],
+                    ));
                   } else if (state is ProductsErrorState) {
-                    return Center(child: Text(state.message));
+                    return Center(child: Column(
+                      children: [
+                        Image.asset(AppString.notFound),
+                        Text(state.message,style: TextStyle(
+                        fontSize: 16.0,
+                        color: AppColor.greyColor,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Montserrat',
+                      ),),
+                      ],
+                    ));
                   } else {
                     return Center(
                         child: Text(AppString.selectCategory(context)));

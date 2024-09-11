@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import '../../../modules/Cart/cubit/cart_cubit.dart'; // Import the CartCubit
+import '../../../modules/Cart/cubit/cart_cubit.dart';
+import '../../../shared/app_string.dart'; // Import the CartCubit
 
 class CustomAppBar extends StatelessWidget {
   final Size screenSize;
@@ -19,14 +20,14 @@ class CustomAppBar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Find Your',
+               AppString.findYour(context),
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
-              'Dream Furniture',
+              AppString.dreamFurniture(context),
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -64,7 +65,7 @@ class CustomAppBar extends StatelessWidget {
                       top: 0,
                       child: Container(
                         padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.red,
                           shape: BoxShape.circle,
                         ),
