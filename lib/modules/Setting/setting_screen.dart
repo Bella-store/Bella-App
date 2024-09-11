@@ -1,3 +1,6 @@
+import 'package:bella_app/modules/About/about_screen.dart';
+import 'package:bella_app/modules/Help&Support/help_and_support.dart';
+import 'package:bella_app/modules/Terms&Conditions/terms_conditions.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../main.dart';
@@ -103,6 +106,12 @@ class SettingScreenState extends State<SettingScreen> {
                   trailing: const Icon(Icons.arrow_forward_ios, size: 18),
                   onTap: () {
                     // Handle About App tap
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AboutScreen(),
+                      ),
+                    );
                   },
                 ),
                 CustomSettingsOption(
@@ -111,6 +120,12 @@ class SettingScreenState extends State<SettingScreen> {
                   trailing: const Icon(Icons.arrow_forward_ios, size: 18),
                   onTap: () {
                     // Handle help & support option tap
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HelpSupportScreen(),
+                      ),
+                    );
                   },
                 ),
                 CustomSettingsOption(
@@ -119,6 +134,12 @@ class SettingScreenState extends State<SettingScreen> {
                   trailing: const Icon(Icons.arrow_forward_ios, size: 18),
                   onTap: () {
                     // Handle Terms & Conditions tap
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TermsAndConditionsScreen(),
+                      ),
+                    );
                   },
                 ),
               ],

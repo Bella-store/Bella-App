@@ -1,6 +1,6 @@
+import 'package:bella_app/shared/app_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -18,7 +18,7 @@ class AboutScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColor.mainColor,
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -26,18 +26,11 @@ class AboutScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // App Icon
-            SvgPicture.asset(
-              'assets/logo.svg', // Replace with your app's logo path
-              height: 100,
-              width: 100,
-            ),
-            const SizedBox(height: 20),
             // App Name
             Text(
-              'My Stylish App',
+              'Bella App',
               style: theme.textTheme.headlineLarge?.copyWith(
-                color: Colors.deepPurple,
+                color: AppColor.mainColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -52,7 +45,7 @@ class AboutScreen extends StatelessWidget {
             const SizedBox(height: 20),
             // App Description
             Text(
-              'My Stylish App is designed to provide users with an exceptional experience, featuring sleek design, fast performance, and easy navigation.',
+              'This application is an modern furniture store. This is the official app of the Bella Company.',
               textAlign: TextAlign.center,
               style: theme.textTheme.titleMedium?.copyWith(
                 color: Colors.black87,
@@ -78,15 +71,13 @@ class AboutScreen extends StatelessWidget {
             _buildSectionHeader('Contact Us'),
             _buildContactRow(
               icon: Icons.email,
-              text: 'support@stylishapp.com',
-              // onTap: () => _launchEmail('support@stylishapp.com'),
+              text: 'support@bella.com',
               onTap: () => {},
               theme: theme,
             ),
             _buildContactRow(
               icon: Icons.web,
-              text: 'www.stylishapp.com',
-              // onTap: () => _launchURL('https://www.stylishapp.com'),
+              text: 'www.bella.com',
               onTap: () => {},
               theme: theme,
             ),
@@ -100,7 +91,7 @@ class AboutScreen extends StatelessWidget {
     return Text(
       title,
       style: TextStyle(
-        color: Colors.deepPurple,
+        color: AppColor.mainColor,
         fontWeight: FontWeight.bold,
         fontSize: 18,
       ),
@@ -118,7 +109,7 @@ class AboutScreen extends StatelessWidget {
       children: [
         ListTile(
           leading: CircleAvatar(
-            backgroundColor: Colors.deepPurple,
+            backgroundColor: AppColor.mainColor,
             child: Icon(Icons.person, color: Colors.white),
           ),
           title: Text(
@@ -134,8 +125,7 @@ class AboutScreen extends StatelessWidget {
             ),
           ),
           trailing: IconButton(
-            icon: Icon(Icons.email, color: Colors.deepPurple),
-            // onPressed: () => _launchEmail(email),
+            icon: Icon(Icons.email, color: AppColor.mainColor),
             onPressed: () => {},
           ),
         ),
@@ -151,35 +141,14 @@ class AboutScreen extends StatelessWidget {
     required ThemeData theme,
   }) {
     return ListTile(
-      leading: Icon(icon, color: Colors.deepPurple),
+      leading: Icon(icon, color: AppColor.mainColor),
       title: Text(
         text,
         style: theme.textTheme.titleSmall?.copyWith(
-          color: Colors.deepPurple,
+          color: AppColor.mainColor,
         ),
       ),
       onTap: onTap,
     );
   }
-
-  // Future<void> _launchEmail(String email) async {
-  //   final Uri emailUri = Uri(
-  //     scheme: 'mailto',
-  //     path: email,
-  //   );
-  //   if (await canLaunchUrl(emailUri)) {
-  //     await launchUrl(emailUri);
-  //   } else {
-  //     throw 'Could not launch $emailUri';
-  //   }
-  // }
-
-  // Future<void> _launchURL(String url) async {
-  //   final Uri uri = Uri.parse(url);
-  //   if (await canLaunchUrl(uri)) {
-  //     await launchUrl(uri);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
 }
