@@ -1,5 +1,6 @@
 import 'package:bella_app/shared/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:bella_app/shared/app_string.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -9,9 +10,9 @@ class AboutScreen extends StatelessWidget {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'About App',
-          style: TextStyle(
+        title: Text(
+          AppString.aboutApp(context),
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
@@ -27,7 +28,7 @@ class AboutScreen extends StatelessWidget {
           children: [
             // App Name
             Text(
-              'Bella App',
+              AppString.appName(context),
               style: theme.textTheme.headlineLarge?.copyWith(
                 color: AppColor.mainColor,
                 fontWeight: FontWeight.bold,
@@ -37,7 +38,7 @@ class AboutScreen extends StatelessWidget {
             const SizedBox(height: 10),
             // App Version
             Text(
-              'Version 1.0.0',
+              AppString.appVersion(context),
               style: theme.textTheme.titleSmall?.copyWith(
                 fontSize: 14.0,
                 color: AppColor.greyColor,
@@ -48,8 +49,7 @@ class AboutScreen extends StatelessWidget {
             const SizedBox(height: 20),
             // App Description
             Text(
-              'This application is an modern furniture store. This is the official app of the Bella Company.',
-              // textAlign: TextAlign.center,
+              AppString.appDescription(context),
               style: theme.textTheme.titleMedium?.copyWith(
                 fontSize: 14.0,
                 color: AppColor.greyColor,
@@ -59,33 +59,31 @@ class AboutScreen extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             // Developer Section
-            _buildSectionHeader('Developers'),
+            _buildSectionHeader(AppString.developers(context)),
             _buildDeveloperInfo(
-              name: 'John Doe',
-              role: 'Flutter Developer',
-              email: 'johndoe@example.com',
+              name: AppString.developerName1(context),
+              role: AppString.developerRole1(context),
+              email: AppString.developerEmail1(context),
               theme: theme,
             ),
             _buildDeveloperInfo(
-              name: 'Jane Smith',
-              role: 'Front-End Developer',
-              email: 'janesmith@example.com',
+              name: AppString.developerName2(context),
+              role: AppString.developerRole2(context),
+              email: AppString.developerEmail2(context),
               theme: theme,
             ),
             const SizedBox(height: 30),
             // Contact Information
-            _buildSectionHeader(
-              'Contact Us',
-            ),
+            _buildSectionHeader(AppString.contactUs(context)),
             _buildContactRow(
               icon: Icons.email,
-              text: 'support@bella.com',
+              text: AppString.supportEmail(context),
               onTap: () => {},
               theme: theme,
             ),
             _buildContactRow(
               icon: Icons.web,
-              text: 'www.bella.com',
+              text: AppString.website(context),
               onTap: () => {},
               theme: theme,
             ),
@@ -125,7 +123,6 @@ class AboutScreen extends StatelessWidget {
             name,
             style: theme.textTheme.titleSmall?.copyWith(
               fontSize: 14.0,
-              // color: AppColor.greyColor,
               fontWeight: FontWeight.bold,
               fontFamily: 'Montserrat',
             ),

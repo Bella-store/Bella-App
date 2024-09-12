@@ -2,6 +2,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:bella_app/shared/app_color.dart';
 import 'package:bella_app/utils/custom_snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:bella_app/shared/app_string.dart';
 
 class HelpSupportScreen extends StatelessWidget {
   const HelpSupportScreen({super.key});
@@ -13,7 +14,7 @@ class HelpSupportScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Help & Support',
+          AppString.helpAndSupport(context),
           style: TextStyle(
             fontSize: 16.0,
             color: AppColor.whiteColor,
@@ -32,40 +33,38 @@ class HelpSupportScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // FAQs Section
-              _buildSectionHeader('Frequently Asked Questions', theme),
+              _buildSectionHeader(
+                  AppString.frequentlyAskedQuestions(context), theme),
               const SizedBox(height: 10),
               _buildFAQItem(
-                question: 'How do I track my order?',
-                answer:
-                    'You can track your order status from the Orders section in your account. You will also receive notifications via email.',
+                question: AppString.howToTrackOrder(context),
+                answer: AppString.trackOrderAnswer(context),
               ),
               _buildFAQItem(
-                question: 'What is the return policy?',
-                answer:
-                    'You can return items within 30 days of purchase. Items must be in original condition with all packaging intact.',
+                question: AppString.returnPolicyQuestion(context),
+                answer: AppString.returnPolicyAnswer(context),
               ),
               _buildFAQItem(
-                question: 'How do I contact customer support?',
-                answer:
-                    'You can contact us via email at support@bella.com or call our customer service hotline.',
+                question: AppString.contactSupportQuestion(context),
+                answer: AppString.contactSupportAnswer(context),
               ),
               const SizedBox(height: 20),
               // Contact Section
-              _buildSectionHeader('Contact Us', theme),
+              _buildSectionHeader(AppString.contactUs(context), theme),
               const SizedBox(height: 10),
               _buildContactRow(
                 icon: Icons.email,
-                text: 'Email: support@bella.com',
+                text: AppString.emailContact(context),
                 onTap: () => {},
               ),
               _buildContactRow(
                 icon: Icons.phone,
-                text: 'Phone: +1 800 123 456',
+                text: AppString.phoneContact(context),
                 onTap: () => {},
               ),
               const SizedBox(height: 20),
               // Feedback Form Section
-              _buildSectionHeader('Submit Feedback', theme),
+              _buildSectionHeader(AppString.submitFeedback(context), theme),
               const SizedBox(height: 10),
               _buildFeedbackForm(context),
             ],
@@ -95,7 +94,6 @@ class HelpSupportScreen extends StatelessWidget {
         question,
         style: const TextStyle(
           fontSize: 16.0,
-          
           fontWeight: FontWeight.w500,
           fontFamily: 'Montserrat',
         ),
@@ -145,7 +143,7 @@ class HelpSupportScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'We value your feedback. Please let us know your thoughts:',
+          AppString.feedbackPrompt(context),
           style: TextStyle(
             fontSize: 12.0,
             color: AppColor.greyColor,
@@ -158,16 +156,17 @@ class HelpSupportScreen extends StatelessWidget {
           controller: feedbackController,
           maxLines: 4,
           decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              hintText: 'Enter your feedback here...',
-              hintStyle: TextStyle(
-                fontSize: 12.0,
-                color: AppColor.greyColor,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Montserrat',
-              )),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            hintText: AppString.feedbackHint(context),
+            hintStyle: TextStyle(
+              fontSize: 12.0,
+              color: AppColor.greyColor,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Montserrat',
+            ),
+          ),
         ),
         const SizedBox(height: 10),
         Center(
@@ -177,8 +176,8 @@ class HelpSupportScreen extends StatelessWidget {
               feedbackController.clear();
               CustomSnackbar.show(
                 context,
-                title: 'Info!',
-                message: 'Thank you for your feedback!',
+                title: AppString.infoTitle(context),
+                message: AppString.feedbackThankYou(context),
                 contentType: ContentType.help,
               );
             },
@@ -193,7 +192,7 @@ class HelpSupportScreen extends StatelessWidget {
               ),
             ),
             child: Text(
-              'Submit',
+              AppString.submit(context),
               style: TextStyle(
                 fontSize: 16.0,
                 color: AppColor.whiteColor,

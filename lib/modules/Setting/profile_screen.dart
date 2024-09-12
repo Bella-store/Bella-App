@@ -17,8 +17,7 @@ import '../../models/user_model.dart';
 
 class ProfileScreen extends StatefulWidget {
   final PersistentTabController controller;
-    final UserModel currentUser;
-  const ProfileScreen({super.key, required this.controller, required this.currentUser});
+  const ProfileScreen({super.key, required this.controller});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -107,7 +106,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ProfileInfo(
                         name: _currentUserModel.userName,
                         email: _currentUserModel.userEmail,
-                        imageUrl: widget.currentUser.userImage==''?AppString.profile:widget.currentUser.userImage,
+                        imageUrl: _currentUserModel.userImage == ''
+                            ? AppString.profile
+                            : _currentUserModel.userImage,
                       ),
                       const SizedBox(height: 20),
                       ProfileMenuOption(

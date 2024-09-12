@@ -1,5 +1,6 @@
 import 'package:bella_app/shared/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:bella_app/shared/app_string.dart';
 
 class TermsAndConditionsScreen extends StatelessWidget {
   const TermsAndConditionsScreen({super.key});
@@ -10,9 +11,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Terms and Conditions',
-          style: TextStyle(
+        title: Text(
+          AppString.termsAndConditionsTitle(context),
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
@@ -29,7 +30,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
             children: [
               // Title
               Text(
-                'Welcome to Bella - Modern Furniture Store',
+                AppString.welcomeMessage(context),
                 style: theme.textTheme.headlineLarge?.copyWith(
                   color: AppColor.mainColor,
                   fontWeight: FontWeight.bold,
@@ -38,7 +39,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
               const SizedBox(height: 20),
               // Introduction
               Text(
-                'These terms and conditions outline the rules and regulations for the use of Bella’s application.',
+                AppString.introduction(context),
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontSize: 12.0,
                   fontWeight: FontWeight.bold,
@@ -47,9 +48,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               // Section 1
-              _buildSectionHeader('1. Acceptance of Terms', theme),
+              _buildSectionHeader(AppString.acceptanceOfTerms(context), theme),
               Text(
-                'By accessing or using Bella, you agree to be bound by these terms. If you disagree with any part of the terms, you may not use our service.',
+                AppString.acceptanceOfTermsDescription(context),
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontSize: 12.0,
                   fontWeight: FontWeight.bold,
@@ -58,9 +59,10 @@ class TermsAndConditionsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               // Section 2
-              _buildSectionHeader('2. Purchases and Payments', theme),
+              _buildSectionHeader(
+                  AppString.purchasesAndPayments(context), theme),
               Text(
-                'Bella offers a wide range of modern furniture products. All payments are processed securely, and you agree to provide accurate payment information.',
+                AppString.purchasesAndPaymentsDescription(context),
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontSize: 12.0,
                   fontWeight: FontWeight.bold,
@@ -69,9 +71,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               // Section 3
-              _buildSectionHeader('3. Delivery Policy', theme),
+              _buildSectionHeader(AppString.deliveryPolicy(context), theme),
               Text(
-                'Orders will be processed and shipped according to our delivery policy. Bella is not responsible for delays caused by external factors.',
+                AppString.deliveryPolicyDescription(context),
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontSize: 12.0,
                   fontWeight: FontWeight.bold,
@@ -80,9 +82,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               // Section 4
-              _buildSectionHeader('4. Returns and Refunds', theme),
+              _buildSectionHeader(AppString.returnsAndRefunds(context), theme),
               Text(
-                'You can return products in accordance with our return and refund policy. Products must be in original condition and returned within the specified period.',
+                AppString.returnsAndRefundsDescription(context),
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontSize: 12.0,
                   fontWeight: FontWeight.bold,
@@ -91,9 +93,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               // Section 5
-              _buildSectionHeader('5. User Conduct', theme),
+              _buildSectionHeader(AppString.userConduct(context), theme),
               Text(
-                'Users agree not to misuse the app by engaging in prohibited activities such as fraud, harassment, or unauthorized access to the app’s resources.',
+                AppString.userConductDescription(context),
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontSize: 12.0,
                   fontWeight: FontWeight.bold,
@@ -102,9 +104,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               // Section 6
-              _buildSectionHeader('6. Privacy Policy', theme),
+              _buildSectionHeader(AppString.privacyPolicy(context), theme),
               Text(
-                'Bella respects your privacy. Please read our Privacy Policy to understand how we collect, use, and protect your personal information.',
+                AppString.privacyPolicyDescription(context),
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontSize: 12.0,
                   fontWeight: FontWeight.bold,
@@ -113,9 +115,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               // Section 7
-              _buildSectionHeader('7. Changes to Terms', theme),
+              _buildSectionHeader(AppString.changesToTerms(context), theme),
               Text(
-                'Bella reserves the right to modify these terms at any time. Continued use of the app after changes implies acceptance of the revised terms.',
+                AppString.changesToTermsDescription(context),
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontSize: 12.0,
                   fontWeight: FontWeight.bold,
@@ -125,7 +127,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
               const SizedBox(height: 20),
               // Closing
               Text(
-                'If you have any questions or concerns about these terms, please contact us at support@bella.com.',
+                AppString.contactMessage(context),
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontSize: 12.0,
                   color: AppColor.greyColor,
@@ -141,22 +143,22 @@ class TermsAndConditionsScreen extends StatelessWidget {
                     // Implement contact or help action here
                   },
                   style: ElevatedButton.styleFrom(
-                      textStyle: TextStyle(
-                        color: AppColor.mainColor,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
-                      backgroundColor: AppColor.mainColor),
+                    textStyle: TextStyle(
+                      color: AppColor.mainColor,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    backgroundColor: AppColor.mainColor,
+                  ),
                   child: Text(
-                    'Contact Us',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: AppColor.whiteColor,
+                    AppString.contactUsButton(context),
+                    style: const TextStyle(
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Montserrat',
                     ),

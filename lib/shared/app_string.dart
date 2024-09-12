@@ -198,4 +198,99 @@ class AppString {
       "noProductsFoundForThisCategory".tr(context);
   static String pleaseSelectACategory(BuildContext context) =>
       "pleaseSelectACategory".tr(context);
+
+  // Terms and Conditions screen
+  static String termsAndConditionsTitle(BuildContext context) =>
+      'termsAndConditionsTitle'.tr(context);
+  static String welcomeMessage(BuildContext context) =>
+      'welcomeMessage'.tr(context);
+  static String introduction(BuildContext context) =>
+      'introduction'.tr(context);
+  static String acceptanceOfTerms(BuildContext context) =>
+      'acceptanceOfTerms'.tr(context);
+  static String acceptanceOfTermsDescription(BuildContext context) =>
+      'acceptanceOfTermsDescription'.tr(context);
+  static String purchasesAndPayments(BuildContext context) =>
+      'purchasesAndPayments'.tr(context);
+  static String purchasesAndPaymentsDescription(BuildContext context) =>
+      'purchasesAndPaymentsDescription'.tr(context);
+  static String deliveryPolicy(BuildContext context) =>
+      'deliveryPolicy'.tr(context);
+  static String deliveryPolicyDescription(BuildContext context) =>
+      'deliveryPolicyDescription'.tr(context);
+  static String returnsAndRefunds(BuildContext context) =>
+      'returnsAndRefunds'.tr(context);
+  static String returnsAndRefundsDescription(BuildContext context) =>
+      'returnsAndRefundsDescription'.tr(context);
+  static String userConduct(BuildContext context) => 'userConduct'.tr(context);
+  static String userConductDescription(BuildContext context) =>
+      'userConductDescription'.tr(context);
+  static String privacyPolicy(BuildContext context) =>
+      'privacyPolicy'.tr(context);
+  static String privacyPolicyDescription(BuildContext context) =>
+      'privacyPolicyDescription'.tr(context);
+  static String changesToTerms(BuildContext context) =>
+      'changesToTerms'.tr(context);
+  static String changesToTermsDescription(BuildContext context) =>
+      'changesToTermsDescription'.tr(context);
+  static String contactMessage(BuildContext context) =>
+      'contactMessage'.tr(context);
+  static String contactUsButton(BuildContext context) =>
+      'contactUsButton'.tr(context);
+
+  // Help & Support screen
+  // static String helpAndSupport(BuildContext context) => 'helpAndSupport'.tr(context);
+  static String frequentlyAskedQuestions(BuildContext context) =>
+      'frequentlyAskedQuestions'.tr(context);
+  static String howToTrackOrder(BuildContext context) =>
+      'howToTrackOrder'.tr(context);
+  static String trackOrderAnswer(BuildContext context) =>
+      'trackOrderAnswer'.tr(context);
+  static String returnPolicyQuestion(BuildContext context) =>
+      'returnPolicyQuestion'.tr(context);
+  static String returnPolicyAnswer(BuildContext context) =>
+      'returnPolicyAnswer'.tr(context);
+  static String contactSupportQuestion(BuildContext context) =>
+      'contactSupportQuestion'.tr(context);
+  static String contactSupportAnswer(BuildContext context) =>
+      'contactSupportAnswer'.tr(context);
+  static String contactUs(BuildContext context) => 'contactUs'.tr(context);
+  static String emailContact(BuildContext context) =>
+      'emailContact'.tr(context);
+  static String phoneContact(BuildContext context) =>
+      'phoneContact'.tr(context);
+  static String submitFeedback(BuildContext context) =>
+      'submitFeedback'.tr(context);
+  static String feedbackPrompt(BuildContext context) =>
+      'feedbackPrompt'.tr(context);
+  static String feedbackHint(BuildContext context) =>
+      'feedbackHint'.tr(context);
+  static String infoTitle(BuildContext context) => 'infoTitle'.tr(context);
+  static String feedbackThankYou(BuildContext context) =>
+      'feedbackThankYou'.tr(context);
+  // static String submit(BuildContext context) => 'submit'.tr(context);
+
+  // About screen
+  // static String aboutApp(BuildContext context) => 'aboutApp'.tr(context);
+  static String appName(BuildContext context) => 'appName'.tr(context);
+  static String appVersion(BuildContext context) => 'appVersion'.tr(context);
+  static String appDescription(BuildContext context) =>
+      'appDescription'.tr(context);
+  static String developers(BuildContext context) => 'developers'.tr(context);
+  static String developerName1(BuildContext context) =>
+      'developerName1'.tr(context);
+  static String developerRole1(BuildContext context) =>
+      'developerRole1'.tr(context);
+  static String developerEmail1(BuildContext context) =>
+      'developerEmail1'.tr(context);
+  static String developerName2(BuildContext context) =>
+      'developerName2'.tr(context);
+  static String developerRole2(BuildContext context) =>
+      'developerRole2'.tr(context);
+  static String developerEmail2(BuildContext context) =>
+      'developerEmail2'.tr(context);
+  // static String contactUs(BuildContext context) => 'contactUs'.tr(context);
+  static String supportEmail(BuildContext context) =>
+      'supportEmail'.tr(context);
+  static String website(BuildContext context) => 'website'.tr(context);
 }
