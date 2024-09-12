@@ -28,6 +28,8 @@ class AppString {
   static String termsAndConditions(BuildContext context) =>
       'termsAndConditions'.tr(context);
   static String myReviews(BuildContext context) => 'myReviews'.tr(context);
+  static String editProfile(BuildContext context) => 'editProfile'.tr(context);
+
   //onBoarding screen ---------------------------------------------------------
   static String skip(BuildContext context) => 'skip'.tr(context);
   static String getStarted(BuildContext context) => 'getStarted'.tr(context);

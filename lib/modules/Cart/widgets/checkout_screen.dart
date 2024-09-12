@@ -1,4 +1,5 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:bella_app/models/user_model.dart';
 import 'package:bella_app/modules/Cart/cubit/cart_cubit.dart';
 import 'package:bella_app/modules/Products/cubit/all_products_cubit.dart';
 import 'package:bella_app/modules/stripe_payment/payment_manager.dart';
@@ -25,6 +26,26 @@ class CheckoutScreen extends StatefulWidget {
 class CheckoutScreenState extends State<CheckoutScreen> {
   String _selectedOption = 'visa'; // Default selection
   final FirebaseAuth _auth = FirebaseAuth.instance; // Firebase Auth instance
+  UserModel? userModel;
+  @override
+  void initState() {
+    super.initState();
+    getUser(); // Call getUser to load user data when the screen is initialized
+  }
+
+  Future<void> getUser() async {
+    try {
+      userModel = await UserModel
+          .loadFromPreferences(); // Load the user model from SharedPreferences
+      if (userModel != null) {
+        setState(() {}); // Trigger a rebuild to display the loaded data
+      } else {
+        print("No user data found in SharedPreferences");
+      }
+    } catch (e) {
+      print("Error loading user data: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +134,11 @@ class CheckoutScreenState extends State<CheckoutScreen> {
           },
           title: Text(
             AppString.pickUp(context),
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
+                ),
           ),
           subtitle: Text(
             AppString.pickUpSubtitle(context),
@@ -129,6 +154,8 @@ class CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   Widget _buildAddressDetails(BuildContext context, double height) {
+    print("++++++++143 checkout screen");
+    print(userModel?.toMap());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -142,21 +169,21 @@ class CheckoutScreenState extends State<CheckoutScreen> {
           leading:
               Icon(Icons.location_on, color: Theme.of(context).iconTheme.color),
           title: Text(
-            '591 Hill',
+            userModel?.address ?? 'Enter your address',
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontSize: 14.0,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Montserrat',
                 ),
           ),
-          subtitle: Text(
-            'Florida, Miami',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Montserrat',
-                ),
-          ),
+          // subtitle: Text(
+          //   'Florida, Miami',
+          //   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+          //         fontSize: 14.0,
+          //         fontWeight: FontWeight.bold,
+          //         fontFamily: 'Montserrat',
+          //       ),
+          // ),
           trailing: Icon(Icons.arrow_forward_ios,
               color: Theme.of(context).iconTheme.color),
           onTap: () {
@@ -167,7 +194,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
         ListTile(
           leading: Icon(Icons.phone, color: Theme.of(context).iconTheme.color),
           title: Text(
-            '(620) 555-0273',
+            userModel?.phone ?? 'Enter your phone number',
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontSize: 14.0,
                   fontWeight: FontWeight.bold,
@@ -184,7 +211,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
         ListTile(
           leading: Icon(Icons.email, color: Theme.of(context).iconTheme.color),
           title: Text(
-            'joan.aubrey@gmail.com',
+            userModel?.userEmail ?? 'Enter your email',
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontSize: 14.0,
                   fontWeight: FontWeight.bold,

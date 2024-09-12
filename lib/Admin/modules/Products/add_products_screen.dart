@@ -23,14 +23,16 @@ class AddProductScreenState extends State<AddProductScreen> {
   String? _selectedCategory;
   String? _imagePath;
 
-  final List<String> _categories = [
-    'Sofas and Couches',
-    'Coffee Tables',
-    'TV Stands and Entertainment Units',
-    'Desks',
-    'Office Chairs',
-    'Storage Benches'
-  ];
+  // final List<String> _categories = [
+  //   'Sofas and Couches',
+  //   'Coffee Tables',
+  //   'TV Stands and Entertainment Units',
+  //   'Desks',
+  //   'Office Chairs',
+  //   'Storage Benches'
+  // ];
+
+  final List<String> _categories = ['Bed Room', 'Living Room', 'Decoration'];
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,8 @@ class AddProductScreenState extends State<AddProductScreen> {
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-            Navigator.of(context).pop(); // Navigate back after adding the product
+            Navigator.of(context)
+                .pop(); // Navigate back after adding the product
           } else if (state is AddProductFailure) {
             final snackBar = SnackBar(
               elevation: 0,
@@ -223,7 +226,8 @@ class AddProductScreenState extends State<AddProductScreen> {
                                 contentType: ContentType.warning,
                               ),
                             );
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                             return;
                           }
 

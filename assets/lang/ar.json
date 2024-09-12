@@ -63,6 +63,7 @@
     "helpAndSupport": "المساعدة والدعم",
     "aboutApp": "حول التطبيق",
     "termsAndConditions": "الشروط والأحكام",
+    "editProfile": "تعديل الملف الشخصي",
     "myReviews": "تقييماتي",
     "contact": "تواصل",
     "shippingAddress": "عنوان الشحن",
@@ -102,7 +103,7 @@
 
     "delivery": "التوصيل",
     "payment_method": "طريقة الدفع",
-    "Visa": "فيزا",
+    "visa": "فيزا",
     "payVisa": "الدفع بواسطة بطاقة فيزا",
     "pickUp": "استلام من المتجر",
     "pickUpSubtitle": "استلام من المتجر",

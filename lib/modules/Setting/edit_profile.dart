@@ -1,4 +1,5 @@
 import 'package:bella_app/modules/Setting/cubit/edit_profile_cubit.dart';
+import 'package:bella_app/shared/app_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,13 +29,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     super.initState();
     _nameController = TextEditingController(text: widget.currentUser.userName);
-    _emailController = TextEditingController(text: widget.currentUser.userEmail);
-    _addressController = TextEditingController(text: widget.currentUser.address);
+    _emailController =
+        TextEditingController(text: widget.currentUser.userEmail);
+    _addressController =
+        TextEditingController(text: widget.currentUser.address);
     _phoneController = TextEditingController(text: widget.currentUser.phone);
   }
 
   Future<void> _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _imageFile = File(pickedFile.path);
@@ -46,7 +50,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Profile'),
+        title: Text(AppString.editProfile(context)),
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),
@@ -77,7 +81,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         radius: 50,
                         backgroundImage: _imageFile != null
                             ? FileImage(_imageFile!)
-                            : CachedNetworkImageProvider(widget.currentUser.userImage) as ImageProvider,
+                            : CachedNetworkImageProvider(
+                                widget.currentUser.userImage) as ImageProvider,
                         child: _imageFile == null
                             ? const Icon(Icons.camera_alt, size: 30)
                             : null,
@@ -88,7 +93,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Center(
                     child: Text(
                       widget.currentUser.userName,
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const SizedBox(height: 5),
@@ -114,9 +120,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         userEmail: _emailController.text,
                         address: _addressController.text,
                         phone: _phoneController.text,
-                        userImage: _imageFile?.path ?? widget.currentUser.userImage,
+                        userImage:
+                            _imageFile?.path ?? widget.currentUser.userImage,
                       );
-                      context.read<EditProfileCubit>().updateUserProfile(updatedUser);
+                      context
+                          .read<EditProfileCubit>()
+                          .updateUserProfile(updatedUser);
                       Navigator.pop(context, updatedUser);
                     },
                     child: const Text('Save'),

@@ -161,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       // ),
                       // Inside the ProfileScreen Widget
                       ProfileMenuOption(
-                        title: 'Edit Profile',
+                        title: AppString.editProfile(context),
                         onTap: () async {
                           final updatedUser = await Navigator.push(
                             context,

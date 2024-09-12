@@ -64,6 +64,7 @@
     "aboutApp": "About App",
     "termsAndConditions": "Terms & Conditions",
     "myReviews": "My reviews",
+    "editProfile": "Edit Profile",
     "contact": "Contact",
     "shippingAddress": "Shipping Address",
     "paymentMethod": "Payment Method",
@@ -103,7 +104,7 @@
 
     "delivery": "Delivery",
     "payment_method": "Payment Method",
-    "Visa": "Visa",
+    "visa": "Visa",
     "payVisa": "Pay with your Visa card",
     "pickUp": "Pick Up",
     "pickUpSubtitle": "Pick up at the store",
