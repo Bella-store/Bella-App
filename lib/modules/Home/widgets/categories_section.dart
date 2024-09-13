@@ -40,7 +40,7 @@ class CategoriesSectionState extends State<CategoriesSection> {
       final textPainter = TextPainter(
         text: TextSpan(
           text: label,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14, // Assuming text size as 14 (adjust as needed)
             fontFamily: 'Montserrat',
           ),

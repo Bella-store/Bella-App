@@ -62,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
     } catch (e) {
       // Handle errors appropriately, e.g., show a message or log the error
-      CustomSnackbar.show(
+     CustomSnackbar.show(
         context,
         title: 'Error',
         message: 'Failed to load user data.',
@@ -227,20 +227,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 await prefs.clear();
 
                 // Show a snackbar message using CustomSnackbar
-                CustomSnackbar.show(
+                if (context.mounted){CustomSnackbar.show(
                   context,
                   title: 'Success',
                   message: 'Successfully logged out',
                   contentType: ContentType.success,
-                );
+                );}
 
                 // Navigate to the login screen
-                Navigator.pushReplacement(
+               if (context.mounted){ Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const LoginScreen(),
                   ),
-                );
+                );}
               },
             ),
           ],

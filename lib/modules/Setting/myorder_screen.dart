@@ -1,4 +1,5 @@
 import 'package:bella_app/modules/Products/cubit/all_products_cubit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,10 +10,10 @@ class MyOrderScreen extends StatefulWidget {
   const MyOrderScreen({super.key});
 
   @override
-  _MyOrderScreenState createState() => _MyOrderScreenState();
+  MyOrderScreenState createState() => MyOrderScreenState();
 }
 
-class _MyOrderScreenState extends State<MyOrderScreen> {
+class MyOrderScreenState extends State<MyOrderScreen> {
   // Map to hold order statuses with their IDs as keys and names as values
   Map<String, String> orderStatusMap = {};
 
@@ -33,7 +34,9 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
         };
       });
     } catch (e) {
-      print('Failed to fetch order statuses: $e');
+      if (kDebugMode) {
+        print('Failed to fetch order statuses: $e');
+      }
     }
   }
 
@@ -84,7 +87,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
   String _getStatusId(String statusName) {
     return orderStatusMap.entries
         .firstWhere((entry) => entry.value == statusName,
-            orElse: () => MapEntry('', ''))
+            orElse: () => const MapEntry('', ''))
         .key;
   }
 }
@@ -114,7 +117,7 @@ class OrderListView extends StatelessWidget {
         }
 
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return Center(child: Text('No orders found.'));
+          return const Center(child: Text('No orders found.'));
         }
 
         // Convert each document into OrderItemModel
@@ -178,7 +181,7 @@ class OrderListView extends StatelessWidget {
   // Get status name from the map using the status ID
   String _getStatusName(BuildContext context, String statusId) {
     final myOrderScreenState =
-        context.findAncestorStateOfType<_MyOrderScreenState>();
+        context.findAncestorStateOfType<MyOrderScreenState>();
     return myOrderScreenState?.orderStatusMap[statusId] ?? 'Unknown Status';
   }
 }

@@ -16,10 +16,10 @@ class CartItem extends StatefulWidget {
   });
 
   @override
-  _CartItemState createState() => _CartItemState();
+  CartItemState createState() => CartItemState();
 }
 
-class _CartItemState extends State<CartItem> {
+class CartItemState extends State<CartItem> {
   late int currentQuantity;
 
   @override

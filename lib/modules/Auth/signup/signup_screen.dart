@@ -38,18 +38,18 @@ class SignUpScreenState extends State<SignUpScreen> {
             await prefs.setBool('isLoggedIn', true);
 
             // Navigate to the main layout screen
-            Navigator.pushReplacement(
+        if (context.mounted){    Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const LayoutScreen()),
-            );
+            );}
 
             // Show success message using CustomSnackbar
-            CustomSnackbar.show(
+         if (context.mounted){   CustomSnackbar.show(
               context,
               title: 'Success!',
               message: 'Signup successful!',
               contentType: ContentType.success,
-            );
+            );}
           } else if (state is SignUpErrorState) {
             // Show error message using CustomSnackbar
             CustomSnackbar.show(

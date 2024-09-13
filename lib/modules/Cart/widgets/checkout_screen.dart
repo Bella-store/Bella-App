@@ -40,10 +40,14 @@ class CheckoutScreenState extends State<CheckoutScreen> {
       if (userModel != null) {
         setState(() {}); // Trigger a rebuild to display the loaded data
       } else {
-        print("No user data found in SharedPreferences");
+        if (kDebugMode) {
+          print("No user data found in SharedPreferences");
+        }
       }
     } catch (e) {
-      print("Error loading user data: $e");
+      if (kDebugMode) {
+        print("Error loading user data: $e");
+      }
     }
   }
 
@@ -323,7 +327,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
         print("Order processing failed: $e");
       }
       // Optionally show an error message to the user
-      showDialog(
+     showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Error'),

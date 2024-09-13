@@ -168,11 +168,11 @@ class OnboardingPage extends StatelessWidget {
                       onPressed: () async {
                         final prefs = await SharedPreferences.getInstance();
                         await prefs.setBool('hasSeenOnboarding', true);
-                        Navigator.pushReplacement(
+                        if (context.mounted){Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const LandingScreen())); // Replace with your main layout screen
+                                    const LandingScreen()));} 
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(

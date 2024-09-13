@@ -65,7 +65,7 @@ class AddProductCubit extends Cubit<AddProductState> {
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
       return downloadUrl;
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 }

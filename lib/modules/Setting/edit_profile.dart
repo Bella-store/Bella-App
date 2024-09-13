@@ -11,14 +11,13 @@ import '../../models/user_model.dart';
 class EditProfileScreen extends StatefulWidget {
   final UserModel currentUser;
 
-  const EditProfileScreen({Key? key, required this.currentUser})
-      : super(key: key);
+  const EditProfileScreen({super.key, required this.currentUser});
 
   @override
-  _EditProfileScreenState createState() => _EditProfileScreenState();
+  EditProfileScreenState createState() => EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
+class EditProfileScreenState extends State<EditProfileScreen> {
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _addressController;
