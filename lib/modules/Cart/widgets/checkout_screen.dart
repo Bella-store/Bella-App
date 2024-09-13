@@ -65,7 +65,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
           },
         ),
         title: Text(
-          AppString.delivery(context),
+          AppString.checkOut(context),
           style: Theme.of(context).textTheme.titleLarge,
         ),
         centerTitle: true,
@@ -327,7 +327,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
         print("Order processing failed: $e");
       }
       // Optionally show an error message to the user
-     showDialog(
+      showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Error'),
