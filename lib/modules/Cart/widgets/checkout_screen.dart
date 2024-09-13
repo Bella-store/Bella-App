@@ -154,8 +154,6 @@ class CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   Widget _buildAddressDetails(BuildContext context, double height) {
-    print("++++++++143 checkout screen");
-    print(userModel?.toMap());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

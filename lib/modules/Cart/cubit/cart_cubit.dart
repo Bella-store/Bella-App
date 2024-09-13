@@ -13,12 +13,25 @@ class CartCubit extends Cubit<CartState> {
   final User? _currentUser = FirebaseAuth.instance.currentUser;
   final AllProductsCubit productsCubit;
 
-  CartCubit({required this.productsCubit}) : super(CartInitial());
+  CartCubit({required this.productsCubit}) : super(CartInitial()) {
+    // Listen to changes in the products cubit state to reload cart if needed
+    productsCubit.stream.listen((state) {
+      if (state is ProductsLoadedState) {
+        loadCart(); // Attempt to reload cart when products are loaded
+      }
+    });
+  }
 
   // Load cart products based on IDs in the user model
   void loadCart() async {
     emit(CartLoadingState());
     try {
+      // Check if products are loaded
+      if (productsCubit.state is! ProductsLoadedState) {
+        emit(CartErrorState("Products not loaded yet. Please try again."));
+        return;
+      }
+
       final userDoc =
           await _firestore.collection('users').doc(_currentUser?.uid).get();
       final List<dynamic> cartProducts = userDoc.data()?['cartProducts'] ?? [];
