@@ -45,20 +45,22 @@ class FavoritesScreen extends StatelessWidget {
 
             if (favoriteProducts.isEmpty) {
               return Center(
-                  child: Column(
-                children: [
-                  Image.asset(AppString.notFound),
-                  Text(
-                    AppString.noFavoritesYet(context),
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: AppColor.greyColor,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Montserrat',
+                  child: SingleChildScrollView(
+                    child: Column(
+                                    children: [
+                    Image.asset(AppString.notFound),
+                    Text(
+                      AppString.noFavoritesYet(context),
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: AppColor.greyColor,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Montserrat',
+                      ),
                     ),
-                  ),
-                ],
-              ));
+                                    ],
+                                  ),
+                  ));
             }
 
             return ListView.builder(
