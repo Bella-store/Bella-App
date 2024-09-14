@@ -36,19 +36,21 @@ class CartScreen extends StatelessWidget {
             );
           } else if (state is CartLoadedState && state.cartItems.isEmpty) {
             return Center(
-                child: Column(
-              children: [
-                Image.asset(AppString.notFound),
-                Text(
-                  AppString.yourCartIsEmpty(context),
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: AppColor.greyColor,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Montserrat',
+                child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Image.asset(AppString.notFound),
+                  Text(
+                    AppString.yourCartIsEmpty(context),
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: AppColor.greyColor,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat',
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ));
           } else if (state is CartLoadedState) {
             return _buildCartContent(context, state);

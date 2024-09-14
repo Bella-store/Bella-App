@@ -14,7 +14,7 @@ class SettingScreen extends StatefulWidget {
 }
 
 class SettingScreenState extends State<SettingScreen> {
-  bool _isNotificationEnabled = false;
+  // final bool _isNotificationEnabled = false;
   bool _isDarkMode = false;
   String _selectedLanguage = 'en';
 
@@ -66,20 +66,20 @@ class SettingScreenState extends State<SettingScreen> {
                   label: AppString.language(context),
                   trailing: _buildLanguageDropdown(theme),
                 ),
-                CustomSettingsOption(
-                  icon: Icons.notifications,
-                  label: AppString.notification(context),
-                  trailing: Switch(
-                    inactiveTrackColor: Colors.transparent,
-                    activeColor: theme.colorScheme.primary,
-                    value: _isNotificationEnabled,
-                    onChanged: (bool value) {
-                      setState(() {
-                        _isNotificationEnabled = value;
-                      });
-                    },
-                  ),
-                ),
+                // CustomSettingsOption(
+                //   icon: Icons.notifications,
+                //   label: AppString.notification(context),
+                //   trailing: Switch(
+                //     inactiveTrackColor: Colors.transparent,
+                //     activeColor: theme.colorScheme.primary,
+                //     value: _isNotificationEnabled,
+                //     onChanged: (bool value) {
+                //       setState(() {
+                //         _isNotificationEnabled = value;
+                //       });
+                //     },
+                //   ),
+                // ),
                 CustomSettingsOption(
                   icon: Icons.dark_mode,
                   label: AppString.darkMode(context),
