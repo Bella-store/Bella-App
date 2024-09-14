@@ -205,57 +205,68 @@ class ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                       ),
                     ),
-                  SizedBox(height: responsiveHeight*screenHeight/55), // Use responsive height
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '\$${widget.product.price.toStringAsFixed(2)}',
-                        style: theme.textTheme.titleLarge?.copyWith(
-                          color: AppColor.mainColor,
-                          fontFamily: 'Montserrat',
-                        ),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 60.0, vertical: 15.0),
-                          backgroundColor: widget.product.quantity > 0
-                              ? AppColor.mainColor
-                              : Colors
-                                  .grey, // Grey background when out of stock
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        onPressed: widget.product.quantity > 0
-                            ? () {
-                                final cartCubit = context.read<CartCubit>();
-                                cartCubit.addToCart(widget.product.id);
-
-                                // Show a snackbar message using CustomSnackbar
-                                CustomSnackbar.show(
-                                  context,
-                                  title: 'Success',
-                                  message: 'Product added to the cart!',
-                                  contentType: ContentType.success,
-                                );
-                              }
-                            : null, // Disable button when out of stock
-                        child: Text(
-                          widget.product.quantity > 0
-                              ? AppString.addTocart(context)
-                              : AppString.outOfStock(context),
-                          style: theme.textTheme.labelLarge?.copyWith(
-                            color: widget.product.quantity > 0
-                                ? Colors.white
-                                : AppColor.mainColor, // Lighter text when disabled
+                  SizedBox(
+                      height: responsiveHeight *
+                          screenHeight /
+                          55), // Use responsive height
+                  BlocBuilder<CartCubit, CartState>(builder: (context, state) {
+                    final cartCubit = context.read<CartCubit>();
+                    final isInCart = state is CartLoadedState &&
+                        state.cartItems
+                            .any((item) => item.id == widget.product.id);
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '\$${widget.product.price.toStringAsFixed(2)}',
+                          style: theme.textTheme.titleLarge?.copyWith(
+                            color: AppColor.mainColor,
                             fontFamily: 'Montserrat',
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 60.0, vertical: 15.0),
+                            backgroundColor: widget.product.quantity > 0
+                                ? AppColor.mainColor
+                                : Colors
+                                    .grey, // Grey background when out of stock
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          onPressed: (widget.product.quantity > 0 && !isInCart)
+                              ? () {
+                                  cartCubit.addToCart(widget.product.id);
+
+                                  // Show a snackbar message using CustomSnackbar
+                                  CustomSnackbar.show(
+                                    context,
+                                    title: 'Success',
+                                    message: 'Product added to the cart!',
+                                    contentType: ContentType.success,
+                                  );
+                                }
+                              : null, // Disable button when out of stock
+                          child: Text(
+                            isInCart
+                                ? "Added to Cart"
+                                : widget.product.quantity > 0
+                                    ? AppString.addTocart(context)
+                                    : AppString.outOfStock(context),
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              color: widget.product.quantity > 0
+                                  ? Colors.white
+                                  : AppColor
+                                      .mainColor, // Lighter text when disabled
+                              fontFamily: 'Montserrat',
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }),
                   const SizedBox(height: 16),
                 ],
               ),

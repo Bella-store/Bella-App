@@ -71,26 +71,31 @@ class FavoriteItem extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 8.0), // Adjust the height as needed
-              IconButton(
-                icon: Icon(
-                  item.isInCart
-                      ? Icons.shopping_bag
-                      : Icons.shopping_bag_outlined,
-                  color: item.isInCart ? Colors.green : Colors.grey,
-                ),
-                onPressed: () {
-                  // Add your add-to-cart logic
-                  final cartCubit = context.read<CartCubit>();
-                  cartCubit.addToCart(item.id);
-                  // Show a snackbar message using CustomSnackbar
-                  CustomSnackbar.show(
-                    context,
-                    title: 'Success',
-                    message: 'Product added to the cart!',
-                    contentType: ContentType.success,
-                  );
-                },
-              ),
+              BlocBuilder<CartCubit, CartState>(builder: (context, state) {
+                final cartCubit = context.read<CartCubit>();
+                final isInCart = state is CartLoadedState &&
+                    state.cartItems.any((itm) => itm.id == item.id);
+                return IconButton(
+                  icon: Icon(
+                    isInCart ? Icons.shopping_bag : Icons.shopping_bag_outlined,
+                    color: isInCart ? Colors.green : Colors.grey,
+                  ),
+                  onPressed: () {
+                    // Add your add-to-cart logic
+                    final cartCubit = context.read<CartCubit>();
+                    cartCubit.addToCart(item.id);
+                    // Show a snackbar message using CustomSnackbar
+                    if (!isInCart) {
+                      CustomSnackbar.show(
+                        context,
+                        title: 'Success',
+                        message: 'Product added to the cart!',
+                        contentType: ContentType.success,
+                      );
+                    }
+                  },
+                );
+              }),
             ],
           ),
         ],
