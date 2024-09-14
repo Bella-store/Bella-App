@@ -23,15 +23,6 @@ class AddProductScreenState extends State<AddProductScreen> {
   String? _selectedCategory;
   String? _imagePath;
 
-  // final List<String> _categories = [
-  //   'Sofas and Couches',
-  //   'Coffee Tables',
-  //   'TV Stands and Entertainment Units',
-  //   'Desks',
-  //   'Office Chairs',
-  //   'Storage Benches'
-  // ];
-
   final List<String> _categories = ['Bed Room', 'Living Room', 'Decoration'];
 
   @override
@@ -140,8 +131,12 @@ class AddProductScreenState extends State<AddProductScreen> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a price';
                       }
-                      if (double.tryParse(value) == null) {
+                      final parsedValue = double.tryParse(value);
+                      if (parsedValue == null) {
                         return 'Please enter a valid number';
+                      }
+                      if (parsedValue < 0) {
+                        return 'Price cannot be negative';
                       }
                       return null;
                     },
@@ -160,8 +155,12 @@ class AddProductScreenState extends State<AddProductScreen> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a quantity';
                       }
-                      if (int.tryParse(value) == null) {
+                      final parsedValue = int.tryParse(value);
+                      if (parsedValue == null) {
                         return 'Please enter a valid number';
+                      }
+                      if (parsedValue < 0) {
+                        return 'Quantity cannot be negative';
                       }
                       return null;
                     },
