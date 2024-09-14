@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart' as path;
 
 import '../../models/user_model.dart';
 
@@ -23,6 +25,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   late TextEditingController _addressController;
   late TextEditingController _phoneController;
   File? _imageFile;
+  bool _isUploading = false;
 
   @override
   void initState() {
@@ -43,6 +46,49 @@ class EditProfileScreenState extends State<EditProfileScreen> {
         _imageFile = File(pickedFile.path);
       });
     }
+  }
+
+  Future<String?> _uploadImageToFirebase(File imageFile) async {
+    try {
+      final fileName = path.basename(imageFile.path);
+      final storageRef = FirebaseStorage.instance.ref().child('user_images/$fileName');
+
+      final uploadTask = storageRef.putFile(imageFile);
+      final snapshot = await uploadTask.whenComplete(() => {});
+
+      return await snapshot.ref.getDownloadURL();
+    } catch (e) {
+      print('Failed to upload image: $e');
+      return null;
+    }
+  }
+
+  Future<void> _saveProfile() async {
+    setState(() {
+      _isUploading = true;
+    });
+
+    String? imageUrl;
+
+    if (_imageFile != null) {
+      imageUrl = await _uploadImageToFirebase(_imageFile!);
+    }
+
+    final updatedUser = widget.currentUser.copyWith(
+      userName: _nameController.text,
+      userEmail: _emailController.text,
+      address: _addressController.text,
+      phone: _phoneController.text,
+      userImage: imageUrl ?? widget.currentUser.userImage,
+    );
+
+    context.read<EditProfileCubit>().updateUserProfile(updatedUser);
+
+    setState(() {
+      _isUploading = false;
+    });
+
+    Navigator.pop(context, updatedUser);
   }
 
   @override
@@ -97,12 +143,6 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                   ),
                   const SizedBox(height: 5),
-                  const Center(
-                    child: Text(
-                      'San Francisco, CA',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
-                    ),
-                  ),
                   const SizedBox(height: 20),
                   _buildTextField('Email Address', _emailController),
                   const SizedBox(height: 10),
@@ -113,21 +153,10 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                   _buildTextField('Mobile Number', _phoneController),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () {
-                      final updatedUser = widget.currentUser.copyWith(
-                        userName: _nameController.text,
-                        userEmail: _emailController.text,
-                        address: _addressController.text,
-                        phone: _phoneController.text,
-                        userImage:
-                            _imageFile?.path ?? widget.currentUser.userImage,
-                      );
-                      context
-                          .read<EditProfileCubit>()
-                          .updateUserProfile(updatedUser);
-                      Navigator.pop(context, updatedUser);
-                    },
-                    child: const Text('Save'),
+                    onPressed: _isUploading ? null : _saveProfile,
+                    child: _isUploading
+                        ? const CircularProgressIndicator()
+                        : const Text('Save'),
                   ),
                 ],
               ),

@@ -62,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
     } catch (e) {
       // Handle errors appropriately, e.g., show a message or log the error
-     CustomSnackbar.show(
+      CustomSnackbar.show(
         context,
         title: 'Error',
         message: 'Failed to load user data.',
@@ -107,8 +107,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         name: _currentUserModel.userName,
                         email: _currentUserModel.userEmail,
                         imageUrl: _currentUserModel.userImage == ''
-                            ? AppString.profile
-                            : _currentUserModel.userImage,
+                            ? AppString.profile // Fallback image if userImage is empty
+                            : _currentUserModel.userImage, // Firebase URL
                       ),
                       const SizedBox(height: 20),
                       ProfileMenuOption(
@@ -125,41 +125,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ProfileMenuOption(
                         title: AppString.favorites(context),
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => FavoritesScreen(
-                          //       controller: widget.controller,
-                          //     ),
-                          //   ),
-                          // );
                           widget.controller.jumpToTab(1);
                         },
                       ),
-                      // ProfileMenuOption(
-                      //   title: 'Payment Method'.tr(context),
-                      //   onTap: () {
-                      //     Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //         builder: (context) =>
-                      //             const AddPaymentMethodScreen(),
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
-                      // ProfileMenuOption(
-                      //   title: 'My reviews'.tr(context),
-                      //   onTap: () {
-                      //     Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //         builder: (context) => const MyReviewsScreen(),
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
-                      // Inside the ProfileScreen Widget
                       ProfileMenuOption(
                         title: AppString.editProfile(context),
                         onTap: () async {
@@ -179,7 +147,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           }
                         },
                       ),
-
                       ProfileMenuOption(
                         title: AppString.setting(context),
                         onTap: () {
@@ -227,20 +194,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 await prefs.clear();
 
                 // Show a snackbar message using CustomSnackbar
-                if (context.mounted){CustomSnackbar.show(
-                  context,
-                  title: 'Success',
-                  message: 'Successfully logged out',
-                  contentType: ContentType.success,
-                );}
+                if (context.mounted) {
+                  CustomSnackbar.show(
+                    context,
+                    title: 'Success',
+                    message: 'Successfully logged out',
+                    contentType: ContentType.success,
+                  );
+                }
 
                 // Navigate to the login screen
-               if (context.mounted){ Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginScreen(),
-                  ),
-                );}
+                if (context.mounted) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
+                }
               },
             ),
           ],
