@@ -58,7 +58,8 @@ class LoginScreenState extends State<LoginScreen> {
         builder: (context, state) {
           return Scaffold(
             body: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,16 +114,25 @@ class LoginScreenState extends State<LoginScreen> {
                           controller: emailController,
                           decoration: InputDecoration(
                             labelText: AppString.email(context),
-                            suffixIcon: emailController.text.contains('@gmail.com')
-                                ? const Icon(Icons.check, color: Colors.green)
-                                : null,
+                            suffixIcon:
+                                RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')
+                                        .hasMatch(emailController.text)
+                                    ? const Icon(Icons.check,
+                                        color: Colors.green)
+                                    : null,
                           ),
                           onChanged: (value) {
-                            setState(() {});
+                            setState(
+                                () {}); // This will trigger the suffix icon update based on the current input
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return AppString.plzEnterEmail(context);
+                            } else if (!RegExp(
+                                    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')
+                                .hasMatch(value)) {
+                              return AppString.plzEnterValidEmail(
+                                  context); // Optional: customize this message
                             }
                             return null;
                           },
@@ -194,7 +204,8 @@ class LoginScreenState extends State<LoginScreen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(
-                                    builder: (BuildContext context) => const SignUpScreen(),
+                                    builder: (BuildContext context) =>
+                                        const SignUpScreen(),
                                   ),
                                 );
                               },

@@ -22,7 +22,8 @@ class SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   bool _isPasswordVisible = false;
   bool _isConfirmedPasswordVisible = false;
 
@@ -38,18 +39,22 @@ class SignUpScreenState extends State<SignUpScreen> {
             await prefs.setBool('isLoggedIn', true);
 
             // Navigate to the main layout screen
-        if (context.mounted){    Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const LayoutScreen()),
-            );}
+            if (context.mounted) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LayoutScreen()),
+              );
+            }
 
             // Show success message using CustomSnackbar
-         if (context.mounted){   CustomSnackbar.show(
-              context,
-              title: 'Success!',
-              message: 'Signup successful!',
-              contentType: ContentType.success,
-            );}
+            if (context.mounted) {
+              CustomSnackbar.show(
+                context,
+                title: 'Success!',
+                message: 'Signup successful!',
+                contentType: ContentType.success,
+              );
+            }
           } else if (state is SignUpErrorState) {
             // Show error message using CustomSnackbar
             CustomSnackbar.show(
@@ -63,7 +68,8 @@ class SignUpScreenState extends State<SignUpScreen> {
         builder: (context, state) {
           return Scaffold(
             body: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,7 +105,9 @@ class SignUpScreenState extends State<SignUpScreen> {
                   Text(
                     AppString.signUp(context),
                     style: const TextStyle(
-                        fontSize: 24.0, fontWeight: FontWeight.bold, fontFamily: 'Montserrat'),
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Montserrat'),
                   ),
                   const SizedBox(height: 8.0),
                   Text(
@@ -134,16 +142,25 @@ class SignUpScreenState extends State<SignUpScreen> {
                           controller: emailController,
                           decoration: InputDecoration(
                             labelText: AppString.email(context),
-                            suffixIcon: emailController.text.contains('@gmail.com')
-                                ? const Icon(Icons.check, color: Colors.green)
-                                : null,
+                            suffixIcon:
+                                RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')
+                                        .hasMatch(emailController.text)
+                                    ? const Icon(Icons.check,
+                                        color: Colors.green)
+                                    : null,
                           ),
                           onChanged: (value) {
-                            setState(() {});
+                            setState(
+                                () {}); // This triggers the suffix icon update when the text changes
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return AppString.plzEnterEmail(context);
+                            } else if (!RegExp(
+                                    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')
+                                .hasMatch(value)) {
+                              return AppString.plzEnterValidEmail(
+                                  context); // Modify this message as needed
                             }
                             return null;
                           },
@@ -179,7 +196,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                           controller: confirmPasswordController,
                           obscureText: !_isConfirmedPasswordVisible,
                           decoration: InputDecoration(
-                            labelText: AppString.plzconfirmYourPassword(context),
+                            labelText:
+                                AppString.plzconfirmYourPassword(context),
                             suffixIcon: IconButton(
                               icon: Icon(
                                 _isConfirmedPasswordVisible
@@ -188,7 +206,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                               ),
                               onPressed: () {
                                 setState(() {
-                                  _isConfirmedPasswordVisible = !_isConfirmedPasswordVisible;
+                                  _isConfirmedPasswordVisible =
+                                      !_isConfirmedPasswordVisible;
                                 });
                               },
                             ),
@@ -196,7 +215,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                           validator: (value) {
                             if ((value == null || value.isEmpty) ||
                                 value != passwordController.text) {
-                              return AppString.yourPasswordDoesNotMatch(context);
+                              return AppString.yourPasswordDoesNotMatch(
+                                  context);
                             }
                             return null;
                           },
@@ -221,7 +241,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                           ),
                           child: Text(
                             AppString.signUp(context),
-                            style: TextStyle(fontSize: 18.0, color: AppColor.whiteColor),
+                            style: TextStyle(
+                                fontSize: 18.0, color: AppColor.whiteColor),
                           ),
                         ),
                         const SizedBox(height: 20.0),
@@ -230,7 +251,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                           children: [
                             Text(
                               AppString.alreadyHaveAnAccount(context),
-                              style: const TextStyle(fontSize: 16.0, fontFamily: 'Montserrat'),
+                              style: const TextStyle(
+                                  fontSize: 16.0, fontFamily: 'Montserrat'),
                             ),
                             TextButton(
                               onPressed: () {

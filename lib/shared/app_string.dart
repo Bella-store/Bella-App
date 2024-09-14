@@ -9,7 +9,8 @@ class AppString {
   static String onBoarding1 = "assets/images/onboarding1.jpg";
   static String onBoarding2 = "assets/images/onboarding2.jpg";
   static String onBoarding3 = "assets/images/onboarding3.jpg";
-  static String profile = "https://firebasestorage.googleapis.com/v0/b/bella-store-ece11.appspot.com/o/user_images%2Fprofile.jpeg?alt=media&token=63588430-6a3d-44ec-a684-f438311a0fbb";
+  static String profile =
+      "https://firebasestorage.googleapis.com/v0/b/bella-store-ece11.appspot.com/o/user_images%2Fprofile.jpeg?alt=media&token=63588430-6a3d-44ec-a684-f438311a0fbb";
   static String chair = "assets/images/chair.jpeg";
   static String table = "assets/images/table.jpeg";
   static String masterCard = "assets/images/mastercard_logo.svg";
@@ -51,6 +52,9 @@ class AppString {
   static String email(BuildContext context) => 'email'.tr(context);
   static String plzEnterEmail(BuildContext context) =>
       'plzEnterEmail'.tr(context);
+  static String plzEnterValidEmail(BuildContext context) =>
+      'plzEnterValidEmail'.tr(context);
+
   static String password(BuildContext context) => 'password'.tr(context);
   static String plzEnterPassword(BuildContext context) =>
       'plzEnterPassword'.tr(context);
@@ -101,6 +105,8 @@ class AppString {
   static String total(BuildContext context) => 'total'.tr(context);
   static String checkOut(BuildContext context) => 'checkOut'.tr(context);
   static String promoCode(BuildContext context) => 'promoCode'.tr(context);
+  static String yourCartIsEmpty(BuildContext context) =>
+      'yourCartIsEmpty'.tr(context);
 // my order screen---------------------------------------------------------
   static String myOrders(BuildContext context) => 'myOrders'.tr(context);
   static String delivered(BuildContext context) => 'delivered'.tr(context);

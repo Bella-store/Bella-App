@@ -11,6 +11,7 @@
     "plzLogin": "يرجى تسجيل الدخول أو الاشتراك لمتابعة استخدام التطبيق",
     "email": "البريد الإلكتروني",
     "plzEnterEmail": "يرجى إدخال بريدك الإلكتروني",
+    "plzEnterValidEmail": "البريد الإلكتروني غير صالح",
     "password": "كلمة المرور",
     "plzEnterPassword": "يرجى إدخال كلمة المرور",
     "plzconfirmYourPassword": "يرجى تأكيد كلمة المرور",
@@ -35,6 +36,7 @@
     "home": "الرئيسية",
     "favorites": "المفضلة",
     "cart": "عربة التسوق",
+    "yourCartIsEmpty": "عربة التسوق فارغة",
     "search": "بحث...",
     "findYour": "اعثر على",
     "dreamFurniture": "أثاث أحلامك",
@@ -64,6 +66,7 @@
     "aboutApp": "حول التطبيق",
     "termsAndConditions": "الشروط والأحكام",
     "editProfile": "تعديل الملف الشخصي",
+
     "myReviews": "تقييماتي",
     "contact": "تواصل",
     "shippingAddress": "عنوان الشحن",

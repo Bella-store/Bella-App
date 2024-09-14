@@ -34,13 +34,13 @@ class CartScreen extends StatelessWidget {
                 return const SkeletonCartItem(); // Show skeleton items while loading
               },
             );
-          }else if (state is CartLoadedState && state.cartItems.isEmpty){
+          } else if (state is CartLoadedState && state.cartItems.isEmpty) {
             return Center(
                 child: Column(
               children: [
                 Image.asset(AppString.notFound),
                 Text(
-                  'Your cart is empty',
+                  AppString.yourCartIsEmpty(context),
                   style: TextStyle(
                     fontSize: 16.0,
                     color: AppColor.greyColor,
@@ -50,11 +50,9 @@ class CartScreen extends StatelessWidget {
                 ),
               ],
             ));
-          } 
-          else if (state is CartLoadedState) {
+          } else if (state is CartLoadedState) {
             return _buildCartContent(context, state);
-          }
-           else if (state is CartErrorState) {
+          } else if (state is CartErrorState) {
             return Center(
                 child: Column(
               children: [
